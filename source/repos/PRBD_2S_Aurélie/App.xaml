@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
-             StartupUri="MainView.xaml">
+             StartupUri="ListePost.xaml">
     <Application.Resources>
          
     </Application.Resources>

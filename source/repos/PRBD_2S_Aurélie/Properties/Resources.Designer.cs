@@ -22,7 +22,7 @@ namespace PRBD_2S_Aurélie.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PRBD_2S_Aurélie.Properties {
         ///   Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PRBD_2S_Aurélie.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace PRBD_2S_Aurélie.Properties {
         ///   les recherches de ressources à l'aide de cette classe de ressource fortement typée.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,65 +61,110 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Cancel.
-        /// </summary>
-        internal static string LoginView_Cancel {
-            get {
-                return ResourceManager.GetString("LoginView_Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Login.
-        /// </summary>
-        internal static string LoginView_Login {
-            get {
-                return ResourceManager.GetString("LoginView_Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à If your don&apos;t have a login and a password, click.
         /// </summary>
-        internal static string LoginView_Message_1 {
+        public static string Conexion_Message_1 {
             get {
-                return ResourceManager.GetString("LoginView_Message_1", resourceCulture);
+                return ResourceManager.GetString("Conexion_Message_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annuler.
+        /// </summary>
+        public static string Connexion_Annuler {
+            get {
+                return ResourceManager.GetString("Connexion_Annuler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Connexion.
+        /// </summary>
+        public static string Connexion_Connexion {
+            get {
+                return ResourceManager.GetString("Connexion_Connexion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à here.
         /// </summary>
-        internal static string LoginView_Message_2 {
+        public static string Connexion_Message_2 {
             get {
-                return ResourceManager.GetString("LoginView_Message_2", resourceCulture);
+                return ResourceManager.GetString("Connexion_Message_2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à to sign-up..
         /// </summary>
-        internal static string LoginView_Message_3 {
+        public static string Connexion_Message_3 {
             get {
-                return ResourceManager.GetString("LoginView_Message_3", resourceCulture);
+                return ResourceManager.GetString("Connexion_Message_3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Login.
+        ///   Recherche une chaîne localisée semblable à Connexion.
         /// </summary>
-        internal static string LoginView_Title {
+        public static string Connexion_Title {
             get {
-                return ResourceManager.GetString("LoginView_Title", resourceCulture);
+                return ResourceManager.GetString("Connexion_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Username:.
         /// </summary>
-        internal static string LoginView_Username {
+        public static string Connexion_Username {
             get {
-                return ResourceManager.GetString("LoginView_Username", resourceCulture);
+                return ResourceManager.GetString("Connexion_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce mot de passe est érroné.
+        /// </summary>
+        public static string Error_BadPassword {
+            get {
+                return ResourceManager.GetString("Error_BadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce champ doit avoir au minimun 3 caractères.
+        /// </summary>
+        public static string Error_MinLength {
+            get {
+                return ResourceManager.GetString("Error_MinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le mot de passe doit contenir au moins 8 caractères.
+        /// </summary>
+        public static string Error_MinLengthPassword {
+            get {
+                return ResourceManager.GetString("Error_MinLengthPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cet utilisateur n&apos;existe pas.
+        /// </summary>
+        public static string Error_NotExist {
+            get {
+                return ResourceManager.GetString("Error_NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce champ est requis.
+        /// </summary>
+        public static string Error_Required {
+            get {
+                return ResourceManager.GetString("Error_Required", resourceCulture);
             }
         }
     }

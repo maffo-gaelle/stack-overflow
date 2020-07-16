@@ -117,25 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoginView_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="LoginView_Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="LoginView_Message_1" xml:space="preserve">
+  <data name="Conexion_Message_1" xml:space="preserve">
     <value>If your don't have a login and a password, click</value>
   </data>
-  <data name="LoginView_Message_2" xml:space="preserve">
+  <data name="Connexion_Annuler" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Connexion_Connexion" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
+  <data name="Connexion_Message_2" xml:space="preserve">
     <value>here</value>
   </data>
-  <data name="LoginView_Message_3" xml:space="preserve">
+  <data name="Connexion_Message_3" xml:space="preserve">
     <value>to sign-up.</value>
   </data>
-  <data name="LoginView_Title" xml:space="preserve">
-    <value>Login</value>
+  <data name="Connexion_Title" xml:space="preserve">
+    <value>Connexion</value>
   </data>
-  <data name="LoginView_Username" xml:space="preserve">
+  <data name="Connexion_Username" xml:space="preserve">
     <value>Username:</value>
+  </data>
+  <data name="Error_BadPassword" xml:space="preserve">
+    <value>Ce mot de passe est érroné</value>
+  </data>
+  <data name="Error_MinLength" xml:space="preserve">
+    <value>Ce champ doit avoir au minimun 3 caractères</value>
+  </data>
+  <data name="Error_MinLengthPassword" xml:space="preserve">
+    <value>Le mot de passe doit contenir au moins 8 caractères</value>
+  </data>
+  <data name="Error_NotExist" xml:space="preserve">
+    <value>Cet utilisateur n'existe pas</value>
+  </data>
+  <data name="Error_Required" xml:space="preserve">
+    <value>Ce champ est requis</value>
   </data>
 </root>
