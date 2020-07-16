@@ -31,9 +31,9 @@ namespace PRBD_2S_Aurélie
 
 
             if (TagName == null)
-                yield return new ValidationResult("Le nom d'utilisateur est requis", new[] { nameof(TagName) });
+                yield return new ValidationResult("Le nom de tag est requis", new[] { nameof(TagName) });
             if (tagByTagName != null)
-                yield return new ValidationResult("Cet utiisateur existe déjà", new[] { nameof(TagName) });
+                yield return new ValidationResult("Ce tag existe déjà", new[] { nameof(TagName) });
         }
     }
 }

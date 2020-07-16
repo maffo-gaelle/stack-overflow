@@ -71,6 +71,8 @@ namespace PRBD_2S_Aurélie
             //la relation 1-1 avec post pour accptedAnswerId?
 
             Posts.Add(post);
+            SaveChanges();
+
             return post;
 
         }
@@ -82,6 +84,8 @@ namespace PRBD_2S_Aurélie
             tag.TagName = tagName;
 
             Tags.Add(tag);
+            SaveChanges();
+
             return tag;
         }
 
@@ -98,6 +102,8 @@ namespace PRBD_2S_Aurélie
             user.Comments.Add(comment);
 
             Comments.Add(comment);
+            SaveChanges();
+
             return comment;
         }
 
@@ -112,6 +118,8 @@ namespace PRBD_2S_Aurélie
             user.Votes.Add(vote);
 
             Votes.Add(vote);
+            SaveChanges();
+
             return vote;
         }
 
@@ -125,6 +133,8 @@ namespace PRBD_2S_Aurélie
             post.PostTags.Add(posttag);
 
             PostTags.Add(posttag);
+            SaveChanges();
+
             return posttag;
         }
 
@@ -139,6 +149,8 @@ namespace PRBD_2S_Aurélie
 
             //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
             Members.Add(member);
+            SaveChanges();
+
             return member;
         }
 
@@ -156,6 +168,8 @@ namespace PRBD_2S_Aurélie
 
             //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
             Messages.Add(message);
+            SaveChanges();
+
             return message;
         }
 
@@ -167,7 +181,6 @@ namespace PRBD_2S_Aurélie
             Votes.RemoveRange(Votes);
             Tags.RemoveRange(Tags);
             PostTags.RemoveRange(PostTags);
-
 
             SaveChanges();
         }

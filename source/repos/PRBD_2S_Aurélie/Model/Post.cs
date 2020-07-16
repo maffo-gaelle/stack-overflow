@@ -17,6 +17,7 @@ namespace PRBD_2S_Aurélie
         public virtual User Author { get; set; }
         public int AuthorId { get; set; }
         public string Title { get; set; }
+        [Required(ErrorMessage = "Un texte est requis")]
         public string Body { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public int? AcceptedAnswerId { get; set; }//relation de post vers post: one to one
@@ -31,7 +32,7 @@ namespace PRBD_2S_Aurélie
         [NotMapped]//je ne veux pas cet enregistrement dans la base de données
         public IEnumerable<Tag> Tags { get => PostTags.Select(posttag => posttag.Tag); }
         //relation one-to-many avec Comment
-        [InverseProperty(nameof(Comment.post))]
+        //[InverseProperty(nameof(Comment.post))]
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         //relation one-to-many avec vote
         public virtual ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
