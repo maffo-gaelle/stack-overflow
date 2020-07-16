@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PRBD_Framework;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PRBD_2S_Aurélie
 
@@ -21,19 +22,49 @@ namespace PRBD_2S_Aurélie
         public int? AcceptedAnswerId { get; set; }//relation de post vers post: one to one
         public virtual Post AcceptedAnswer { get; set; }
         public int? ParentId { get; set; }
-
         public virtual Post Parent { get; set; }//relation de post vers post: one to many
-
-        //Un Tag peut avoir plusieurs posts et un post peut avoir plusieurs tags relation many to many avec ces deux relation, EF va créer une table de jointure
-        //et on pourra à partir de la configuration modifier le nom des colonnes de la table de jointure donc je dirai que un dbset de postTag ne me servida plus
-        public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+        //Posttags recupère tous les tags du post et c'est une relation one-to-many avec posttag et posttag a une relation one-to-many avec tag
         public virtual ICollection<PostTag> Posttags { get; set; } = new HashSet<PostTag>();
-
+        //le lien qu'il y'a entre post et tag est posttag. Dans ma collection posttag, je seclectionne tous les postag liés à mon post et dans mon IEnumurale tag, je recupère tous les tags de ma collection posttag
+        //puisque ici, la seule relation qu'il y'a entre post et tag est posttag et que un tag est constitué des post et d'un tag,
+        //dans un IEnumerable, je select tous les tags de la collection posttags ci-haut. et je fait juste un get parce que je ne modifie rien
+        [NotMapped]//je ne veux pas cet enregistrement dans la base de données
+        public IEnumerable<Tag> Tags { get => Posttags.Select(posttag => posttag.Tag); }
+        //relation one-to-many avec Comment
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+        //relation one-to-many avec vote
         public virtual ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
         //relation one-to-many avec post(parent) et post(answers)
         public virtual ICollection<Post> Answers { get; set; } = new HashSet<Post>();
         protected Post() { }
 
+        //nombre de reponses
+        public int NbAnswers
+        {
+            get
+            {
+                return (from answer in Answers
+                        select answer).Count();
+            }
+
+        }
+
+        //le score de chaque vote en faisant la somme des differents score de ma liste
+        public int Score
+        {
+            get
+            {
+                return Votes.Sum(vote => vote.UpDown);
+            }
+        }
+
+        //le nombre de commentaires de chaque post
+        public int NbComments
+        {
+            get
+            {
+                return (from comment in Comments select comment).Count();
+            }
+        }
     }
 }
