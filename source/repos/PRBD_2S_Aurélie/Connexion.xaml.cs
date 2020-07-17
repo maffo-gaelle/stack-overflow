@@ -41,6 +41,7 @@ namespace PRBD_2S_Aurélie
         public Connexion()
         {
             InitializeComponent();
+            //ceci pour ne plus mettre le ElementName = window; c'est pour dire que on travaille ds ce contexte-ci
             DataContext = this;
 
             Login = new RelayCommand(Login_Action, () => {

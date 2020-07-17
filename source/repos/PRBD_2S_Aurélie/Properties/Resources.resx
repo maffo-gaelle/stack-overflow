@@ -117,29 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Conexion_Message_1" xml:space="preserve">
-    <value>If your don't have a login and a password, click</value>
-  </data>
   <data name="Connexion_Annuler" xml:space="preserve">
     <value>Annuler</value>
   </data>
-  <data name="Connexion_Connexion" xml:space="preserve">
-    <value>Connexion</value>
+  <data name="Connexion_Message_1" xml:space="preserve">
+    <value>Si vous n'êtes pas encore inscrit, veuillez cliquer</value>
   </data>
   <data name="Connexion_Message_2" xml:space="preserve">
-    <value>here</value>
+    <value>Ici</value>
   </data>
   <data name="Connexion_Message_3" xml:space="preserve">
-    <value>to sign-up.</value>
+    <value>pour vous enregistrer!</value>
+  </data>
+  <data name="Connexion_Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Connexion_SingIn" xml:space="preserve">
+    <value>Connexion</value>
   </data>
   <data name="Connexion_Title" xml:space="preserve">
     <value>Connexion</value>
   </data>
-  <data name="Connexion_Username" xml:space="preserve">
+  <data name="Connexion_UserName" xml:space="preserve">
     <value>Username:</value>
   </data>
   <data name="Error_BadPassword" xml:space="preserve">
     <value>Ce mot de passe est érroné</value>
+  </data>
+  <data name="Error_Exist" xml:space="preserve">
+    <value>Cet utilisateur existe déjà! Veuillez vous connecter.</value>
+  </data>
+  <data name="Error_ExistEmail" xml:space="preserve">
+    <value>Cet Email existe déjà. Veuillez vous connecter </value>
   </data>
   <data name="Error_MinLength" xml:space="preserve">
     <value>Ce champ doit avoir au minimun 3 caractères</value>
@@ -152,5 +161,32 @@
   </data>
   <data name="Error_Required" xml:space="preserve">
     <value>Ce champ est requis</value>
+  </data>
+  <data name="SignupPassword_Confirm" xml:space="preserve">
+    <value>Confirmez votre mot de passe</value>
+  </data>
+  <data name="Signup_Email" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="Signup_FullName" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="Signup_Message1" xml:space="preserve">
+    <value>Si vous êtes déjà inscrit, veuillez cliquer </value>
+  </data>
+  <data name="Signup_Message2" xml:space="preserve">
+    <value>Ici</value>
+  </data>
+  <data name="Signup_Message3" xml:space="preserve">
+    <value>pour vous connecter</value>
+  </data>
+  <data name="Signup_Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Signup_Title" xml:space="preserve">
+    <value>Inscription</value>
+  </data>
+  <data name="Signup_UserName" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>

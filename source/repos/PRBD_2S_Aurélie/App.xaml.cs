@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using PRBD_2S_Aurélie.Properties;
 
 namespace PRBD_2S_Aurélie
 {

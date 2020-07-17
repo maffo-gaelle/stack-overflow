@@ -34,6 +34,10 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
+            //Inscription = new RelayCommand(InscriptionAction, () => {
+            //    return true;
+            //});
+
             Deconnexion = new RelayCommand(() =>
             {
                 Application.Current.MainWindow = this;
@@ -41,6 +45,12 @@ namespace PRBD_2S_Aurélie
             });
         }
 
+        //public void InscriptionAction()
+        //{
+        //    Console.WriteLine("Le binding de l'inscription fonctionne");
+        //    var inscription = new Insciption();
+        //    inscription.Show();
+        //}
         public void ConnexionAction()
         {
             Console.WriteLine("Maffo");

@@ -51,14 +51,13 @@ namespace PRBD_2S_Aurélie
             return user;
         }
 
-        public Post CreatePost(int postId, int authorId, Post parent, User author, string title, string body, DateTime timestamp, int acceptedAnswerId, int parentId)
+        public Post CreatePost(int authorId, Post parent, User author, string title, string body, int acceptedAnswerId, int parentId)
         {
             var post = Posts.Create();
-            post.PostId = postId;
             post.AuthorId = authorId;
             post.Title = title;
             post.Body = body;
-            post.Timestamp = timestamp;
+            //post.Timestamp = timestamp;
             post.AcceptedAnswerId = acceptedAnswerId;
             post.ParentId = parentId;
             //ici on établit les relations dans le sens 1-N avec post et user

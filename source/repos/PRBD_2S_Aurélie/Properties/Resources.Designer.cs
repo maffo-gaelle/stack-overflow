@@ -61,15 +61,6 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à If your don&apos;t have a login and a password, click.
-        /// </summary>
-        public static string Conexion_Message_1 {
-            get {
-                return ResourceManager.GetString("Conexion_Message_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Annuler.
         /// </summary>
         public static string Connexion_Annuler {
@@ -79,16 +70,16 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Connexion.
+        ///   Recherche une chaîne localisée semblable à Si vous n&apos;êtes pas encore inscrit, veuillez cliquer.
         /// </summary>
-        public static string Connexion_Connexion {
+        public static string Connexion_Message_1 {
             get {
-                return ResourceManager.GetString("Connexion_Connexion", resourceCulture);
+                return ResourceManager.GetString("Connexion_Message_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à here.
+        ///   Recherche une chaîne localisée semblable à Ici.
         /// </summary>
         public static string Connexion_Message_2 {
             get {
@@ -97,11 +88,29 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à to sign-up..
+        ///   Recherche une chaîne localisée semblable à pour vous enregistrer!.
         /// </summary>
         public static string Connexion_Message_3 {
             get {
                 return ResourceManager.GetString("Connexion_Message_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mot de passe.
+        /// </summary>
+        public static string Connexion_Password {
+            get {
+                return ResourceManager.GetString("Connexion_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Connexion.
+        /// </summary>
+        public static string Connexion_SingIn {
+            get {
+                return ResourceManager.GetString("Connexion_SingIn", resourceCulture);
             }
         }
         
@@ -117,9 +126,9 @@ namespace PRBD_2S_Aurélie.Properties {
         /// <summary>
         ///   Recherche une chaîne localisée semblable à Username:.
         /// </summary>
-        public static string Connexion_Username {
+        public static string Connexion_UserName {
             get {
-                return ResourceManager.GetString("Connexion_Username", resourceCulture);
+                return ResourceManager.GetString("Connexion_UserName", resourceCulture);
             }
         }
         
@@ -129,6 +138,24 @@ namespace PRBD_2S_Aurélie.Properties {
         public static string Error_BadPassword {
             get {
                 return ResourceManager.GetString("Error_BadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cet utilisateur existe déjà! Veuillez vous connecter..
+        /// </summary>
+        public static string Error_Exist {
+            get {
+                return ResourceManager.GetString("Error_Exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cet Email existe déjà. Veuillez vous connecter .
+        /// </summary>
+        public static string Error_ExistEmail {
+            get {
+                return ResourceManager.GetString("Error_ExistEmail", resourceCulture);
             }
         }
         
@@ -165,6 +192,87 @@ namespace PRBD_2S_Aurélie.Properties {
         public static string Error_Required {
             get {
                 return ResourceManager.GetString("Error_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Email:.
+        /// </summary>
+        public static string Signup_Email {
+            get {
+                return ResourceManager.GetString("Signup_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Prénom.
+        /// </summary>
+        public static string Signup_FullName {
+            get {
+                return ResourceManager.GetString("Signup_FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Si vous êtes déjà inscrit, veuillez cliquer .
+        /// </summary>
+        public static string Signup_Message1 {
+            get {
+                return ResourceManager.GetString("Signup_Message1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ici.
+        /// </summary>
+        public static string Signup_Message2 {
+            get {
+                return ResourceManager.GetString("Signup_Message2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à pour vous connecter.
+        /// </summary>
+        public static string Signup_Message3 {
+            get {
+                return ResourceManager.GetString("Signup_Message3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mot de passe.
+        /// </summary>
+        public static string Signup_Password {
+            get {
+                return ResourceManager.GetString("Signup_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Inscription.
+        /// </summary>
+        public static string Signup_Title {
+            get {
+                return ResourceManager.GetString("Signup_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom d&apos;utilisateur.
+        /// </summary>
+        public static string Signup_UserName {
+            get {
+                return ResourceManager.GetString("Signup_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmez votre mot de passe.
+        /// </summary>
+        public static string SignupPassword_Confirm {
+            get {
+                return ResourceManager.GetString("SignupPassword_Confirm", resourceCulture);
             }
         }
     }
