@@ -34,9 +34,9 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            //Inscription = new RelayCommand(InscriptionAction, () => {
-            //    return true;
-            //});
+            Inscription = new RelayCommand(InscriptionAction, () => {
+                return true;
+            });
 
             Deconnexion = new RelayCommand(() =>
             {
@@ -57,6 +57,15 @@ namespace PRBD_2S_Aurélie
             var connexion = new Connexion();
             connexion.Show();
             Application.Current.MainWindow = connexion;
+            Close();
+        }
+
+        public void InscriptionAction()
+        {
+            Console.WriteLine("page Inscription");
+            var inscription = new Signup();
+            inscription.Show();
+            Application.Current.MainWindow = inscription;
             Close();
         }
     }

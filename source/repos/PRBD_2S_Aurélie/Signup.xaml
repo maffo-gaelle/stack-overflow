@@ -7,48 +7,22 @@
         xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
         xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
         mc:Ignorable="d"
-        Title="{x:Static p:Resources.Signup_Title}" WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=txtPseudo}" ResizeMode="NoResize"
-        Width="250" Height="200"
+        Title="Inscription" WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=txtUserName}" ResizeMode="NoResize"
+        Width="500" Height="400"
         SizeToContent="WidthAndHeight" >
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label x:Name="label" Content="{x:Static p:Resources.LoginView_Pseudo}" VerticalAlignment="Center" Padding="5" />
-        <f:ValidatedField Grid.Column="1" VerticalAlignment="Center">
-            <TextBox x:Name="txtPseudo" TextWrapping="Wrap" Grid.Column="1" 
-                     Text="{Binding Pseudo, UpdateSourceTrigger=PropertyChanged}"/>
-        </f:ValidatedField>
-        <Label Content="{x:Static p:Resources.LoginView_Password}" Grid.Row="1" VerticalAlignment="Center" Padding="5"/>
-        <f:ValidatedField Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <PasswordBox x:Name="txtPassword"
-                     f:PasswordHelper.Attach="True"
-                     f:PasswordHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
-                     Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
-        </f:ValidatedField>
-        <DockPanel Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
-            <Button x:Name="btnCancel" Content="{x:Static p:Resources.LoginView_Cancel}" 
-                    HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsCancel="True" Margin="0,0,10,0" 
-                    Command="{Binding Cancel}" />
-            <Button x:Name="btnLogin" Content="{x:Static p:Resources.LoginView_Login}" 
-                    HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" IsDefault="True" Margin="10,0,0,0" 
-                    Command="{Binding Login}"/>
-        </DockPanel>
-        <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
-            <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Width="220" >
-                <Run Text="{x:Static p:Resources.LoginView_Message_1}"/>
-                <Hyperlink Command="{Binding SignUp}"><Run Text="{x:Static p:Resources.LoginView_Message_2}"/></Hyperlink>
-                <Run Text="{x:Static p:Resources.LoginView_Message_3}"/>
-            </TextBlock>
-        </DockPanel>
+    <Grid>
+        <Label Content="Nom d'utilisateur: " HorizontalAlignment="Left" Margin="8,0,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="231,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Password: " HorizontalAlignment="Left" Margin="8,31,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="232,31,0,0" VerticalAlignment="Top" Width="119" f:PasswordHelper.Attach="True" f:PasswordHelper.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Height="21"/>
+        <Label Content="Prénom: " HorizontalAlignment="Left" Margin="8,93,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textFullName" HorizontalAlignment="Left" Height="23" Margin="232,96,0,0" TextWrapping="Wrap" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120" />
+        <Label Content="Confirmez votre mot de passe:" HorizontalAlignment="Left" Margin="8,62,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="textPasswordConfirm" HorizontalAlignment="Left" Margin="232,62,0,0" VerticalAlignment="Top" Width="120" Height="26" f:PasswordHelper.Attach="True" f:PasswordHelper.Password="{Binding PasswordConfirm, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="232,128,0,0" TextWrapping="Wrap" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Annuler" x:Name="btcAnnuler" Command="{Binding Annuler}" HorizontalAlignment="Left" Margin="59,198,0,0" VerticalAlignment="Top" Width="122" Height="25"/>
+        <Button Content="Inscription" x:Name="btcInscripion" Command="{Binding Inscription}" HorizontalAlignment="Left" Margin="273,198,0,0" VerticalAlignment="Top" Width="123" RenderTransformOrigin="0.64,0.483" Height="25"/>
     </Grid>
 </f:WindowBase>

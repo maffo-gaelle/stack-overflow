@@ -8,9 +8,9 @@
         xmlns:local="clr-namespace:PRBD_2S_Aurélie"
  
         mc:Ignorable="d"
-        Width="1000" Height="700"
+        Width="784" Height="700"
         Title="Stuck-overFlow" >
-    <Grid>
+    <Grid OpacityMask="#FF835757">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*" />
@@ -22,22 +22,23 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <StackPanel Orientation="Horizontal" Background="Beige">
-            <Menu>
-                <MenuItem Header="Connexion"  Command="{Binding Connexion}" />
-                <MenuItem Header="Inscription" Command="{Binding Inscription}"/>
-                <MenuItem Header="Poser une question" Command="{Binding AskQuestion}"/>
-                <MenuItem Header="Deconnexion"  Command="{Binding Deconnexion}"/>
+            <Menu Width="991" FontWeight="Bold">
+                <MenuItem Header="Connexion"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
+                <MenuItem Header="Inscription" Command="{Binding Inscription}" FontSize="16"/>
+                <MenuItem Header="Poser une question" Command="{Binding AskQuestion}" FontSize="16"/>
+                <MenuItem Header="Deconnexion"  Command="{Binding Deconnexion}" Width="120" FontSize="16"/>
             </Menu>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Background="Beige" Margin ="40">
+        <StackPanel Orientation="Horizontal" Background="Beige" Margin ="0,40,40,40">
             <Menu>
-                <MenuItem Header="newest"   />
-                <MenuItem Header="vote" />
-                <MenuItem Header="unanswered"  />
-                <MenuItem Header="active"  />
+                <MenuItem Header="newest" FontSize="14" FontWeight="Bold" FontStyle="Italic" Width="68" Padding="6,0"   />
+                <MenuItem Header="vote" Width="57" FontSize="14" FontWeight="Bold" FontStyle="Italic" />
+                <MenuItem Header="unanswered" FontSize="14" FontWeight="Bold"  />
+                <MenuItem Header="active" Width="60" FontSize="14" FontWeight="Bold" Margin="0"  />
+                <MenuItem/>
             </Menu>
         </StackPanel>
-        
+
 
     </Grid>
 </f:WindowBase>

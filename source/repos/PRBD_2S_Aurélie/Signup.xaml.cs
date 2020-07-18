@@ -15,6 +15,7 @@ namespace PRBD_2S_Aurélie
         public ICommand Inscription { get; set; }
         public ICommand Annuler { get; set; }
         public ICommand Login { get; set; }
+        private Role role = 0;
         private string username;
         public string UserName
         {
@@ -50,6 +51,13 @@ namespace PRBD_2S_Aurélie
         {
 
             InitializeComponent();
+            Login = new RelayCommand(ConnexionAction, () => {
+                return true;
+            });
+            Inscription = new RelayCommand(InscriptionAction, () => {
+                return true;
+            });
+
             Annuler = new RelayCommand(() =>
             {
                 var listePost = new ListePost();
@@ -140,7 +148,7 @@ namespace PRBD_2S_Aurélie
             return !HasErrors;
         }
 
-        private object ValidateEmail()
+        private bool ValidateEmail()
         {
             ClearErrors();
             var regex = new Regex("^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$");
@@ -155,7 +163,7 @@ namespace PRBD_2S_Aurélie
             {
                 if (regex.IsMatch(Email))
                 {
-                    AddError("Email", Properties.Resources.);
+                    AddError("Email", Properties.Resources.Error_Email);
                 }
                 else if (email == Email)
                 {
@@ -166,5 +174,29 @@ namespace PRBD_2S_Aurélie
 
             return !HasErrors;
         }
+
+        public void ConnexionAction()
+        {
+            Console.WriteLine("Maffo");
+            var connexion = new Connexion();
+            connexion.Show();
+            Application.Current.MainWindow = connexion;
+            Close();
+        }
+
+        public void InscriptionAction()
+        {
+            Console.WriteLine("Inscription");
+            if(ValidateUserName() && ValidatePassword() && ValidateFullName() && ValidateEmail())
+            {
+                var user = App.Model.CreateUser(UserName, Password, FullName, Email, role);
+                App.CurrentUser = user;
+                var listePost = new ListePost();
+                listePost.Show();
+                Application.Current.MainWindow = listePost;
+                Close();
+            }
+        }
     }
+
 }

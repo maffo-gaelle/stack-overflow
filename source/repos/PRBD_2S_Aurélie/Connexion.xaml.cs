@@ -48,6 +48,14 @@ namespace PRBD_2S_Aurélie
                 return username != null && password != null && !HasErrors;
             });
 
+            Inscription = new RelayCommand(() =>
+            {
+                var inscription = new Signup();
+                inscription.Show();
+                Application.Current.MainWindow = inscription;
+                Close();
+            });
+
             Annuler = new RelayCommand(() =>
             {
                 var listePost = new ListePost();

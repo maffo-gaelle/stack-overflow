@@ -47,7 +47,7 @@
         </DockPanel>
         <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
             <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Width="220" >
-                <Run Text="{x:Static p:Resources.Conexion_Message_1}"/>            
+                <Run Text="Si vous n'êtes pas encore inscrit, veuillez"/>            
                 <Hyperlink Command="{Binding Inscription}"><Run Text="{x:Static p:Resources.Connexion_Message_2}"/></Hyperlink>
                 <Run Text="{x:Static p:Resources.Connexion_Message_3}"/>
             </TextBlock>

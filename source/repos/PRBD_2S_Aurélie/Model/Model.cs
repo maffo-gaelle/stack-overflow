@@ -2,6 +2,7 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 
 namespace PRBD_2S_Aurélie
 {
@@ -37,10 +38,10 @@ namespace PRBD_2S_Aurélie
 
         }
 
-        public User CreateUser(int userId, string userName, string password, string fullName, string email, Role role)
+        public User CreateUser(string userName, string password, string fullName, string email, Role role)
         {
             var user = Users.Create();
-            user.UserId = userId;
+            //user.UserId = userId;
             user.UserName = userName;
             user.Password = password;
             user.FullName = fullName;
@@ -183,5 +184,21 @@ namespace PRBD_2S_Aurélie
 
             SaveChanges();
         }
+
+        //public void SeedData()
+        //{
+        //    if (Users.Count() == 0)
+        //    {
+        //        Console.Write("Seeding members.............. ");
+        //        var admin = CreateUser("admin", "Password1", "administrateur", "admin@test.com", Role.Admin);
+        //        var ben = CreateUser("ben", "Password1", "Penelle", "ben@yahoo.com", Role.Member);
+        //        var bruno = CreateUser("bruno", "Password1", "bruno", "ben@test.com", Role.Admin);               
+        //        SaveChanges();
+        //        Console.WriteLine("Member initial ok");
+
+        //        Console.WriteLine("Seeding posts...................")
+               
+        //    }
+        //}
     }
 }
