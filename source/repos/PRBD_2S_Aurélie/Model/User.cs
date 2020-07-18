@@ -22,7 +22,7 @@ namespace PRBD_2S_Aurélie
 
         [Required(ErrorMessage = "Un mot de passe est requis")]
         [MinLength(8, ErrorMessage = "Le nom d'utilisateur doit contenir au moins 8 caractères")]
-        [RegularExpression("^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Un prénom est requis")]

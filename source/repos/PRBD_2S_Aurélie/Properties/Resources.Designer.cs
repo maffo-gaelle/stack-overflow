@@ -133,11 +133,29 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le mot de passe doit contenir au moins un chiffre, une lettre majuscule et un caractère non alphanumérique..
+        /// </summary>
+        public static string Error_BadFormat {
+            get {
+                return ResourceManager.GetString("Error_BadFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ce mot de passe est érroné.
         /// </summary>
         public static string Error_BadPassword {
             get {
                 return ResourceManager.GetString("Error_BadPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le format de l&apos;email est érroné.
+        /// </summary>
+        public static string Error_Email {
+            get {
+                return ResourceManager.GetString("Error_Email", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace PRBD_2S_Aurélie.Properties {
         public static string Error_NotExist {
             get {
                 return ResourceManager.GetString("Error_NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Les deux mots de passe doivent être identiques.
+        /// </summary>
+        public static string Error_PasswordConfirm {
+            get {
+                return ResourceManager.GetString("Error_PasswordConfirm", resourceCulture);
             }
         }
         

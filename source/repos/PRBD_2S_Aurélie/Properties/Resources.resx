@@ -141,8 +141,14 @@
   <data name="Connexion_UserName" xml:space="preserve">
     <value>Username:</value>
   </data>
+  <data name="Error_BadFormat" xml:space="preserve">
+    <value>Le mot de passe doit contenir au moins un chiffre, une lettre majuscule et un caractère non alphanumérique.</value>
+  </data>
   <data name="Error_BadPassword" xml:space="preserve">
     <value>Ce mot de passe est érroné</value>
+  </data>
+  <data name="Error_Email" xml:space="preserve">
+    <value>Le format de l'email est érroné</value>
   </data>
   <data name="Error_Exist" xml:space="preserve">
     <value>Cet utilisateur existe déjà! Veuillez vous connecter.</value>
@@ -158,6 +164,9 @@
   </data>
   <data name="Error_NotExist" xml:space="preserve">
     <value>Cet utilisateur n'existe pas</value>
+  </data>
+  <data name="Error_PasswordConfirm" xml:space="preserve">
+    <value>Les deux mots de passe doivent être identiques</value>
   </data>
   <data name="Error_Required" xml:space="preserve">
     <value>Ce champ est requis</value>
