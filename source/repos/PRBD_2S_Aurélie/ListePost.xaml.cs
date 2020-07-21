@@ -1,17 +1,7 @@
 ﻿using PRBD_Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PRBD_2S_Aurélie
 {
@@ -43,9 +33,14 @@ namespace PRBD_2S_Aurélie
                 Application.Current.MainWindow = this;
                 App.CurrentUser = null;
             });
+
+            AskQuestion = new RelayCommand(AskQuestionAction, () =>
+            {
+                return true;
+            });
         }
 
-        //public void InscriptionAction()
+                //public void InscriptionAction()
         //{
         //    Console.WriteLine("Le binding de l'inscription fonctionne");
         //    var inscription = new Insciption();
@@ -68,5 +63,16 @@ namespace PRBD_2S_Aurélie
             Application.Current.MainWindow = inscription;
             Close();
         }
+
+        private void AskQuestionAction()
+        {
+            Console.WriteLine("Poser une question");
+            var askQuestion = new AskQuestion();
+            askQuestion.Show();
+            var user = App.CurrentUser;
+            Application.Current.MainWindow = askQuestion;
+            Close();
+        }
+
     }
 }
