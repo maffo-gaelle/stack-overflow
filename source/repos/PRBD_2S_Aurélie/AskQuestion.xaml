@@ -23,7 +23,7 @@
         <TextBox x:Name="txtTitle"  Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" />
         <!-- ROW #2 -->
         <Label Content="" Grid.Row="1" />
-        <TextBox Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" />
+        <TextBox Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="270" />
         <!-- ROW #3 -->
         <Label Content="Tags :" Grid.Row="2" FontWeight="Bold"/>
         <Grid Grid.Row="2" Grid.Column="1">

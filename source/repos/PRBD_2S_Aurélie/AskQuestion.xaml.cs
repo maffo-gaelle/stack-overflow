@@ -11,16 +11,21 @@ namespace PRBD_2S_Aurélie
         public ICommand Annuler { get; set; }
         public ICommand Valider { get; set; }
         private string title;
-        public string Title { 
+
+
+        public string Titre
+        { 
             get =>title;
             set => SetProperty<string>(ref title, value, () => ValidatePost()); 
         }
+
         private string body;
         public string Body { 
             get => body;
             set => SetProperty<string>(ref body, value, () => ValidatePost()); }
          public AskQuestion()
          {
+            DataContext = this;
             Valider = new RelayCommand(Ask(), () => {
                 return title != null && body != null && !HasErrors;
             });
@@ -40,7 +45,7 @@ namespace PRBD_2S_Aurélie
         {
             ClearErrors();
             
-            if (string.IsNullOrEmpty(Title))
+            if (string.IsNullOrEmpty(Titre))
             {
                 AddError("Title", Properties.Resources.Error_Required);
             }

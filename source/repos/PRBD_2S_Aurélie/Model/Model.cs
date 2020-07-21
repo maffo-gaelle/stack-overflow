@@ -10,10 +10,12 @@ namespace PRBD_2S_Aurélie
     {
         public Model() : base("PRBD_2S_Aurélie")
         {
+            Console.WriteLine("cc");
             Database.SetInitializer<Model>(
                 new DropCreateDatabaseIfModelChanges<Model>()
                 );
-        } 
+        }
+
         public DbSet<Member> Members { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -24,21 +26,16 @@ namespace PRBD_2S_Aurélie
         public DbSet<Tag> Tags { get; set; }
         public DbSet<PostTag> PostTags { get; set; }
 
-        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
 
             modelBuilder.Properties<bool>().Configure(c => c.HasColumnType("bit"));
-            //modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique(true);
-            //modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique(true);
             modelBuilder.Entity<PostTag>().HasKey(posttag => new { posttag.PostId, posttag.TagId });
             modelBuilder.Entity<Vote>().HasKey(vote => new { vote.PostId, vote.UserId });
-
         }
 
-        public User CreateUser(string userName, string password, string fullName, string email, Role role)
+        public User CreateUser(string userName, string password, string fullName, string email, Role role = Role.Member)
         {
             var user = Users.Create();
             //user.UserId = userId;
@@ -49,27 +46,24 @@ namespace PRBD_2S_Aurélie
             user.Role = role;
 
             Users.Add(user);
+            
             return user;
         }
 
-        public Post CreatePost(int authorId, Post parent, User author, string title, string body, int acceptedAnswerId, int parentId)
+        public Post CreatePost(int authorId, Post parent, string title, string body, int acceptedAnswerId, int parentId)
         {
+            var user = Users.Find(authorId);
+            if (user == null) return null;
+
             var post = Posts.Create();
             post.AuthorId = authorId;
             post.Title = title;
             post.Body = body;
-            //post.Timestamp = timestamp;
-            post.AcceptedAnswerId = acceptedAnswerId;
+            post.Timestamp = DateTime.Now;
             post.ParentId = parentId;
             //ici on établit les relations dans le sens 1-N avec post et user
-            author.Posts.Add(post);
-            //la relation 1-N avec post pour les reponses?
-            if(title == null && parent != null)
-            {
-                parent.Answers.Add(post);
-            }
-            //la relation 1-1 avec post pour accptedAnswerId?
-
+            post.Author = user;
+            
             Posts.Add(post);
             SaveChanges();
 
@@ -138,7 +132,18 @@ namespace PRBD_2S_Aurélie
             return posttag;
         }
 
-        
+        public void ClearDatabase()
+        {
+            Users.RemoveRange(Users);
+            Posts.RemoveRange(Posts);
+            Comments.RemoveRange(Comments);
+            Votes.RemoveRange(Votes);
+            Tags.RemoveRange(Tags);
+            PostTags.RemoveRange(PostTags);
+
+            SaveChanges();
+        }
+
         public Member CreateMember(string pseudo, string password, string profile = "", bool isAdmin = false)
         {
             var member = Members.Create();
@@ -149,8 +154,6 @@ namespace PRBD_2S_Aurélie
 
             //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
             Members.Add(member);
-            SaveChanges();
-
             return member;
         }
 
@@ -168,21 +171,7 @@ namespace PRBD_2S_Aurélie
 
             //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
             Messages.Add(message);
-            SaveChanges();
-
             return message;
-        }
-
-        public void ClearDatabase()
-        {
-            Users.RemoveRange(Users);
-            Posts.RemoveRange(Posts);
-            Comments.RemoveRange(Comments);
-            Votes.RemoveRange(Votes);
-            Tags.RemoveRange(Tags);
-            PostTags.RemoveRange(PostTags);
-
-            SaveChanges();
         }
 
         //public void SeedData()
@@ -197,7 +186,7 @@ namespace PRBD_2S_Aurélie
         //        Console.WriteLine("Member initial ok");
 
         //        Console.WriteLine("Seeding posts...................")
-               
+
         //    }
         //}
     }

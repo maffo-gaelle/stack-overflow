@@ -15,22 +15,11 @@ namespace PRBD_2S_Aurélie
     {
 
         public int UserId { get; set; }
-
-        [Required(ErrorMessage = "Le nom d'utilisateur est requis")]
-        [MinLength(3, ErrorMessage = "Le nom d'utilisateur doit contenir au moins 3 caractères")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Un mot de passe est requis")]
-        [MinLength(8, ErrorMessage = "Le nom d'utilisateur doit contenir au moins 8 caractères")]
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Un prénom est requis")]
-        [MinLength(3, ErrorMessage = "Le prénom doit contenir au moins 3 caractères")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Un email est requis")]
-        [RegularExpression("^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$")]
         public string Email { get; set; }
         public Role Role { get; set; } = Role.Member;
 
@@ -62,6 +51,11 @@ namespace PRBD_2S_Aurélie
             if (userByEmail != null)
                 yield return new ValidationResult("Cet email existe déjà", new[] { nameof(Email) });
 
+        }
+
+        public override string ToString()
+        {
+            return UserName + " " + FullName;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace PRBD_2S_Aurélie
         public ICommand ApplyFilter { get; set; }
         public ObservableCollection<Member> Members { get; set; }
 
-        public  MainView() 
+        public MainView()
         {
             DataContext = this;
             var model = new Model();
@@ -38,7 +38,7 @@ namespace PRBD_2S_Aurélie
             Members = new ObservableCollection<Member>(query);
             Console.WriteLine($"{query.Count()} members found");
         }
-       
+
     }
 
     public class ApplyFilterCommand : ICommand

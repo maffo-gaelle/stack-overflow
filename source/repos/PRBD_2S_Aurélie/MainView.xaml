@@ -20,6 +20,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
     </StackPanel>
 </Window>

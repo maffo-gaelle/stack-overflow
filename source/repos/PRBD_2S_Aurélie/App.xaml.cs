@@ -16,6 +16,7 @@ namespace PRBD_2S_Aurélie
         public App()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Culture);
+            Model = new Model();
         }
 
         

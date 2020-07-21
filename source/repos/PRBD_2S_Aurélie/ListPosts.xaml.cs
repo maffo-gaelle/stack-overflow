@@ -16,14 +16,37 @@ namespace PRBD_2S_Aurélie
         public ICommand Inscription { get; set; }
         public ICommand AskQuestion { get; set; }
         public ICommand Deconnexion { get; set; }
-        public ObservableCollection<Post> posts;
+
+        private string connectUser;
+        public string ConnectUser
+        {
+            get => connectUser;
+            set
+            {
+                connectUser = value;
+                RaisePropertyChanged(nameof(ConnectUser));
+            }
+        }
+
+        private string deconnectUser;
+        public string DeConnectUser
+        {
+            get => deconnectUser;
+            set
+            {
+                deconnectUser = value;
+                RaisePropertyChanged(nameof(DeConnectUser));
+            }
+        }
+
+        private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
         {
             get => posts;
             set
             {
                 posts = value;
-                RaisePropertyChanged(nameof(posts));
+                RaisePropertyChanged(nameof(Posts));
             }
         }
         private string filter;
@@ -41,9 +64,22 @@ namespace PRBD_2S_Aurélie
         
         public ListPosts()
         {
+           
+            //if (App.CurrentUser != null)
+            //{
+            //    ConnectUser = "Visible";
+            //}
+            //else
+            //{
+            //    ConnectUser = "Collapsed";
+            //}
+
             InitializeComponent();
             DataContext = this;
 
+             Console.WriteLine("hello");
+
+            
             Connexion = new RelayCommand(ConnexionAction, () => {
                 return true;
             });
@@ -57,6 +93,30 @@ namespace PRBD_2S_Aurélie
                 //Application.Current.MainWindow = this;
                 App.CurrentUser = null;
             });
+        }
+
+        private void GetConnectUser()
+        {
+            Console.WriteLine("hello");
+            if (App.CurrentUser != null)
+            {
+                ConnectUser =  "Visible";
+            } else
+            {
+                ConnectUser = "Collapsed";
+            }
+        }
+
+        private void GetDeConnectUser()
+        {
+            if (App.CurrentUser != null)
+            {
+                DeConnectUser = "Collapsed";
+            }
+            else
+            {
+                DeConnectUser = "Visible";
+            }
         }
 
         private void ApplyFilterAction()

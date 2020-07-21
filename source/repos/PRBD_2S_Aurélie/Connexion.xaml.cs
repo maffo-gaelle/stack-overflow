@@ -69,6 +69,7 @@ namespace PRBD_2S_Aurélie
         {
             if(ValidateUserName() && ValidatePassword())
             {
+                Console.WriteLine("ok Login");
                 var user = (from u in App.Model.Users
                             where UserName.Equals(u.UserName)
                             select u).FirstOrDefault();

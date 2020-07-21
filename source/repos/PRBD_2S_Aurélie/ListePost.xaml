@@ -23,10 +23,10 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Background="Beige">
             <Menu Width="991" FontWeight="Bold">
-                <MenuItem Header="Connexion"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
-                <MenuItem Header="Inscription" Command="{Binding Inscription}" FontSize="16"/>
-                <MenuItem Header="Poser une question" Command="{Binding AskQuestion}" FontSize="16"/>
-                <MenuItem Header="Deconnexion"  Command="{Binding Deconnexion}" Width="120" FontSize="16"/>
+                <MenuItem Header="Connexion" Visibility="{Binding DeConnectUser}"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
+                <MenuItem Header="Inscription" Visibility="{Binding DeConnectUser}" Command="{Binding Inscription}" FontSize="16"/>
+                <MenuItem Header="Poser une question" Visibility="{Binding ConnectUser}" Command="{Binding AskQuestion}" FontSize="16"/>
+                <MenuItem Header="Deconnexion" Visibility="{Binding ConnectUser}"  Command="{Binding Deconnexion}" Width="120" FontSize="16"/>
             </Menu>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Background="Beige" Margin ="0,40,40,40">

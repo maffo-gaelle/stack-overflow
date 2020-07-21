@@ -114,7 +114,7 @@ namespace PRBD_2S_Aurélie
             foreach (var g in q6)
             {
                 Console.WriteLine(g.Key);
-                foreach(var m in g)
+                foreach (var m in g)
                     Console.WriteLine($"    {m.MessageId}  -  {m.Author.Pseudo}  -  {m.Recipient.Pseudo}  -  {m.Body}");
 
             }
@@ -123,7 +123,7 @@ namespace PRBD_2S_Aurélie
         private static void ExercicesLinq()
         {
             Console.WriteLine("\n\nExercices LINQ\n==================");
-            using(var model = new Model())
+            using (var model = new Model())
             {
                 model.Members.Count();
                 Console.WriteLine("\nQurery1\n---------");
@@ -145,6 +145,6 @@ namespace PRBD_2S_Aurélie
             //TestingEntityFramework();
             ExercicesLinq();
         }
-      
+
     }
 }

@@ -3,6 +3,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 using PRBD_Framework;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -16,18 +17,21 @@ namespace PRBD_2S_Aurélie
         public ICommand Annuler { get; set; }
         public ICommand Login { get; set; }
         private Role role = 0;
+
         private string username;
         public string UserName
         {
             get => username;
             set => SetProperty<string>(ref username, value, () => ValidateUserName());
         }
+
         private string password;
         public string Password
         {
             get => password;
             set => SetProperty<string>(ref password, value, () => ValidatePassword());
         }
+
         private string fullname;
         public string FullName
         {
@@ -40,6 +44,7 @@ namespace PRBD_2S_Aurélie
             get => passwordConfirm;
             set => SetProperty<string>(ref passwordConfirm, value, () => ValidatepasswordConfirm());
         }
+
         private string email;
         public string Email
         {
@@ -49,27 +54,37 @@ namespace PRBD_2S_Aurélie
 
         public Signup()
         {
-
+            
             InitializeComponent();
+            DataContext = this;
+
             Login = new RelayCommand(ConnexionAction, () => {
                 return true;
             });
+
             Inscription = new RelayCommand(InscriptionAction, () => {
                 return true;
             });
 
-            Annuler = new RelayCommand(() =>
+            Annuler = new RelayCommand(AnnulerAction, () =>
             {
-                var listePost = new ListePost();
-                listePost.Show();
-                Application.Current.MainWindow = listePost;
-                Close();
+                return true;
             });
+        }
+
+        private void AnnulerAction()
+        {
+            Console.WriteLine("on est là");
+            var listePost = new ListePost();
+            listePost.Show();
+            Application.Current.MainWindow = listePost;
+            Close();
         }
 
         private bool ValidateUserName()
         {
             ClearErrors();
+
             var user = (from u in App.Model.Users
                         where UserName.Equals(u.UserName)
                         select u).FirstOrDefault();
@@ -81,7 +96,7 @@ namespace PRBD_2S_Aurélie
             {
                 if (UserName.Length < 4)
                 {
-                    AddError("UserName", Properties.Resources.Error_MinLength);
+                    AddError("UserName", "Properties.Resources.Error_MinLength");
                 }
                 else if (user != null)
                 {
@@ -89,6 +104,7 @@ namespace PRBD_2S_Aurélie
                 }
             }
             RaiseErrors();
+
             return !HasErrors;
         }
 
@@ -148,20 +164,65 @@ namespace PRBD_2S_Aurélie
             return !HasErrors;
         }
 
-        private bool ValidateEmail()
+        private static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                // Normalize the domain
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                // Examines the domain part of the email and normalizes it.
+                string DomainMapper(Match match)
+                {
+                    // Use IdnMapping class to convert Unicode domain names.
+                    var idn = new IdnMapping();
+
+                    // Pull out and process domain name (throws ArgumentException on invalid)
+                    var domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(email,
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        public bool ValidateEmail()
         {
             ClearErrors();
-            var regex = new Regex("^[A-Za-z0-9](([_\\.\\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\\.\\-]?[a-zA-Z0-9]+)*)\\.([A-Za-z]{2,})$");
             var email = (from u in App.Model.Users
                             where UserName.Equals(u.UserName)
                             select u.Email).FirstOrDefault();
+
             if (string.IsNullOrEmpty(PasswordConfirm))
             {
                 AddError("Email", Properties.Resources.Error_Required);
             }
             else
             {
-                if (regex.IsMatch(Email))
+                if (!IsValidEmail(Email))
                 {
                     AddError("Email", Properties.Resources.Error_Email);
                 }
@@ -186,10 +247,11 @@ namespace PRBD_2S_Aurélie
 
         public void InscriptionAction()
         {
-            Console.WriteLine("Inscription");
             if(ValidateUserName() && ValidatePassword() && ValidateFullName() && ValidateEmail())
             {
-                var user = App.Model.CreateUser(UserName, Password, FullName, Email, role);
+                var user = App.Model.CreateUser(UserName, Password, FullName, Email);
+                Console.WriteLine(user);
+                App.Model.SaveChanges();
                 App.CurrentUser = user;
                 var listePost = new ListePost();
                 listePost.Show();

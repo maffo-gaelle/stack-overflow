@@ -19,7 +19,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -77,6 +77,9 @@
     <Compile Include="ListPosts.xaml.cs">
       <DependentUpon>ListPosts.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainView.xaml.cs" />
+    <Compile Include="Model\Member.cs" />
+    <Compile Include="Model\Message.cs" />
     <Compile Include="Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
@@ -96,10 +99,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -110,10 +109,10 @@
     <Compile Include="ListePost.xaml.cs">
       <DependentUpon>ListePost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
     <Page Include="Signup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,8 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Comment.cs" />
-    <Compile Include="Model\Member.cs" />
-    <Compile Include="Model\Message.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostTag.cs" />

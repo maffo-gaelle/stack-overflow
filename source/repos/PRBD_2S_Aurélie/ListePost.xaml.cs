@@ -15,10 +15,36 @@ namespace PRBD_2S_Aurélie
         public ICommand AskQuestion { get; set; }
         public ICommand Deconnexion { get; set; }
 
+        private string connectUser;
+        public string ConnectUser
+        {
+            get => connectUser;
+            set
+            {
+                connectUser = value;
+                RaisePropertyChanged(nameof(ConnectUser));
+            }
+        }
+
+        private string deconnectUser;
+        public string DeConnectUser
+        {
+            get => deconnectUser;
+            set
+            {
+                deconnectUser = value;
+                RaisePropertyChanged(nameof(DeConnectUser));
+            }
+        }
+
         public ListePost()
         {
             InitializeComponent();
             DataContext = this;
+
+            GetConnectUser();
+            GetDeConnectUser();
+
 
             Connexion = new RelayCommand(ConnexionAction, () => {
                 return true;
@@ -40,7 +66,32 @@ namespace PRBD_2S_Aurélie
             });
         }
 
-                //public void InscriptionAction()
+        private void GetConnectUser()
+        {
+            Console.WriteLine("hello");
+            if (App.CurrentUser != null)
+            {
+                ConnectUser = "Visible";
+            }
+            else
+            {
+                ConnectUser = "Collapsed";
+            }
+        }
+
+        private void GetDeConnectUser()
+        {
+            if (App.CurrentUser != null)
+            {
+                DeConnectUser = "Collapsed";
+            }
+            else
+            {
+                DeConnectUser = "Visible";
+            }
+        }
+
+        //public void InscriptionAction()
         //{
         //    Console.WriteLine("Le binding de l'inscription fonctionne");
         //    var inscription = new Insciption();
