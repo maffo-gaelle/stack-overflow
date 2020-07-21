@@ -16,25 +16,24 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!-- ROW #1 -->
-        <Label Content="Title :" FontWeight="Bold"/>
-        <TextBox x:Name="txtTitle"  Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" />
-        <!-- ROW #2 -->
-        <Label Content="" Grid.Row="1" />
-        <TextBox Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="270" />
-        <!-- ROW #3 -->
-        <Label Content="Tags :" Grid.Row="2" FontWeight="Bold"/>
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <WrapPanel Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Width="200">
-            <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="80" FontWeight="Bold" Padding="5,1"/>
-            <Button x:Name="btnSave" Content="Valider" Command="{Binding Valider}" Width="80" FontWeight="Bold" Margin="10,0,0,0" Padding="5,1"/>
+        <Label Content="Titre:" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center" Padding="5" />
+        <f:ValidatedField Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <TextBox x:Name="txtFullName" TextWrapping="Wrap" Grid.Column="1" 
+                     Text="{Binding Titre, UpdateSourceTrigger=PropertyChanged}"/>
+        </f:ValidatedField>
+        <Label Content="Entrez votre question: " FontWeight="Bold" Grid.Row="2" VerticalAlignment="Top" Padding="5" />
+        <f:ValidatedField Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
+            <TextBox x:Name="txtBody" TextWrapping="Wrap" Grid.Column="1" 
+                     Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto"/>
+        </f:ValidatedField>
+        <Label Content="Tags: " FontWeight="Bold" Grid.Row="3" VerticalAlignment="Top" Padding="5" />
+        
+        <WrapPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Width="300" Grid.ColumnSpan="2">
+            <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="100" FontWeight="Bold" Padding="5,1"/>
+            <Button x:Name="btnSave" Content="Valider" Command="{Binding Valider}" Width="100" FontWeight="Bold" Margin="20,0,0,0" Padding="5,1"/>
         </WrapPanel>
     </Grid>
 </f:WindowBase>

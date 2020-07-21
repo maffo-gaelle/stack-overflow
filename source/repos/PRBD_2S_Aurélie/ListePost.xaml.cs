@@ -12,7 +12,7 @@ namespace PRBD_2S_Aurélie
     {
         public ICommand Connexion { get; set; }
         public ICommand Inscription { get; set; }
-        public ICommand AskQuestion { get; set; }
+        public ICommand Ask { get; set; }
         public ICommand Deconnexion { get; set; }
 
         private string connectUser;
@@ -60,7 +60,7 @@ namespace PRBD_2S_Aurélie
                 App.CurrentUser = null;
             });
 
-            AskQuestion = new RelayCommand(AskQuestionAction, () =>
+            Ask = new RelayCommand(AskAction, () =>
             {
                 return true;
             });
@@ -115,13 +115,13 @@ namespace PRBD_2S_Aurélie
             Close();
         }
 
-        private void AskQuestionAction()
+        private void AskAction()
         {
             Console.WriteLine("Poser une question");
-            var askQuestion = new AskQuestion();
-            askQuestion.Show();
-            var user = App.CurrentUser;
-            Application.Current.MainWindow = askQuestion;
+            var ask = new AskQuestion();
+            ask.Show();
+            //var user = App.CurrentUser;
+            Application.Current.MainWindow = ask;
             Close();
         }
 

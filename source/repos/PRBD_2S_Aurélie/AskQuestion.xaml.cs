@@ -16,17 +16,17 @@ namespace PRBD_2S_Aurélie
         public string Titre
         { 
             get =>title;
-            set => SetProperty<string>(ref title, value, () => ValidatePost()); 
+            set => SetProperty<string>(ref title, value, () => ValidateTitle()); 
         }
 
         private string body;
         public string Body { 
             get => body;
-            set => SetProperty<string>(ref body, value, () => ValidatePost()); }
+            set => SetProperty<string>(ref body, value, () => ValidateBody()); }
          public AskQuestion()
          {
             DataContext = this;
-            Valider = new RelayCommand(Ask(), () => {
+            Valider = new RelayCommand(AskAction, () => {
                 return title != null && body != null && !HasErrors;
             });
 
@@ -40,16 +40,24 @@ namespace PRBD_2S_Aurélie
             InitializeComponent();
          }
 
-        
-        public bool ValidatePost()
+
+        public bool ValidateTitle()
         {
             ClearErrors();
-            
+
             if (string.IsNullOrEmpty(Titre))
             {
                 AddError("Title", Properties.Resources.Error_Required);
             }
-             if (string.IsNullOrEmpty(Body))
+            RaiseErrors();
+
+            return !HasErrors;
+        }
+
+        public bool ValidateBody()
+            {
+                ClearErrors();
+                if (string.IsNullOrEmpty(Body))
             {
                 AddError("Body", Properties.Resources.Error_Required);
             }
@@ -58,9 +66,19 @@ namespace PRBD_2S_Aurélie
             return !HasErrors;
         }
 
-        private Action Ask()
+        private void AskAction()
         {
-            throw new NotImplementedException();
+            if(ValidateTitle() && ValidateBody())
+            {
+                var user = App.CurrentUser;
+                var post = App.Model.CreateQuestion(user.UserId, Titre, Body);
+                Console.WriteLine(post);
+                App.Model.SaveChanges();
+                var listePost = new ListePost();
+                listePost.Show();
+                Application.Current.MainWindow = listePost;
+                Close();
+            }
         }
 
     }
