@@ -29,16 +29,13 @@
                 <MenuItem Header="Deconnexion" Visibility="{Binding ConnectUser}"  Command="{Binding Deconnexion}" Width="120" FontSize="16"/>
             </Menu>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Background="Beige" Margin ="0,40,40,40">
-            <Menu>
-                <MenuItem Header="newest" FontSize="14" FontWeight="Bold" FontStyle="Italic" Width="68" Padding="6,0"   />
-                <MenuItem Header="vote" Width="57" FontSize="14" FontWeight="Bold" FontStyle="Italic" />
-                <MenuItem Header="unanswered" FontSize="14" FontWeight="Bold"  />
-                <MenuItem Header="active" Width="60" FontSize="14" FontWeight="Bold" Margin="0"  />
-                <MenuItem/>
-            </Menu>
-        </StackPanel>
 
-
+        <TabControl x:Name="TabControl" Margin="10" Grid.Row="1">
+            <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold">
+                <ContentControl>
+                    <local:ListPosts/>
+                </ContentControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </f:WindowBase>

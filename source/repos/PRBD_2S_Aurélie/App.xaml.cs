@@ -12,7 +12,7 @@ namespace PRBD_2S_Aurélie
     public partial class App : ApplicationBase 
     { 
         public static User CurrentUser { get; set; }
-        public static Model Model { get; private set; }
+        public static Model Model { get; set; }
         public App()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Culture);

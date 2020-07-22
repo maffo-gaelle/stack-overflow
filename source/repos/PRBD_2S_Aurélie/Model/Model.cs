@@ -50,7 +50,7 @@ namespace PRBD_2S_Aurélie
             return user;
         }
 
-        public Post CreateResponse(int authorId, Post parent, string title, string body, int acceptedAnswerId, int parentId)
+        public Post CreateResponse(int authorId, /*Post parent,*/ string title, string body, int parentId)
         {
             var user = Users.Find(authorId);
             if (user == null) return null;
@@ -61,6 +61,7 @@ namespace PRBD_2S_Aurélie
             post.Body = body;
             post.Timestamp = DateTime.Now;
             post.ParentId = parentId;
+            //parent.Answers.Add();
             //ici on établit les relations dans le sens 1-N avec post et user
             post.Author = user;
             

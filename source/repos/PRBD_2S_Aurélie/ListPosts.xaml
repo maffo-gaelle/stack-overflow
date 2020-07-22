@@ -7,5 +7,27 @@
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+    <StackPanel>
+        <!--<TextBlock Text="Questions" FontSize="16" FontWeight="Bold"/>-->
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="700" />
+            <Button Content="Clear" Command="{Binding ClearFilter}" Width="auto" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Background="Beige" Margin ="0,40,40,40">
+            <Menu>
+                <MenuItem Header="newest" FontSize="14" FontWeight="Bold" FontStyle="Italic" Width="68" Padding="6,0"   />
+                <MenuItem Header="vote" Width="57" FontSize="14" FontWeight="Bold" FontStyle="Italic" />
+                <MenuItem Header="unanswered" FontSize="14" FontWeight="Bold"  />
+                <MenuItem Header="active" Width="60" FontSize="14" FontWeight="Bold" Margin="0"  />
+                <MenuItem/>
+            </Menu>
+        </StackPanel>
+        <ListView ItemsSource="{Binding Posts}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Titre, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
 </f:UserControlBase>

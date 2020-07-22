@@ -69,3 +69,4 @@ C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aur
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\PRBD_Framework\obj\Debug\PRBD_Framework.csproj.CopyComplete
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\PRBD_Framework\obj\Debug\PRBD_Framework.dll
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\PRBD_Framework\obj\Debug\PRBD_Framework.pdb
+C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\PRBD_Framework\obj\Debug\PRBD_Framework.csprojAssemblyReference.cache

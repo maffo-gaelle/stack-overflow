@@ -16,7 +16,6 @@ namespace PRBD_2S_Aurélie
         public ICommand Inscription { get; set; }
         public ICommand Annuler { get; set; }
         public ICommand Login { get; set; }
-        private Role role = 0;
 
         private string username;
         public string UserName

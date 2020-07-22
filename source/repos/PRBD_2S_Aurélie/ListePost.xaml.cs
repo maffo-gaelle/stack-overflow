@@ -1,6 +1,7 @@
 ﻿using PRBD_Framework;
 using System;
 using System.Windows;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PRBD_2S_Aurélie
@@ -91,12 +92,6 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        //public void InscriptionAction()
-        //{
-        //    Console.WriteLine("Le binding de l'inscription fonctionne");
-        //    var inscription = new Insciption();
-        //    inscription.Show();
-        //}
         public void ConnexionAction()
         {
             Console.WriteLine("Maffo");
@@ -125,5 +120,6 @@ namespace PRBD_2S_Aurélie
             Close();
         }
 
+        
     }
 }
