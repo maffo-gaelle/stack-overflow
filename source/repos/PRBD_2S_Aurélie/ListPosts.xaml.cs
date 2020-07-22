@@ -12,6 +12,8 @@ namespace PRBD_2S_Aurélie
     /// </summary>
     public partial class ListPosts : UserControlBase
     {
+        public ICommand PostShow { get; set; }
+        public string AuthorPost { get; set; }
        
         private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
@@ -41,7 +43,7 @@ namespace PRBD_2S_Aurélie
            
             InitializeComponent();
             DataContext = this;
-
+            Posts = new ObservableCollection<Post>(App.Model.Posts);
              Console.WriteLine("hello");
          
         }

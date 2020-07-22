@@ -22,10 +22,18 @@
                 <MenuItem/>
             </Menu>
         </StackPanel>
-        <ListView ItemsSource="{Binding Posts}">
+        <ListView ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Titre, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DockPanel Margin="0,14,0,0" Grid.Row="7" Grid.ColumnSpan="2">
+                        <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" >
+                            <Hyperlink Command="{Binding PostShow, UpdateSourceTrigger=PropertyChanged}"><Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/></Hyperlink>
+                        </TextBlock>
+                        <TextBlock>
+                            <TextBox Text="{Binding AuthorPost, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding Timestamp, UpdateSourceTrigger=}"/>
+                        </TextBlock>
+                    </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
