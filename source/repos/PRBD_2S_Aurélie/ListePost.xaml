@@ -37,5 +37,12 @@
                 </ContentControl>
             </TabItem>
         </TabControl>
+        <TabControl x:Name="TabControl1" Margin="10" Grid.Row="1">
+            <TabItem x:Name="TagTab"  Header="Tags" FontSize="16" FontWeight="Bold">
+                <ContentControl>
+                    <local:TagsView/>
+                </ContentControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </f:WindowBase>

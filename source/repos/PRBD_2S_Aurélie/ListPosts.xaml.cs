@@ -12,7 +12,7 @@ namespace PRBD_2S_Aurélie
     /// </summary>
     public partial class ListPosts : UserControlBase
     {
-        public ICommand PostShow { get; set; }
+        public ICommand ShowPost { get; set; }
         public ICommand Newest { get; set; }
         public ICommand Vote { get; set; }
         public ICommand Unanswered { get; set; }
@@ -75,12 +75,11 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            PostShow = new RelayCommand(() =>
-            {
-                Console.WriteLine("détail du post");
-                //App.NotifyColleagues(AppMessages.MSG_DETAILS_POST);
+            ShowPost = new RelayCommand<Post>((m) => {
+                Console.WriteLine("details du post");
+                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, m); 
             });
-            Console.WriteLine("hello");
+
          
         }
 

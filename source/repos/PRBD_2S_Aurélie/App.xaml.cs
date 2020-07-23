@@ -8,7 +8,9 @@ namespace PRBD_2S_Aurélie
 {
     public enum AppMessages
     {
-        MSG_DETAILS_POST
+        MSG_DETAILS_POST,
+        MSG_TITLE_POST,
+        MSG_BODY_POST
     }
     public partial class App : ApplicationBase 
     { 

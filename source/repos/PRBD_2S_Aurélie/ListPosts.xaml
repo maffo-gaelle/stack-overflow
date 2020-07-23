@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -22,12 +23,19 @@
                 <MenuItem/>
             </Menu>
         </StackPanel>
-        <ListView ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
+        <ListView x:Name="listView" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseClick">
+                    <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
+                        Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Margin="0,14,0,0" >
+                        <!--Command="{Binding ShowPost, UpdateSourceTrigger=PropertyChanged}"-->
                         <TextBlock Height="auto" TextAlignment="Center" HorizontalAlignment="Center" >
-                            <Hyperlink Command="{Binding PostShow}"><Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/></Hyperlink>
+                            <Hyperlink><Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/></Hyperlink>
                         </TextBlock>
                         <TextBlock>
                             <TextBox Text="{Binding AuthorPost, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
