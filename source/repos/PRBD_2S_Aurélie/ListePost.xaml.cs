@@ -3,6 +3,7 @@ using System;
 using System.Windows;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace PRBD_2S_Aurélie
 {
@@ -64,6 +65,16 @@ namespace PRBD_2S_Aurélie
             Ask = new RelayCommand(AskAction, () =>
             {
                 return true;
+            });
+
+            App.Register(this, AppMessages.MSG_DETAILS_POST, () =>
+            {
+                var tab = new TabItem()
+                {
+                    Header = "Détails du post"
+                };
+                TabControl.Items.Add(tab);
+                Dispatcher.InvokeAsync(() => tab.Focus());
             });
         }
 

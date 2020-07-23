@@ -13,7 +13,21 @@ namespace PRBD_2S_Aurélie
     public partial class ListPosts : UserControlBase
     {
         public ICommand PostShow { get; set; }
-        public string AuthorPost { get; set; }
+        public ICommand Newest { get; set; }
+        public ICommand Vote { get; set; }
+        public ICommand Unanswered { get; set; }
+        public ICommand Active { get; set; }
+
+        private string authorPost;
+        public string AuthorPost { 
+            get => authorPost; 
+            set
+            {
+                authorPost = value;
+                GetAuthorPost();
+                RaisePropertyChanged(nameof(AuthorPost));
+            }
+        }
        
         private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
@@ -44,11 +58,55 @@ namespace PRBD_2S_Aurélie
             InitializeComponent();
             DataContext = this;
             Posts = new ObservableCollection<Post>(App.Model.Posts);
-             Console.WriteLine("hello");
+
+            Newest = new RelayCommand(NewestAction, () => {
+                return true;
+            });
+
+            Vote = new RelayCommand(VoteAction, () => {
+                return true;
+            });
+
+            Unanswered = new RelayCommand(UnansweredAction, () => {
+                return true;
+            });
+
+            Active = new RelayCommand(ActiveAction, () => {
+                return true;
+            });
+
+            PostShow = new RelayCommand(() =>
+            {
+                Console.WriteLine("détail du post");
+                //App.NotifyColleagues(AppMessages.MSG_DETAILS_POST);
+            });
+            Console.WriteLine("hello");
          
         }
 
-       
+        public void NewestAction()
+        {
+            Console.WriteLine("Newest");
+
+        }
+
+        public void VoteAction()
+        {
+            Console.WriteLine("VoteAction");
+
+        }
+
+        public void UnansweredAction()
+        {
+            Console.WriteLine("UnansweredAction");
+
+        }
+
+        public void ActiveAction()
+        {
+            Console.WriteLine("ActiveAction");
+
+        }
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
@@ -58,6 +116,11 @@ namespace PRBD_2S_Aurélie
                         select p;
             Posts = new ObservableCollection<Post>(query);
             Console.WriteLine($"{query.Count()} Posts trouvés");
+        }
+
+        private string GetAuthorPost()
+        {
+            return "L'auteur du post";
         }
 
     }

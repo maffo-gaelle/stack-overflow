@@ -10,7 +10,6 @@
 //------------------------------------------------------------------------------
 
 using PRBD_2S_Aurélie;
-using PRBD_Framework;
 using System;
 using System.Diagnostics;
 using System.Windows;

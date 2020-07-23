@@ -6,9 +6,10 @@ using System.Windows;
 
 namespace PRBD_2S_Aurélie
 {
-    /// <summary>
-    /// Logique d'interaction pour App.xaml
-    /// </summary>
+    public enum AppMessages
+    {
+        MSG_DETAILS_POST
+    }
     public partial class App : ApplicationBase 
     { 
         public static User CurrentUser { get; set; }

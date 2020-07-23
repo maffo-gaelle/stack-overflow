@@ -8,8 +8,8 @@
         xmlns:local="clr-namespace:PRBD_2S_Aurélie"
  
         mc:Ignorable="d"
-        Width="784" Height="700"
-        Title="Stuck-overFlow" >
+        Width="800" Height="700"
+        Title="Stuck-overFlow" WindowStartupLocation="CenterScreen">
     <Grid OpacityMask="#FF835757">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
