@@ -3,13 +3,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Linq;
-using System.Windows;
 
 namespace PRBD_2S_Aurélie
 {
-    /// <summary>
-    /// Logique d'interaction pour TagsView.xaml
-    /// </summary>
     public partial class TagsView : UserControlBase
     {
         public ICommand NewTag { get; set; }
@@ -37,8 +33,12 @@ namespace PRBD_2S_Aurélie
 
             NewTag = new RelayCommand(AddTagAction, () =>
             {
+                //c'était pour notifier pour que le tag s'ajoute directement mais ne fonctionne pas
+                App.NotifyColleagues(AppMessages.MSG_NEW_TAG);
                 return true;
             });
+            
+            //App.Register<Tag>(this, AppMessages.MSG_TAG_CREATE,);***Manque l'action tag qui doit être effectuée
             InitializeComponent();
         }
 

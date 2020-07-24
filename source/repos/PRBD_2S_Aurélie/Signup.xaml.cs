@@ -93,7 +93,7 @@ namespace PRBD_2S_Aurélie
             }
             else
             {
-                if (UserName.Length < 4)
+                if (UserName.Length < 3)
                 {
                     AddError("UserName", "Properties.Resources.Error_MinLength");
                 }

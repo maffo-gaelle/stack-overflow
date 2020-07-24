@@ -10,16 +10,19 @@ namespace PRBD_2S_Aurélie
     {
         MSG_DETAILS_POST,
         MSG_TITLE_POST,
-        MSG_BODY_POST
+        MSG_BODY_POST,
+        MSG_NEW_TAG,
+        MSG_CLOSE_TAB
     }
     public partial class App : ApplicationBase 
     { 
         public static User CurrentUser { get; set; }
-        public static Model Model { get; set; }
+        public static Model Model { get; } = new Model();
+        //1.public static Model Model { get; set; }
         public App()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Culture);
-            Model = new Model();
+            //2.Model = new Model();
         }
 
         

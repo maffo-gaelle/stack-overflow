@@ -29,9 +29,10 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_BODY_POST);
             }
         }
-        public PostDetailView(Post post)
+        public PostDetailView(Post post, bool isNew)
         {
             DataContext = this;
+            isNew = false;
             Post = post;
             InitializeComponent();
         }

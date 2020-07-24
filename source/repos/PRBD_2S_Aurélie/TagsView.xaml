@@ -13,10 +13,10 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags}" SelectedItem="{Binding Tag}" 
+        <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Tag}" 
                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"/>
+                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName, UpdateSourceTrigger=PropertyChanged}"  Width="150"/>
                 <DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>
                 <DataGridTextColumn Header="" Binding="{Binding Path=UpdateTag}"  Width="110"/>
                 

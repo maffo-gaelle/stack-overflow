@@ -5,6 +5,18 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Controls;
 
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
 namespace PRBD_2S_Aurélie
 {
     /// <summary>
@@ -66,16 +78,70 @@ namespace PRBD_2S_Aurélie
             {
                 return true;
             });
-
-            App.Register(this, AppMessages.MSG_DETAILS_POST, () =>
+            //ici on reçoit la notification avec 3 parametre le this, le message envoyé, et une fonction lambda
+            //par ex, pour ajouter un post, je cree une notification dans le add post, puis je cree mon message dans app et je par voir celui
+            //qui doit recevoir la notification et je fait un register pour recevoir la notification
+            App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
             {
-                var tab = new TabItem()
+                if (post != null)
                 {
-                    Header = "Détails du post"
-                };
-                TabControl.Items.Add(tab);
-                Dispatcher.InvokeAsync(() => tab.Focus());
+                    var tab = (from TabItem t in tabControl.Items where (string)t.Header == post.Title select t).FirstOrDefault();
+                    if (tab == null)
+                        AddTab(post, false);
+                    else
+                        Dispatcher.InvokeAsync(() => tab.Focus());
+                }
             });
+            //App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
+            //{
+            //    if (post != null)
+            //    {
+            //        var tab = (from TabItem t in tabControl.Items where (string)t.Header == post.Title select t).FirstOrDefault();
+            //        if (tab == null)
+            //            AddTab(post, false);
+            //        else
+            //            Dispatcher.InvokeAsync(() => tab.Focus());
+            //    }
+            //});
+
+            App.Register<UserControlBase>(this, AppMessages.MSG_CLOSE_TAB, ctl =>
+            {
+                var tab = (from TabItem t in tabControl.Items where t.Content == ctl select t).SingleOrDefault();
+                ctl.Dispose();
+                tabControl.Items.Remove(tab);
+            });
+        }
+
+        private void AddTab(Post post, bool isNew)
+        {
+            var ctl = new PostDetailView(post, isNew);
+            var tab = new TabItem()
+            {
+                Header = isNew ? "<new Post>" : post.Title,
+                Content = ctl
+            };
+
+            tab.MouseDown += (o, e) =>
+            {
+                if (e.ChangedButton == MouseButton.Middle &&
+                    e.ButtonState == MouseButtonState.Pressed)
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tab.PreviewKeyDown += (o, e) =>
+            {
+                if (e.Key == Key.W && Keyboard.IsKeyDown(Key.LeftCtrl))
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tabControl.Items.Add(tab);
+            Dispatcher.InvokeAsync(() => tab.Focus());
         }
 
         private void GetConnectUser()

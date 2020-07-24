@@ -30,14 +30,12 @@
             </Menu>
         </StackPanel>
 
-        <TabControl x:Name="TabControl" Margin="10" Grid.Row="1">
+        <TabControl x:Name="tabControl" Margin="10" Grid.Row="1">
             <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold">
                 <ContentControl>
                     <local:ListPosts/>
                 </ContentControl>
             </TabItem>
-        </TabControl>
-        <TabControl x:Name="TabControl1" Margin="10" Grid.Row="1">
             <TabItem x:Name="TagTab"  Header="Tags" FontSize="16" FontWeight="Bold">
                 <ContentControl>
                     <local:TagsView/>

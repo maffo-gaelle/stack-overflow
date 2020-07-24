@@ -23,9 +23,9 @@
                 <MenuItem/>
             </Menu>
         </StackPanel>
-        <ListView x:Name="listView" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
+        <ListView x:Name="listView" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseClick">
+                <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
                         Path=SelectedItem}"/>
                 </i:EventTrigger>
@@ -35,7 +35,7 @@
                     <DockPanel Margin="0,14,0,0" >
                         <!--Command="{Binding ShowPost, UpdateSourceTrigger=PropertyChanged}"-->
                         <TextBlock Height="auto" TextAlignment="Center" HorizontalAlignment="Center" >
-                            <Hyperlink><Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/></Hyperlink>
+                            <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
                         </TextBlock>
                         <TextBlock>
                             <TextBox Text="{Binding AuthorPost, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>

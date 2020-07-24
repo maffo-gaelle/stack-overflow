@@ -17,6 +17,7 @@ namespace PRBD_2S_Aurélie
         public ICommand Vote { get; set; }
         public ICommand Unanswered { get; set; }
         public ICommand Active { get; set; }
+        public ICommand DetailPost { get; set; }
 
         private string authorPost;
         public string AuthorPost { 
@@ -75,12 +76,20 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            ShowPost = new RelayCommand<Post>((m) => {
-                Console.WriteLine("details du post");
-                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, m); 
+            DetailPost = new RelayCommand(DetailsAction, () => {
+                return true;
+            });
+            //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
+            ShowPost = new RelayCommand<Post>(Post => {
+                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post); 
             });
 
          
+        }
+
+        public void DetailsAction ()
+        {
+            Console.WriteLine("details du post");
         }
 
         public void NewestAction()
@@ -109,8 +118,7 @@ namespace PRBD_2S_Aurélie
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
-            var model = new Model();
-            var query = from p in model.Posts
+            var query = from p in App.Model.Posts
                         where p.Body.Contains(Filter) || p.Title.Contains(Filter)
                         select p;
             Posts = new ObservableCollection<Post>(query);
