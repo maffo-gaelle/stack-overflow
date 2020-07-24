@@ -92,10 +92,9 @@ namespace PRBD_2S_Aurélie
 
         }
 
-        public Tag CreateTag(int tagId, string tagName)
+        public Tag CreateTag(string tagName)
         {
             var tag = Tags.Create();
-            tag.TagId = tagId;
             tag.TagName = tagName;
 
             Tags.Add(tag);
