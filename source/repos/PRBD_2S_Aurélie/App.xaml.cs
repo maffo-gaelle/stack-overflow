@@ -12,8 +12,10 @@ namespace PRBD_2S_Aurélie
         MSG_TITLE_POST,
         MSG_BODY_POST,
         MSG_NEW_TAG,
-        MSG_CLOSE_TAB
+        MSG_CLOSE_TAB,
+        MSG_NEW_QUESTION
     }
+
     public partial class App : ApplicationBase 
     { 
         public static User CurrentUser { get; set; }

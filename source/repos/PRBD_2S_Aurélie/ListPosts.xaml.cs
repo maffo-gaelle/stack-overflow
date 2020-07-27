@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using PRBD_Framework;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PRBD_2S_Aurélie
 {
@@ -18,18 +20,8 @@ namespace PRBD_2S_Aurélie
         public ICommand Unanswered { get; set; }
         public ICommand Active { get; set; }
         public ICommand DetailPost { get; set; }
-
-        private string authorPost;
-        public string AuthorPost { 
-            get => authorPost; 
-            set
-            {
-                authorPost = value;
-                GetAuthorPost();
-                RaisePropertyChanged(nameof(AuthorPost));
-            }
-        }
-       
+        public ICommand NewQuestion { get; set; }
+        
         private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
         {
@@ -76,15 +68,22 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            DetailPost = new RelayCommand(DetailsAction, () => {
-                return true;
-            });
-            //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
-            ShowPost = new RelayCommand<Post>(Post => {
-                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post); 
+            NewQuestion = new RelayCommand(() =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_NEW_QUESTION);
             });
 
-         
+            //App.Register<Post>(this, AppMessages.MSG_NEW_QUESTION, post => { ApplyFilterAction(); });
+            //DetailPost = new RelayCommand(DetailsAction, () => {
+            //    return true;
+            //});
+
+            //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
+            ShowPost = new RelayCommand<Post>(Post =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
+            });
+
         }
 
         public void DetailsAction ()
@@ -115,20 +114,28 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("ActiveAction");
 
         }
+        //private void ApplyFilterAction()
+        //{
+        //    Console.WriteLine("Search clicked! " + Filter);
+
+        //    var query = from p in App.Model.Posts
+        //                where p.Body.Contains(Filter) || p.Title.Contains(Filter)
+        //                select p;
+        //    Posts = new ObservableCollection<Post>(query);
+        //    Console.WriteLine($"{query.Count()} Posts trouvés");
+        //}
+
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
-            var query = from p in App.Model.Posts
+            IEnumerable<Post> query = App.Model.Posts;
+            if(!string.IsNullOrEmpty(Filter))
+               query = from p in App.Model.Posts
                         where p.Body.Contains(Filter) || p.Title.Contains(Filter)
                         select p;
             Posts = new ObservableCollection<Post>(query);
             Console.WriteLine($"{query.Count()} Posts trouvés");
         }
-
-        private string GetAuthorPost()
-        {
-            return "L'auteur du post";
-        }
-
+      
     }
 }

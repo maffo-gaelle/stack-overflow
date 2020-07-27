@@ -16,7 +16,7 @@ namespace PRBD_2S_Aurélie
             set
             {
                 tags = value;
-                RaiseErrorsChanged(nameof(Tags));
+                RaisePropertyChanged(nameof(Tags));
             }
         }
 
@@ -29,7 +29,7 @@ namespace PRBD_2S_Aurélie
         public TagsView()
         {
             DataContext = this;
-            Tags = new ObservableCollection<Tag>(App.Model.Tags);
+            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
 
             NewTag = new RelayCommand(AddTagAction, () =>
             {
@@ -37,8 +37,10 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_NEW_TAG);
                 return true;
             });
-            
-            //App.Register<Tag>(this, AppMessages.MSG_TAG_CREATE,);***Manque l'action tag qui doit être effectuée
+
+            //App.Register<Tag>(this, AppMessages.MSG_NEW_TAG, tag => {
+                //je dois mettre l'action pour ajourner la page
+            //});
             InitializeComponent();
         }
 
@@ -49,6 +51,7 @@ namespace PRBD_2S_Aurélie
             var tagName = (from t in App.Model.Tags
                         where TagName.Equals(t.TagName)
                         select t).FirstOrDefault();
+
             if (string.IsNullOrEmpty(TagName))
             {
                 AddError("TagName", Properties.Resources.Error_Required);
@@ -69,8 +72,21 @@ namespace PRBD_2S_Aurélie
             if(ValidateTag())
             {
                 var tag = App.Model.CreateTag(TagName);
-                Console.WriteLine(tag);
+                
                 App.Model.SaveChanges();
+                Console.WriteLine("liste de tags avant: \n");
+                foreach (var t in Tags)
+                {
+                    Console.WriteLine(t + "\n");
+                }
+                //vue que le app.register doit se faire sur la mm page, c'est pas necessaire il faut juste observer le dbset du model pour enregistrer les changements
+                Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName)); 
+                Console.WriteLine("liste de tags apès: \n");
+                foreach (var t in Tags)
+                {
+                    Console.WriteLine(t + "\n");
+                }
+               
                 //Application.Current.MainWindow = TagsView;
             }
 

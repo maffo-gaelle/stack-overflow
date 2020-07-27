@@ -68,17 +68,7 @@ namespace PRBD_2S_Aurélie
 
         private void AskAction()
         {
-            if(ValidateTitle() && ValidateBody())
-            {
-                var user = App.CurrentUser;
-                var post = App.Model.CreateQuestion(user.UserId, Titre, Body);
-                Console.WriteLine(post);
-                App.Model.SaveChanges();
-                var listePost = new ListePost();
-                listePost.Show();
-                Application.Current.MainWindow = listePost;
-                Close();
-            }
+            
         }
 
     }

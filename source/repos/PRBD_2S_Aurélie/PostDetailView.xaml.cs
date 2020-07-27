@@ -1,4 +1,5 @@
 ﻿using PRBD_Framework;
+using System;
 
 namespace PRBD_2S_Aurélie
 {
@@ -16,25 +17,35 @@ namespace PRBD_2S_Aurélie
             {
                 Post.Title = value;
                 RaiseErrorsChanged(nameof(Title));
-                App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
+               // App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
             }
         }
-        public string Body
+        public string Body 
         {
             get { return Post.Body; }
             set
             {
                 Post.Body = value;
                 RaiseErrorsChanged(nameof(Body));
-                App.NotifyColleagues(AppMessages.MSG_BODY_POST);
+                //App.NotifyColleagues(AppMessages.MSG_BODY_POST);
             }
         }
-        public PostDetailView(Post post, bool isNew)
+
+        public DateTime Timestamp
         {
-            DataContext = this;
-            isNew = false;
-            Post = post;
+            get => Post.Timestamp;
+            set
+            {
+                Post.Timestamp = value;
+                RaiseErrorsChanged(nameof(Timestamp));
+                App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
+            }
+        }
+        public PostDetailView(Post post)
+        {
             InitializeComponent();
+            DataContext = this;
+            Post = post;
         }
     }
 }

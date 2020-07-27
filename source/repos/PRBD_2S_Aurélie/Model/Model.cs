@@ -50,48 +50,6 @@ namespace PRBD_2S_Aurélie
             return user;
         }
 
-        public Post CreateResponse(int authorId, /*Post parent,*/ string title, string body, int parentId)
-        {
-            var user = Users.Find(authorId);
-            if (user == null) return null;
-
-            var post = Posts.Create();
-            post.AuthorId = authorId;
-            post.Title = title;
-            post.Body = body;
-            post.Timestamp = DateTime.Now;
-            post.ParentId = parentId;
-            //parent.Answers.Add();
-            //ici on établit les relations dans le sens 1-N avec post et user
-            post.Author = user;
-            
-            Posts.Add(post);
-            SaveChanges();
-
-            return post;
-
-        }
-
-        public Post CreateQuestion(int authorId, string title, string body)
-        {
-            var user = Users.Find(authorId);
-            if (user == null) return null;
-
-            var post = Posts.Create();
-            post.AuthorId = authorId;
-            post.Title = title;
-            post.Body = body;
-            post.Timestamp = DateTime.Now;
-            //ici on établit les relations dans le sens 1-N avec post et user
-            post.Author = user;
-
-            Posts.Add(post);
-            SaveChanges();
-
-            return post;
-
-        }
-
         public Tag CreateTag(string tagName)
         {
             var tag = Tags.Create();

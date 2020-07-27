@@ -68,16 +68,20 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            Deconnexion = new RelayCommand(() =>
-            {
-                Application.Current.MainWindow = this;
-                App.CurrentUser = null;
+            Deconnexion = new RelayCommand(LogOutAction);
+
+            //Ask = new RelayCommand(AskAction, () =>
+            //{
+            //    return true;
+            //});
+
+            App.Register(this, AppMessages.MSG_NEW_QUESTION, () =>
+            {   //Crée une nouvelle instance pour le post
+                var post = App.Model.Posts.Create();
+                App.Model.Posts.Add(post);
+                AddTabPost(post, true, true);
             });
 
-            Ask = new RelayCommand(AskAction, () =>
-            {
-                return true;
-            });
             //ici on reçoit la notification avec 3 parametre le this, le message envoyé, et une fonction lambda
             //par ex, pour ajouter un post, je cree une notification dans le add post, puis je cree mon message dans app et je par voir celui
             //qui doit recevoir la notification et je fait un register pour recevoir la notification
@@ -85,9 +89,9 @@ namespace PRBD_2S_Aurélie
             {
                 if (post != null)
                 {
-                    var tab = (from TabItem t in tabControl.Items where (string)t.Header == post.Title select t).FirstOrDefault();
+                    var tab = (from TabItem t in tabControl.Items where (string)t.Header == $"<Details Question {post.PostId}>" select t).FirstOrDefault();
                     if (tab == null)
-                        AddTab(post, false);
+                        AddTabDetailsQuestion(post);
                     else
                         Dispatcher.InvokeAsync(() => tab.Focus());
                 }
@@ -112,12 +116,46 @@ namespace PRBD_2S_Aurélie
             });
         }
 
-        private void AddTab(Post post, bool isNew)
+        private void AddTabPost(Post post, bool isNew, bool isQuestion)
         {
-            var ctl = new PostDetailView(post, isNew);
+            var ctl = new AskQuestionView(post, isNew, isQuestion);
+
             var tab = new TabItem()
             {
-                Header = isNew ? "<new Post>" : post.Title,
+                Header = isNew ?  (isQuestion ? "<new Question>" : "<new Answer>") : (isQuestion ? "<Update Question>" : "<Update Answer>"),
+                Content = ctl
+            };
+
+            tab.MouseDown += (o, e) =>
+            {
+                if (e.ChangedButton == MouseButton.Middle &&
+                    e.ButtonState == MouseButtonState.Pressed)
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tab.PreviewKeyDown += (o, e) =>
+            {
+                if (e.Key == Key.W && Keyboard.IsKeyDown(Key.LeftCtrl))
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tabControl.Items.Add(tab);
+            Dispatcher.InvokeAsync(() => tab.Focus());
+        }
+
+        private void AddTabDetailsQuestion(Post post)
+        {
+            var ctl = new PostDetailView(post);
+
+            var tab = new TabItem()
+            {
+                Header = $"<Details Question {post.PostId}>",
                 Content = ctl
             };
 
@@ -187,16 +225,12 @@ namespace PRBD_2S_Aurélie
             Close();
         }
 
-        private void AskAction()
+        private void LogOutAction()
         {
-            Console.WriteLine("Poser une question");
-            var ask = new AskQuestion();
-            ask.Show();
-            //var user = App.CurrentUser;
-            Application.Current.MainWindow = ask;
-            Close();
+            Console.WriteLine("Logout action");
+            App.CurrentUser = null;
+            GetDeConnectUser();
         }
 
-        
     }
 }

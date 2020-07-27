@@ -31,7 +31,7 @@
         </StackPanel>
 
         <TabControl x:Name="tabControl" Margin="10" Grid.Row="1">
-            <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold">
+            <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold"  >
                 <ContentControl>
                     <local:ListPosts/>
                 </ContentControl>

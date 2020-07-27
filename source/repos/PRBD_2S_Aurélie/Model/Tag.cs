@@ -35,5 +35,10 @@ namespace PRBD_2S_Aurélie
             if (tagByTagName != null)
                 yield return new ValidationResult("Ce tag existe déjà", new[] { nameof(TagName) });
         }
+
+        public override string ToString()
+        {
+            return TagName;
+        }
     }
 }

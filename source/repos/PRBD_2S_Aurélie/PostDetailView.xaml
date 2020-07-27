@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowBase"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontSize="14">
     <Grid Margin="10">
@@ -20,15 +19,16 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!-- ROW #1 -->
+        <!-- ROW #1 
         <Label Content="Title :" />
-        <TextBox x:Name="txtTitle" Grid.Column="1" Text="{Binding title}" VerticalAlignment="Center" />
-        <!-- ROW #2 -->
+        <TextBlock x:Name="txtTitle" Grid.Column="1" Text="{Binding title}" VerticalAlignment="Center" />
+         ROW #2 -->
         <Label Content="" Grid.Row="1" />
-        <TextBox Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" MinLines="3" AcceptsReturn="True" MaxLines="10" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" />
+        <TextBlock Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,14,0,0"/>
         <!-- ROW #3 -->
-       
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Timestamp}" FontSize="10" FontWeight="Bold"/>
+        <TextBlock Grid.Row="2"  />
         <!-- ROW #4 -->
-        
+        <TextBox Grid.Row="1" Text="0 Réponse" TextAlignment="Center" Background="Gray"/>
     </Grid>
 </f:UserControlBase>

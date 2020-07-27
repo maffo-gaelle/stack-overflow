@@ -15,14 +15,10 @@ namespace PRBD_2S_Aurélie
     {
         public int PostId { get; set; }
         public virtual User Author { get; set; }
-        public int AuthorId { get; set; }
         public string Title { get; set; }
-        [Required(ErrorMessage = "Un texte est requis")]
         public string Body { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
-        public int? AcceptedAnswerId { get; set; }//relation de post vers post: one to one
         public virtual Post AcceptedAnswer { get; set; }
-        public int? ParentId { get; set; }
         public virtual Post Parent { get; set; }//relation de post vers post: one to many
         //Posttags recupère tous les tags du post et c'est une relation one-to-many avec posttag et posttag a une relation one-to-many avec tag
         public virtual ICollection<PostTag> PostTags { get; set; } = new HashSet<PostTag>();
