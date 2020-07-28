@@ -58,7 +58,7 @@ namespace PRBD_2S_Aurélie
 
             Annuler = new RelayCommand(() =>
             {
-                var listePost = new ListePost();
+                var listePost = new MainView();
                 listePost.Show();
                 Application.Current.MainWindow = listePost;
                 Close();
@@ -75,7 +75,7 @@ namespace PRBD_2S_Aurélie
                             select u).FirstOrDefault();
                 App.CurrentUser = user;
 
-                var listePost = new ListePost();
+                var listePost = new MainView();
                 listePost.Show();
                 Application.Current.MainWindow = listePost;
                 Close();

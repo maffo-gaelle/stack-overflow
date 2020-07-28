@@ -45,47 +45,6 @@ namespace PRBD_2S_Aurélie
         }
 
         
-        public ListPosts()
-        {
-           
-            InitializeComponent();
-            DataContext = this;
-            Posts = new ObservableCollection<Post>(App.Model.Posts);
-
-            Newest = new RelayCommand(NewestAction, () => {
-                return true;
-            });
-
-            Vote = new RelayCommand(VoteAction, () => {
-                return true;
-            });
-
-            Unanswered = new RelayCommand(UnansweredAction, () => {
-                return true;
-            });
-
-            Active = new RelayCommand(ActiveAction, () => {
-                return true;
-            });
-
-            NewQuestion = new RelayCommand(() =>
-            {
-                App.NotifyColleagues(AppMessages.MSG_NEW_QUESTION);
-            });
-
-            //App.Register<Post>(this, AppMessages.MSG_NEW_QUESTION, post => { ApplyFilterAction(); });
-            //DetailPost = new RelayCommand(DetailsAction, () => {
-            //    return true;
-            //});
-
-            //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
-            ShowPost = new RelayCommand<Post>(Post =>
-            {
-                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
-            });
-
-        }
-
         public void DetailsAction ()
         {
             Console.WriteLine("details du post");
@@ -136,6 +95,45 @@ namespace PRBD_2S_Aurélie
             Posts = new ObservableCollection<Post>(query);
             Console.WriteLine($"{query.Count()} Posts trouvés");
         }
-      
+        public ListPosts()
+        {
+
+            InitializeComponent();
+            DataContext = this;
+            Posts = new ObservableCollection<Post>(App.Model.Posts);
+
+            Newest = new RelayCommand(NewestAction, () => {
+                return true;
+            });
+
+            Vote = new RelayCommand(VoteAction, () => {
+                return true;
+            });
+
+            Unanswered = new RelayCommand(UnansweredAction, () => {
+                return true;
+            });
+
+            Active = new RelayCommand(ActiveAction, () => {
+                return true;
+            });
+
+            NewQuestion = new RelayCommand(() =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_NEW_QUESTION);
+            });
+
+            App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED,
+                                post => { ApplyFilterAction(); });
+
+            //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
+            ShowPost = new RelayCommand<Post>(Post =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
+            });
+
+        }
+
+
     }
 }

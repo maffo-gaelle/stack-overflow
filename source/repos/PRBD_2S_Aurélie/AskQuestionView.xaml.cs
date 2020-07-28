@@ -108,12 +108,11 @@ namespace PRBD_2S_Aurélie
             var user = App.CurrentUser;
             
             Post.Author = user;
-            //Post.Body = Body;
-            //Post.Title = Title;
             App.Model.Posts.Add(Post);
+            IsNew = false;
 
             App.Model.SaveChanges();
-            //App.NotifyColleagues(AppMessages.MSG_NEW_QUESTION);
+            App.NotifyColleagues(AppMessages.MSG_QUESTION_CHANGED, Post);
             App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
         }
 

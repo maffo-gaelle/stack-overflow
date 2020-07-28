@@ -74,7 +74,7 @@ namespace PRBD_2S_Aurélie
         private void AnnulerAction()
         {
             Console.WriteLine("on est là");
-            var listePost = new ListePost();
+            var listePost = new MainView();
             listePost.Show();
             Application.Current.MainWindow = listePost;
             Close();
@@ -252,7 +252,7 @@ namespace PRBD_2S_Aurélie
                 Console.WriteLine(user);
                 App.Model.SaveChanges();
                 App.CurrentUser = user;
-                var listePost = new ListePost();
+                var listePost = new MainView();
                 listePost.Show();
                 Application.Current.MainWindow = listePost;
                 Close();

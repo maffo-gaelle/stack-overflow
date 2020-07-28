@@ -74,16 +74,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AskQuestion.xaml.cs">
-      <DependentUpon>AskQuestion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AskQuestionView.xaml.cs">
       <DependentUpon>AskQuestionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ListPosts.xaml.cs">
       <DependentUpon>ListPosts.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView.xaml.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="PostDetailView.xaml.cs">
@@ -95,10 +91,6 @@
     <Compile Include="TagsView.xaml.cs">
       <DependentUpon>TagsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AskQuestion.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AskQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListePost.xaml">
+    <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,13 +114,9 @@
     <Compile Include="Connexion.xaml.cs">
       <DependentUpon>Connexion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListePost.xaml.cs">
-      <DependentUpon>ListePost.xaml</DependentUpon>
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="PostDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

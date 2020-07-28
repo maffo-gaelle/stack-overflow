@@ -13,7 +13,8 @@ namespace PRBD_2S_Aurélie
         MSG_BODY_POST,
         MSG_NEW_TAG,
         MSG_CLOSE_TAB,
-        MSG_NEW_QUESTION
+        MSG_NEW_QUESTION,
+        MSG_QUESTION_CHANGED
     }
 
     public partial class App : ApplicationBase 
