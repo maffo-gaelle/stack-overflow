@@ -11,24 +11,62 @@
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!-- ROW #1 
-        <Label Content="Title :" />
-        <TextBlock x:Name="txtTitle" Grid.Column="1" Text="{Binding title}" VerticalAlignment="Center" />
-         ROW #2 -->
-        <Label Content="" Grid.Row="1" />
-        <TextBlock Text="{Binding Body}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,14,0,0"/>
+        <!--ROW #1-->
+
+        <TextBlock x:Name="txtTitle" Margin="10, 20, 10, 5" Grid.Column="2" Grid.Row="1" Text="{Binding Title}" VerticalAlignment="Top"  FontSize="16" FontWeight="Bold"/>
+        <Canvas Grid.Row="2">
+            <Line X1="10" Y1="100" X2="150" Y2="100" Stroke="Black" StrokeThickness="15" Height="48"/>
+        </Canvas>
+        <!--ROW #2-->
+        <TextBlock Text="{Binding Body}" Grid.Column="2" Grid.Row="3" Margin="104,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBlock Text="Score" Grid.Column="2" Grid.Row="2" />
         <!-- ROW #3 -->
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Timestamp}" FontSize="10" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2"  />
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="104,0,0,0">
+            <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
+            <TextBlock Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Timestamp}" FontSize="10" FontWeight="Bold"/>
+        </TextBlock>
         <!-- ROW #4 -->
-        <TextBox Grid.Row="1" Text="0 Réponse" TextAlignment="Center" Background="Gray"/>
+        <TextBox Grid.Row="5" Text="0 Réponse" TextAlignment="Center" Background="#B0E0E6" Margin="0,0,10,10" Grid.ColumnSpan="2" Height="20" IsReadOnly="True"/>
+        <ListView x:Name="listView" BorderBrush="Transparent" Grid.Row="6" SelectionMode="Single" ItemsSource="{Binding Answers, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Grid.Column="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1">
+                                <Run Text="{Binding BodyAnswer, UpdateSourceTrigger=PropertyChanged}" />
+                </TextBlock>
+                <TextBlock Grid.Row="2">
+                                <!--<Run Text="Répondu par" />-->
+                                <TextBox  x:Name="name" Text="{Binding AuthorAnswer.UserName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
+                                <TextBox Text="{Binding TimestampAnswer, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
+                </TextBlock>
+            </Grid>
+        </ListView>
+        <TextBlock Grid.Row="7" Grid.ColumnSpan="2">
+            <Run Text="Votre reponse" FontSize="12" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
+        </TextBlock>
+        <f:ValidatedField Grid.Row="8" Grid.ColumnSpan="2" >
+            <TextBox x:Name="txtBody" TextWrapping="Wrap" Grid.Column="1" 
+                     Text="{Binding BodyResponse, UpdateSourceTrigger=PropertyChanged}" MinLines="5" MaxLines="10" VerticalScrollBarVisibility="Auto"/>
+        </f:ValidatedField>
+        <Button x:Name="btnSave" Grid.Row="9" Content="Publiez votre reponse" Command="{Binding Valider}" FontWeight="Bold" Margin="0,0,584,0" Padding="5,1" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </f:UserControlBase>

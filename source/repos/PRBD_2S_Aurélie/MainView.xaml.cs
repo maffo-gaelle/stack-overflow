@@ -159,7 +159,7 @@ namespace PRBD_2S_Aurélie
             Application.Current.MainWindow = inscription;
             Close();
         }
-
+  
         private void LogOutAction()
         {
             Console.WriteLine("Logout action");

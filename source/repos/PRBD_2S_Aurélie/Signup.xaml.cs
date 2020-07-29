@@ -61,7 +61,7 @@ namespace PRBD_2S_Aurélie
                 return true;
             });
 
-            Inscription = new RelayCommand(InscriptionAction, () => {
+            Inscription = new RelayCommand(SaveAction, () => {
                 return true;
             });
 
@@ -244,7 +244,7 @@ namespace PRBD_2S_Aurélie
             Close();
         }
 
-        public void InscriptionAction()
+        public void SaveAction()
         {
             if(ValidateUserName() && ValidatePassword() && ValidateFullName() && ValidateEmail())
             {

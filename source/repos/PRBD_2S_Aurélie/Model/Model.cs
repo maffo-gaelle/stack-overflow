@@ -35,10 +35,23 @@ namespace PRBD_2S_Aurélie
             modelBuilder.Entity<Vote>().HasKey(vote => new { vote.PostId, vote.UserId });
         }
 
+        public Post CreateAnswer(User user, Post parent, string body)
+        {
+            var post = Posts.Create();
+
+            post.Author = user;
+            post.Parent = parent;
+            post.Body = body;
+            //parent.Answers.Add(post);
+
+            Posts.Add(post);
+
+            return post;
+        }
         public User CreateUser(string userName, string password, string fullName, string email, Role role = Role.Member)
         {
             var user = Users.Create();
-            //user.UserId = userId;
+
             user.UserName = userName;
             user.Password = password;
             user.FullName = fullName;

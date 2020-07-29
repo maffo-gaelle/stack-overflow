@@ -26,23 +26,6 @@ namespace PRBD_2S_Aurélie
             get => tagName;
             set => SetProperty<string>(ref tagName, value, () => ValidateTag());
         }
-        public TagsView()
-        {
-            DataContext = this;
-            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
-
-            NewTag = new RelayCommand(AddTagAction, () =>
-            {
-                //c'était pour notifier pour que le tag s'ajoute directement mais ne fonctionne pas
-                App.NotifyColleagues(AppMessages.MSG_NEW_TAG);
-                return true;
-            });
-
-            //App.Register<Tag>(this, AppMessages.MSG_NEW_TAG, tag => {
-                //je dois mettre l'action pour ajourner la page
-            //});
-            InitializeComponent();
-        }
 
         public bool ValidateTag()
         {
@@ -92,5 +75,19 @@ namespace PRBD_2S_Aurélie
 
         }
 
+        public TagsView()
+        {
+            DataContext = this;
+            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
+
+            NewTag = new RelayCommand(AddTagAction, () =>
+            {
+                //c'était pour notifier pour que le tag s'ajoute directement mais ne fonctionne pas
+                //App.NotifyColleagues(AppMessages.MSG_NEW_TAG);
+                return true;
+            });
+
+            InitializeComponent();
+        }
     }
 }

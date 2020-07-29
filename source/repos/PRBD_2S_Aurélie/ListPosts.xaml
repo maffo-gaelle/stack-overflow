@@ -24,8 +24,8 @@
                 <Button Content="Clear" Command="{Binding ClearFilter}" Width="60" Margin="0,0,0,0" HorizontalAlignment="Left"/>
             </Menu>
         </StackPanel>
-        <Button x:Name="btnNew" Content="Poser une question"  Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,0,0"/>
-        <ListView x:Name="listView" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}">
+        <Button x:Name="btnNew" Content="Poser une question"  Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,20,0" RenderTransformOrigin="0.406,-0.16" Height="32"/>
+        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Height="530">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
@@ -42,11 +42,11 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <!--Command="{Binding ShowPost, UpdateSourceTrigger=PropertyChanged}"-->
-                            <TextBlock Height="auto" TextAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" >
-                                <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1" Margin="0,10" >
+                                <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                             </TextBlock>
                             <TextBlock Grid.Row="3">
-                                <TextBox Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
+                                <TextBox  x:Name="nameStudent" Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
                                 <TextBox Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
                                 <TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
                             </TextBlock>

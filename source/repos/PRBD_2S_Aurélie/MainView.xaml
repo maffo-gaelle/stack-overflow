@@ -30,7 +30,7 @@
             </Menu>
         </StackPanel>
 
-        <TabControl x:Name="tabControl" Margin="10" Grid.Row="1">
+        <TabControl x:Name="tabControl" Margin="10,10,10,89" Grid.Row="1" Grid.RowSpan="2">
             <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold"  >
                 <ContentControl>
                     <local:ListPosts/>

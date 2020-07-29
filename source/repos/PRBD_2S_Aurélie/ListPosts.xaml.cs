@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace PRBD_2S_Aurélie
 {
@@ -53,19 +54,32 @@ namespace PRBD_2S_Aurélie
         public void NewestAction()
         {
             Console.WriteLine("Newest");
-
+            IEnumerable<Post> newest = App.Model.Posts;
+            newest = from p in App.Model.Posts
+                     orderby p.Timestamp descending
+                     select p;
+            Posts = new ObservableCollection<Post>(newest);
         }
 
         public void VoteAction()
         {
-            Console.WriteLine("VoteAction");
-
+            Console.WriteLine("Vote");
+            //IEnumerable<Post> vote = App.Model.Posts;
+            //vote = from p in App.Model.Posts
+            //         orderby p.Score ascending
+            //         select p;
+            //Posts = new ObservableCollection<Post>(vote);
         }
 
         public void UnansweredAction()
         {
-            Console.WriteLine("UnansweredAction");
-
+            Console.WriteLine("Unanswered");
+            IEnumerable<Post> unanswered = App.Model.Posts;
+            unanswered = from p in App.Model.Posts
+                         where p.AcceptedAnswer == null 
+                         orderby p.Timestamp descending
+                   select p;
+            Posts = new ObservableCollection<Post>(unanswered);
         }
 
         public void ActiveAction()
@@ -73,17 +87,7 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("ActiveAction");
 
         }
-        //private void ApplyFilterAction()
-        //{
-        //    Console.WriteLine("Search clicked! " + Filter);
-
-        //    var query = from p in App.Model.Posts
-        //                where p.Body.Contains(Filter) || p.Title.Contains(Filter)
-        //                select p;
-        //    Posts = new ObservableCollection<Post>(query);
-        //    Console.WriteLine($"{query.Count()} Posts trouvés");
-        //}
-
+        
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
@@ -101,6 +105,8 @@ namespace PRBD_2S_Aurélie
             InitializeComponent();
             DataContext = this;
             Posts = new ObservableCollection<Post>(App.Model.Posts);
+
+            //this.nameStudent.BackColor = System.Drawing.Color.Aqua;
 
             Newest = new RelayCommand(NewestAction, () => {
                 return true;
