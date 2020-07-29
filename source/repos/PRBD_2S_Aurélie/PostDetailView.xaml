@@ -7,7 +7,7 @@
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" FontSize="14">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -27,41 +27,62 @@
         </Grid.RowDefinitions>
         <!--ROW #1-->
 
-        <TextBlock x:Name="txtTitle" Margin="10, 20, 10, 5" Grid.Column="2" Grid.Row="1" Text="{Binding Title}" VerticalAlignment="Top"  FontSize="16" FontWeight="Bold"/>
-        <Canvas Grid.Row="2">
-            <Line X1="10" Y1="100" X2="150" Y2="100" Stroke="Black" StrokeThickness="15" Height="48"/>
+        <TextBlock x:Name="txtTitle" Margin="10, 20, 10, 5" Grid.Column="2" Grid.Row="1" Text="{Binding Post.Title}" VerticalAlignment="Top"  FontSize="16" FontWeight="Bold"/>
+        <Canvas Grid.Row="2" Grid.ColumnSpan="2">
+            <Line X1="10" Y1="100" X2="150" Y2="100" Stroke="Black" StrokeThickness="3" Height="40" />
         </Canvas>
         <!--ROW #2-->
-        <TextBlock Text="{Binding Body}" Grid.Column="2" Grid.Row="3" Margin="104,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <TextBlock Text="{Binding Post.Body}" Grid.Column="2" Grid.Row="3" Margin="104,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         <TextBlock Text="Score" Grid.Column="2" Grid.Row="2" />
         <!-- ROW #3 -->
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="104,0,0,0">
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
-            <TextBlock Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Timestamp}" FontSize="10" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Post.Timestamp}" FontSize="10" FontWeight="Bold"/>
         </TextBlock>
         <!-- ROW #4 -->
         <TextBox Grid.Row="5" Text="0 Réponse" TextAlignment="Center" Background="#B0E0E6" Margin="0,0,10,10" Grid.ColumnSpan="2" Height="20" IsReadOnly="True"/>
-        <ListView x:Name="listView" BorderBrush="Transparent" Grid.Row="6" SelectionMode="Single" ItemsSource="{Binding Answers, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Grid.Column="2">
-            <Grid>
+        <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="6" SelectionMode="Single" 
+                  ItemsSource="{Binding Answers}" Height="Auto" Grid.Column="2">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="5" Width="1000" >
+                        <StackPanel Margin="15">
+                            <TextBlock Height="auto" TextAlignment="Left" Text="{Binding Body}"  HorizontalAlignment="Left" Grid.Row="1" />
+                            <TextBlock Grid.Row="2">
+                                <TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
+                                <TextBox Text="{Binding Timestamp}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1">
-                                <Run Text="{Binding BodyAnswer, UpdateSourceTrigger=PropertyChanged}" />
-                </TextBlock>
+                <TextBlock Height="auto" TextAlignment="Left" Text="{Binding Body}"  HorizontalAlignment="Left" Grid.Row="1" />
                 <TextBlock Grid.Row="2">
-                                <!--<Run Text="Répondu par" />-->
-                                <TextBox  x:Name="name" Text="{Binding AuthorAnswer.UserName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
-                                <TextBox Text="{Binding TimestampAnswer, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
+                       --><!--<Run Text="Répondu par" />--><!--
+                      <TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
+                       <TextBox Text="{Binding Timestamp}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
                 </TextBlock>
-            </Grid>
+            </Grid>-->
         </ListView>
         <TextBlock Grid.Row="7" Grid.ColumnSpan="2">
             <Run Text="Votre reponse" FontSize="12" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Post.Author.UserName}" FontSize="10" FontWeight="Bold"/>
         </TextBlock>
         <f:ValidatedField Grid.Row="8" Grid.ColumnSpan="2" >
             <TextBox x:Name="txtBody" TextWrapping="Wrap" Grid.Column="1" 

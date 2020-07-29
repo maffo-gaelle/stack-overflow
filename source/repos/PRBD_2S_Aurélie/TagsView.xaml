@@ -13,31 +13,24 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Tag}" 
+        <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}" 
                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName, UpdateSourceTrigger=PropertyChanged}"  Width="150"/>
-                <DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>
-                <DataGridTextColumn Header="" Binding="{Binding Path=UpdateTag}"  Width="110"/>
-                
-                <DataGridTemplateColumn Header="Action" Width="110" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" >
-                                <Button Content="Delete" Command="{Binding DeleteTag, ElementName=root}" CommandParameter="{Binding}" Width="50"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"/>
+                <!--<DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>-->
+               
             </DataGrid.Columns>
         </DataGrid>
+        
         <TextBlock Grid.Row="1">
             <f:ValidatedField VerticalAlignment="Center">
                 <TextBox x:Name="txtUserName" TextWrapping="Wrap" Grid.Column="1" Width="210"
-                     Text="{Binding TagName, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}"/>
             </f:ValidatedField>
-            <Button Content="Ajouter un Tag" 
-                    Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130"/>
+            
+            <Button Content="Ajouter un Tag" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130"/>
+            <Button Content="Supprimer un Tag" Command="{Binding DeleteTag}" Width="150"/>
+            <Button Content="Modifier un Tag" Command="{Binding UpdateTag}" Width="130"/>
         </TextBlock>
     </Grid>
 </f:UserControlBase>

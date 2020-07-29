@@ -193,9 +193,11 @@ namespace PRBD_2S_Aurélie
                 AddTabPost(post, true, true);
             });
 
-            //ici on reçoit la notification avec 3 parametre le this, le message envoyé, et une fonction lambda
-            //par ex, pour ajouter un post, je cree une notification dans le add post, puis je cree mon message dans app et je par voir celui
-            //qui doit recevoir la notification et je fait un register pour recevoir la notification
+            //App.Register(this, AppMessages.MSG_DELETE_TAG, tag =>
+            //{
+            //});
+
+            
             App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
             {
                 if (post != null)

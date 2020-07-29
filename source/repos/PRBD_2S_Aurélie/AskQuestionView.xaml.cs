@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
@@ -10,6 +12,12 @@ namespace PRBD_2S_Aurélie
     /// <summary>
     /// Logique d'interaction pour AskQuestionView.xaml
     /// </summary>
+    /// 
+    public class checkedTag
+    {
+        public string Name { get; set; }
+        public bool IsChecked { get; set; }
+    }
     public partial class AskQuestionView : UserControlBase
     {
         private Post Post { get; set; }
@@ -59,6 +67,18 @@ namespace PRBD_2S_Aurélie
 
             }
         }
+
+        public ObservableCollection<Tag> tags;
+        public ObservableCollection<Tag> Tags
+        {
+            get => tags;
+            set
+            {
+                tags = value;
+                RaisePropertyChanged(nameof(Tags));
+            }
+        }
+        
 
         public ICommand Annuler { get; set; }
         public ICommand Valider { get; set; }

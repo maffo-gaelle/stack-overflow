@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PRBD_2S_Aurélie
@@ -13,60 +14,70 @@ namespace PRBD_2S_Aurélie
     {
         public Post Post { get; set; }
 
-        public string Title
-        {
-            get { return Post.Title.ToUpper(); }
-            set
-            {
-                Post.Title = value;
-                RaiseErrorsChanged(nameof(Title));
-               // App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
-            }
-        }
-        public string Body 
-        {
-            get { return Post.Body; }
-            set
-            {
-                Post.Body = value;
-                RaiseErrorsChanged(nameof(Body));
-                //App.NotifyColleagues(AppMessages.MSG_BODY_POST);
-            }
-        }
+        //public string Title
+        //{
+        //    get { return Post.Title.ToUpper(); }
+        //    set
+        //    {
+        //        Post.Title = value;
+        //        RaiseErrorsChanged(nameof(Title));
+        //        App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
+        //    }
+        //}
+        //public string Body
+        //{
+        //    get { return Post.Body; }
+        //    set
+        //    {
+        //        Post.Body = value;
+        //        RaiseErrorsChanged(nameof(Body));
+        //        App.NotifyColleagues(AppMessages.MSG_BODY_POST);
+        //    }
+        //}
 
-        public DateTime Timestamp
+        //public DateTime Timestamp
+        //{
+        //    get => Post.Timestamp;
+        //    set
+        //    {
+        //        Post.Timestamp = value;
+        //        RaisePropertyChanged(nameof(Timestamp));
+        //        App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
+        //    }
+        //}
+
+        //public User Author
+        //{
+        //    get => Post.Author;
+        //    set
+        //    {
+        //        Post.Author = value;
+        //        RaiseErrorsChanged(nameof(Author));
+        //        App.NotifyColleagues(AppMessages.MSG_AUTHOR_POST);
+        //    }
+        //}
+
+        //public ICollection<Post> Answers
+        //{
+        //    get => Post.Answers;
+        //    set
+        //    {
+        //        Post.Answers = value;
+        //        RaiseErrorsChanged(nameof(Answers));
+        //        App.NotifyColleagues(AppMessages.MSG_ANSWERS_POST);
+        //    }
+        //}
+
+        private ObservableCollection<Post> answers;
+        public ObservableCollection<Post> Answers
         {
-            get => Post.Timestamp;
+            get { return answers; }
             set
             {
-                Post.Timestamp = value;
-                RaisePropertyChanged(nameof(Timestamp));
-                App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
+                answers = value;
+                RaisePropertyChanged(nameof(Answers));
             }
         }
-
-        public User Author
-        {
-            get => Post.Author;
-            set
-            {
-                Post.Author = value;
-                RaiseErrorsChanged(nameof(Author));
-                App.NotifyColleagues(AppMessages.MSG_AUTHOR_POST);
-            }
-        }
-
-        public ICollection<Post> Answers
-        {
-            get => Post.Answers;
-            set
-            {
-                Post.Answers = value;
-                RaiseErrorsChanged(nameof(Answers));
-                App.NotifyColleagues(AppMessages.MSG_ANSWERS_POST);
-            }
-        }
-
 
         private string bodyResponse;
         public string BodyResponse
@@ -86,7 +97,7 @@ namespace PRBD_2S_Aurélie
             var user = App.CurrentUser;
             var post = App.Model.CreateAnswer(user, Post, BodyResponse);
             Post.Answers.Add(post);
-            Console.WriteLine(post);
+           
             App.Model.SaveChanges();
 
             Answers = new ObservableCollection<Post>(Post.Answers);
@@ -98,6 +109,12 @@ namespace PRBD_2S_Aurélie
             DataContext = this;
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
+            foreach(var answer in Answers)
+            {
+                Console.WriteLine(answer.Body);
+            }
+            
+
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return true;

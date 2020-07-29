@@ -8,7 +8,6 @@ namespace PRBD_2S_Aurélie
 {
     public partial class TagsView : UserControlBase
     {
-        public ICommand NewTag { get; set; }
         private ObservableCollection<Tag> tags;
         public ObservableCollection<Tag> Tags
         {
@@ -20,22 +19,37 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private string tagName;
-        public string TagName
+        private string name;
+        public string Nom
         {
-            get => tagName;
-            set => SetProperty<string>(ref tagName, value, () => ValidateTag());
+            get => name;
+            set => SetProperty<string>(ref name, value, () => ValidateTag());
         }
 
+        private Tag selectedTag;
+        public Tag SelectedTag
+        {
+            get => selectedTag;
+            set
+            {
+                selectedTag = value;
+                RaisePropertyChanged(nameof(SelectedTag));
+                Nom = selectedTag.TagName;
+            }
+        }
+
+        public ICommand NewTag { get; set; }
+        public ICommand DeleteTag { get; set; }
+        public ICommand UpdateTag { get; set; }
         public bool ValidateTag()
         {
             ClearErrors();
 
             var tagName = (from t in App.Model.Tags
-                        where TagName.Equals(t.TagName)
+                        where Nom.Equals(t.TagName)
                         select t).FirstOrDefault();
 
-            if (string.IsNullOrEmpty(TagName))
+            if (string.IsNullOrEmpty(Nom))
             {
                 AddError("TagName", Properties.Resources.Error_Required);
             }
@@ -54,7 +68,7 @@ namespace PRBD_2S_Aurélie
         {
             if(ValidateTag())
             {
-                var tag = App.Model.CreateTag(TagName);
+                var tag = App.Model.CreateTag(Nom);
                 
                 App.Model.SaveChanges();
                 Console.WriteLine("liste de tags avant: \n");
@@ -62,6 +76,7 @@ namespace PRBD_2S_Aurélie
                 {
                     Console.WriteLine(t + "\n");
                 }
+                Nom = "";
                 //vue que le app.register doit se faire sur la mm page, c'est pas necessaire il faut juste observer le dbset du model pour enregistrer les changements
                 Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName)); 
                 Console.WriteLine("liste de tags apès: \n");
@@ -69,10 +84,25 @@ namespace PRBD_2S_Aurélie
                 {
                     Console.WriteLine(t + "\n");
                 }
-               
-                //Application.Current.MainWindow = TagsView;
             }
+        }
 
+        private void DeleteTagAction()
+        {
+            Console.WriteLine("supprimer un tag");
+            App.Model.Tags.Remove(SelectedTag);
+            App.Model.SaveChanges();
+            Nom = "";
+            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName));
+        }
+
+        private void UpdateTagAction()
+        {
+            Console.WriteLine("Modifier un tag");
+            SelectedTag.TagName = Nom;
+            Nom = "";
+            App.Model.SaveChanges();
+            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName));
         }
 
         public TagsView()
@@ -80,11 +110,19 @@ namespace PRBD_2S_Aurélie
             DataContext = this;
             Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
 
+            DeleteTag = new RelayCommand(DeleteTagAction, () => {
+                return SelectedTag != null && Nom == SelectedTag.TagName;
+            });
+
             NewTag = new RelayCommand(AddTagAction, () =>
             {
-                //c'était pour notifier pour que le tag s'ajoute directement mais ne fonctionne pas
-                //App.NotifyColleagues(AppMessages.MSG_NEW_TAG);
-                return true;
+
+                return Nom != null && ValidateTag();
+            });
+
+            UpdateTag = new RelayCommand(UpdateTagAction, () =>
+            {
+                return SelectedTag != null && Nom != null;
             });
 
             InitializeComponent();

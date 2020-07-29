@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PRBD_Framework;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows;
 
 namespace PRBD_2S_Aurélie
 
@@ -26,7 +27,7 @@ namespace PRBD_2S_Aurélie
         //puisque ici, la seule relation qu'il y'a entre post et tag est posttag et que un tag est constitué des post et d'un tag,
         //dans un IEnumerable, je select tous les tags de la collection posttags ci-haut. et je fait juste un get parce que je ne modifie rien
         [NotMapped]//je ne veux pas cet enregistrement dans la base de données
-        public IEnumerable<Tag> Tags { get => PostTags.Select(posttag => posttag.Tag); }
+        public IEnumerable<Tag> Tags { get => PostTags.Select(posttag => posttag.Tag); } 
         //relation one-to-many avec Comment
         //[InverseProperty(nameof(Comment.post))]
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
@@ -64,5 +65,6 @@ namespace PRBD_2S_Aurélie
                 return (from comment in Comments select comment).Count();
             }
         }
+
     }
 }

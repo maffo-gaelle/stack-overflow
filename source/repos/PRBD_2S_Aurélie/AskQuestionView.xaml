@@ -30,7 +30,9 @@
                      Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto"/>
         </f:ValidatedField>
         <Label Content="Tags: " FontWeight="Bold" Grid.Row="3" VerticalAlignment="Top" Padding="5" />
-
+        <f:ValidatedField Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom">
+            <CheckBox Content  />
+        </f:ValidatedField>
         <WrapPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Width="300" Grid.ColumnSpan="2">
             <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="100" FontWeight="Bold" Padding="5,1"/>
             <Button x:Name="btnSave" Content="Valider" Command="{Binding Valider}" Width="100" FontWeight="Bold" Margin="20,0,0,0" Padding="5,1"/>
