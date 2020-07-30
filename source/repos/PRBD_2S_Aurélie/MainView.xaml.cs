@@ -57,7 +57,7 @@ namespace PRBD_2S_Aurélie
 
             var tab = new TabItem()
             {
-                Header = isNew ?  (isQuestion ? "<new Question>" : "<new Answer>") : (isQuestion ? "<Update Question>" : "<Update Answer>"),
+                Header = isNew ?  (isQuestion ? $"<new Question> " : "<new Answer>") : (isQuestion ? $"<Update Question {post.PostId}>" : "<Update Answer>"),
                 Content = ctl
             };
 
@@ -193,11 +193,10 @@ namespace PRBD_2S_Aurélie
                 AddTabPost(post, true, true);
             });
 
-            //App.Register(this, AppMessages.MSG_DELETE_TAG, tag =>
-            //{
-            //});
-
-            
+            App.Register<Post>(this, AppMessages.MSG_UPDATE_QUESTION, post =>
+            {
+                AddTabPost(post, false, true);
+            });
             App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
             {
                 if (post != null)

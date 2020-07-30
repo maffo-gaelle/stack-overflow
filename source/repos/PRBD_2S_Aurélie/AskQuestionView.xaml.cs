@@ -43,7 +43,18 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(IsQuestion));
             }
         }
-        
+
+        public bool IsExisting
+        {
+            get { return !isNew; }
+        }
+
+
+        //public bool IsNotCurrentMember
+        //{
+        //    get => user != App.CurrentUser;
+        //}
+
         public string Title
         {
             get => Post.Title;
@@ -126,11 +137,13 @@ namespace PRBD_2S_Aurélie
         {
            
             var user = App.CurrentUser;
+            if(IsNew)
+            {
+                Post.Author = user;
+                App.Model.Posts.Add(Post);
+                IsNew = false;
+            }
             
-            Post.Author = user;
-            App.Model.Posts.Add(Post);
-            IsNew = false;
-
             App.Model.SaveChanges();
             App.NotifyColleagues(AppMessages.MSG_QUESTION_CHANGED, Post);
             App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);

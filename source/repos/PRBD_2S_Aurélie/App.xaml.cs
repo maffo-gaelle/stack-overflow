@@ -9,8 +9,6 @@ namespace PRBD_2S_Aurélie
     public enum AppMessages
     {
         MSG_DETAILS_POST,
-        MSG_TITLE_POST,
-        MSG_BODY_POST,
         MSG_NEW_TAG,
         MSG_CLOSE_TAB,
         MSG_NEW_QUESTION,
@@ -18,7 +16,7 @@ namespace PRBD_2S_Aurélie
         MSG_AUTHOR_POST,
         MSG_RESPONSE_ADDED,
         MSG_ANSWERS_POST,
-        MSG_DELETE_TAG
+        MSG_UPDATE_QUESTION
     }
 
     public partial class App : ApplicationBase 

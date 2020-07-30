@@ -14,59 +14,27 @@ namespace PRBD_2S_Aurélie
     {
         public Post Post { get; set; }
 
-        //public string Title
-        //{
-        //    get { return Post.Title.ToUpper(); }
-        //    set
-        //    {
-        //        Post.Title = value;
-        //        RaiseErrorsChanged(nameof(Title));
-        //        App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
-        //    }
-        //}
-        //public string Body
-        //{
-        //    get { return Post.Body; }
-        //    set
-        //    {
-        //        Post.Body = value;
-        //        RaiseErrorsChanged(nameof(Body));
-        //        App.NotifyColleagues(AppMessages.MSG_BODY_POST);
-        //    }
-        //}
+        private string connectUser;
+        public string ConnectUser
+        {
+            get => connectUser;
+            set
+            {
+                connectUser = value;
+                RaisePropertyChanged(nameof(ConnectUser));
+            }
+        }
 
-        //public DateTime Timestamp
-        //{
-        //    get => Post.Timestamp;
-        //    set
-        //    {
-        //        Post.Timestamp = value;
-        //        RaisePropertyChanged(nameof(Timestamp));
-        //        App.NotifyColleagues(AppMessages.MSG_TITLE_POST);
-        //    }
-        //}
-
-        //public User Author
-        //{
-        //    get => Post.Author;
-        //    set
-        //    {
-        //        Post.Author = value;
-        //        RaiseErrorsChanged(nameof(Author));
-        //        App.NotifyColleagues(AppMessages.MSG_AUTHOR_POST);
-        //    }
-        //}
-
-        //public ICollection<Post> Answers
-        //{
-        //    get => Post.Answers;
-        //    set
-        //    {
-        //        Post.Answers = value;
-        //        RaiseErrorsChanged(nameof(Answers));
-        //        App.NotifyColleagues(AppMessages.MSG_ANSWERS_POST);
-        //    }
-        //}
+        private string deconnectUser;
+        public string DeConnectUser
+        {
+            get => deconnectUser;
+            set
+            {
+                deconnectUser = value;
+                RaisePropertyChanged(nameof(DeConnectUser));
+            }
+        }
 
         private ObservableCollection<Post> answers;
         public ObservableCollection<Post> Answers
@@ -90,8 +58,51 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        public ICommand Valider { get; set; }
+        private Post selectedPost;
+        public Post SelectedPost
+        {
+            get => selectedPost;
+            set
+            {
+                selectedPost = value;
+                RaisePropertyChanged(nameof(SelectedPost));
+                BodyResponse = selectedPost.Body;
+            }
+        }
 
+        
+
+        public ICommand Valider { get; set; }
+        public ICommand UpdatePost { get; set; }
+        public ICommand DeletePost { get; set; }
+        public ICommand UpdateResponse { get; set; }
+        public ICommand DeleteResponse { get; set; }
+        public ICommand AcceptResponse { get; set; }
+
+        private void GetConnectUser()
+        {
+            Console.WriteLine("hello");
+            if (App.CurrentUser != null)
+            {
+                ConnectUser = "Visible";
+            }
+            else
+            {
+                ConnectUser = "Collapsed";
+            }
+        }
+
+        private void GetDeConnectUser()
+        {
+            if (App.CurrentUser != null)
+            {
+                DeConnectUser = "Collapsed";
+            }
+            else
+            {
+                DeConnectUser = "Visible";
+            }
+        }
         public void SaveAction()
         {
             var user = App.CurrentUser;
@@ -103,10 +114,19 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
         }
 
+        //public void UpdateQuestion()
+        //{
+        //     var post = from p in App.Model.Posts
+        //               where p.PostId == Post.PostId
+        //               select p;
+        //}
         public PostDetailView(Post post)
         {
             InitializeComponent();
             DataContext = this;
+            GetConnectUser();
+            GetDeConnectUser();
+
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
             foreach(var answer in Answers)
@@ -117,8 +137,16 @@ namespace PRBD_2S_Aurélie
 
             Valider = new RelayCommand(SaveAction, () =>
             {
-                return true;
+                return BodyResponse != null && BodyResponse.Length != 0;
             });
+
+            UpdatePost = new RelayCommand<Post>(p =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_UPDATE_QUESTION, post);
+            });
+            //App.Register(this, AppMessages.MSG_QUESTION_CHANGED,
+            //        () => { UpdateQuestion(); });
+       
         }
     }
 }

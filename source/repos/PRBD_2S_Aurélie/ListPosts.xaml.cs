@@ -30,7 +30,30 @@ namespace PRBD_2S_Aurélie
             set
             {
                 posts = value;
+                //GetParentPost();
                 RaisePropertyChanged(nameof(Posts));
+            }
+        }
+
+        private string connectUser;
+        public string ConnectUser
+        {
+            get => connectUser;
+            set
+            {
+                connectUser = value;
+                RaisePropertyChanged(nameof(ConnectUser));
+            }
+        }
+
+        private string deconnectUser;
+        public string DeConnectUser
+        {
+            get => deconnectUser;
+            set
+            {
+                deconnectUser = value;
+                RaisePropertyChanged(nameof(DeConnectUser));
             }
         }
         private string filter;
@@ -45,10 +68,40 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        
-        public void DetailsAction ()
+
+        private void GetConnectUser()
         {
-            Console.WriteLine("details du post");
+            Console.WriteLine("hello");
+            if (App.CurrentUser != null)
+            {
+                ConnectUser = "Visible";
+            }
+            else
+            {
+                ConnectUser = "Collapsed";
+            }
+        }
+
+        private void GetDeConnectUser()
+        {
+            if (App.CurrentUser != null)
+            {
+                DeConnectUser = "Collapsed";
+            }
+            else
+            {
+                DeConnectUser = "Visible";
+            }
+        }
+        public void GetParentPost()
+        {//Pourquoi IIEnumerable fonctionne et pas ICollection, Quelle est la difference et il y'a un overstackflow ??
+            Console.WriteLine("Posts parents séléctionnés");
+            IEnumerable<Post> parentsPosts = App.Model.Posts;
+            parentsPosts = from p in App.Model.Posts
+                           where p.Parent == null
+                           select p;
+            Console.WriteLine(parentsPosts);
+            Posts = new ObservableCollection<Post>(parentsPosts);
         }
 
         public void NewestAction()
@@ -104,6 +157,9 @@ namespace PRBD_2S_Aurélie
 
             InitializeComponent();
             DataContext = this;
+            GetConnectUser();
+            GetDeConnectUser();
+
             Posts = new ObservableCollection<Post>(App.Model.Posts);
 
             //this.nameStudent.BackColor = System.Drawing.Color.Aqua;
