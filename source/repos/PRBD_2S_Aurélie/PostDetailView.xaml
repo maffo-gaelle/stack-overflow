@@ -29,7 +29,7 @@
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
             <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
             <TextBlock Text="{Binding Post.Timestamp}" FontSize="10" FontWeight="Bold"/>
-            <Button Content="modifier" Command="{Binding UpdatePost}" Width="60" Visibility="{Binding ConnectUser}"/>
+            <Button Content="modifier" Command="{Binding UpdatePost}" Width="60" Visibility="{Binding BtnDeletePost}"/>
             <Button Content="supprimer" Command="{Binding DeletePost}" Width="80" Visibility="{Binding ConnectUser}"/>
         </TextBlock>
         <Line X1="2" Y1="2" X2="750" Y2="2" Stroke="Black" StrokeThickness="7" Grid.Row="2"/>

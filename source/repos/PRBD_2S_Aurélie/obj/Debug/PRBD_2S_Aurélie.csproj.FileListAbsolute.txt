@@ -90,3 +90,5 @@ C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aur
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\obj\Debug\AskQuestionView.baml
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\obj\Debug\MainView.g.cs
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\obj\Debug\MainView.baml
+C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\obj\Debug\DeletePostView.g.cs
+C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\obj\Debug\DeletePostView.baml

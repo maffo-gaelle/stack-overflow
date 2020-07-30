@@ -36,6 +36,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private string btnDeleteActive;
+        public string BtnDeleteActive
+        {
+            get => btnDeleteActive;
+            set
+            {
+                btnDeleteActive = value;
+                RaisePropertyChanged(nameof(btnDeleteActive));
+            }
+        }
+
         private ObservableCollection<Post> answers;
         public ObservableCollection<Post> Answers
         {
@@ -103,6 +114,18 @@ namespace PRBD_2S_Aurélie
                 DeConnectUser = "Visible";
             }
         }
+
+        //private void BtnDeletePost()
+        //{
+        //    if( App.CurrentUser != null && App.CurrentUser == Post.Author && Post.NbAnswers == 0 ||
+        //                 App.CurrentUser != null && App.CurrentUser.Role is Role.Admin && Post.NbAnswers == 0)
+        //    {
+        //        BtnDeleteActive = "Visible";
+        //    } else
+        //    {
+        //        BtnDeleteActive = "collapse";
+        //    }
+        //}
         public void SaveAction()
         {
             var user = App.CurrentUser;
@@ -126,6 +149,7 @@ namespace PRBD_2S_Aurélie
             DataContext = this;
             GetConnectUser();
             GetDeConnectUser();
+            //BtnDeletePost();
 
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
@@ -144,9 +168,14 @@ namespace PRBD_2S_Aurélie
             {
                 App.NotifyColleagues(AppMessages.MSG_UPDATE_QUESTION, post);
             });
+
+            DeletePost = new RelayCommand<Post>(p =>
+           {
+                App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
+           });
             //App.Register(this, AppMessages.MSG_QUESTION_CHANGED,
             //        () => { UpdateQuestion(); });
-       
+
         }
     }
 }

@@ -16,7 +16,9 @@ namespace PRBD_2S_Aurélie
         MSG_AUTHOR_POST,
         MSG_RESPONSE_ADDED,
         MSG_ANSWERS_POST,
-        MSG_UPDATE_QUESTION
+        MSG_UPDATE_QUESTION,
+        MSG_DELETE_QUESTION,
+        MSG_QUESTION_DELETED
     }
 
     public partial class App : ApplicationBase 

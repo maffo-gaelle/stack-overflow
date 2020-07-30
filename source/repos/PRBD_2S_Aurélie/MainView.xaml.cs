@@ -117,6 +117,38 @@ namespace PRBD_2S_Aurélie
             Dispatcher.InvokeAsync(() => tab.Focus());
         }
 
+        private void AddTabDeletePost(Post post)
+        {
+            var ctl = new DeletePostView(post);
+
+            var tab = new TabItem()
+            {
+                Header = $"<Suprimer le post {post.PostId}>",
+                Content = ctl
+            };
+
+            tab.MouseDown += (o, e) =>
+            {
+                if (e.ChangedButton == MouseButton.Middle &&
+                    e.ButtonState == MouseButtonState.Pressed)
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tab.PreviewKeyDown += (o, e) =>
+            {
+                if (e.Key == Key.W && Keyboard.IsKeyDown(Key.LeftCtrl))
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tabControl.Items.Add(tab);
+            Dispatcher.InvokeAsync(() => tab.Focus());
+        }
         private void GetConnectUser()
         {
             Console.WriteLine("hello");
@@ -207,6 +239,10 @@ namespace PRBD_2S_Aurélie
                     else
                         Dispatcher.InvokeAsync(() => tab.Focus());
                 }
+            });
+            App.Register<Post>(this, AppMessages.MSG_DELETE_QUESTION, post =>
+            {
+                AddTabDeletePost(post);
             });
             //?????
             App.Register<UserControlBase>(this, AppMessages.MSG_CLOSE_TAB, ctl =>

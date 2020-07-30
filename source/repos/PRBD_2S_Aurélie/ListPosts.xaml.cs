@@ -187,6 +187,8 @@ namespace PRBD_2S_Aurélie
 
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED,
                                 post => { ApplyFilterAction(); });
+            App.Register<Post>(this, AppMessages.MSG_QUESTION_DELETED,
+                                post => { ApplyFilterAction(); });
 
             //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
             ShowPost = new RelayCommand<Post>(Post =>

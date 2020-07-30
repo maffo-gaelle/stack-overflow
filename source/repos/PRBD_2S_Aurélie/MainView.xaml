@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Width="800" Height="700"
         Title="Stuck-overFlow" WindowStartupLocation="CenterScreen">
-    <Grid OpacityMask="#FF835757">
+    <Grid Background="#E0F8F7">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1*" />
@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
         </Grid>
-        <StackPanel Orientation="Horizontal" Background="Beige">
+        <StackPanel Orientation="Horizontal" Background="#B0E0E6">
             <Menu Width="991" FontWeight="Bold">
                 <MenuItem Header="Connexion" Visibility="{Binding DeConnectUser}"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
                 <MenuItem Header="Inscription" Visibility="{Binding DeConnectUser}" Command="{Binding Inscription}" FontSize="16"/>

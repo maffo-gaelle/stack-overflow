@@ -77,6 +77,9 @@
     <Compile Include="AskQuestionView.xaml.cs">
       <DependentUpon>AskQuestionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeletePostView.xaml.cs">
+      <DependentUpon>DeletePostView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListPosts.xaml.cs">
       <DependentUpon>ListPosts.xaml</DependentUpon>
     </Compile>
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Connexion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeletePostView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
