@@ -119,7 +119,7 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("Vote");
             //IEnumerable<Post> vote = App.Model.Posts;
             //vote = from p in App.Model.Posts
-            //         orderby p.Score ascending
+            //         orderby p.Score descending
             //         select p;
             //Posts = new ObservableCollection<Post>(vote);
         }

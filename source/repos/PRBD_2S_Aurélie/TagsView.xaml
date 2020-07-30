@@ -7,25 +7,25 @@
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <Grid>
+
+    <Grid Background="#E0F8F7">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}" 
-                 AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"/>
-                <!--<DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>-->
-               
+                 AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Background="#E0F8F7" >
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"  />
+                <DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>
+
             </DataGrid.Columns>
         </DataGrid>
-        
-        <TextBlock Grid.Row="1">
+
+        <TextBlock Grid.Row="1" Background="#E0F8F7">
             <f:ValidatedField VerticalAlignment="Center">
                 <TextBox x:Name="txtUserName" TextWrapping="Wrap" Grid.Column="1" Width="210"
-                     Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Background="#E0F8F7"/>
             </f:ValidatedField>
             
             <Button Content="Ajouter un Tag" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130"/>

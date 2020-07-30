@@ -7,7 +7,7 @@
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid Margin="10" Background="#E0F8F7">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -22,16 +22,16 @@
         <Label Content="Titre:" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center" Padding="5" />
         <f:ValidatedField Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
             <TextBox x:Name="txtFullName" TextWrapping="Wrap" Grid.Column="1" 
-                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Background="#E0F8F7"/>
         </f:ValidatedField>
         <Label Content="Entrez votre question: " FontWeight="Bold" Grid.Row="2" VerticalAlignment="Top" Padding="5" />
         <f:ValidatedField Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom">
             <TextBox x:Name="txtBody" TextWrapping="Wrap" Grid.Column="1" 
-                     Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto"/>
+                     Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto" Background="#E0F8F7"/>
         </f:ValidatedField>
         <Label Content="Tags: " FontWeight="Bold" Grid.Row="3" VerticalAlignment="Top" Padding="5" />
         <f:ValidatedField Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom">
-            <CheckBox Content=""  />
+            <CheckBox Content="{Binding Tags}"  />
         </f:ValidatedField>
         <WrapPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Width="300" Grid.ColumnSpan="2">
             <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="100" FontWeight="Bold" Padding="5,1"/>

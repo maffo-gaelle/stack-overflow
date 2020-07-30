@@ -27,7 +27,16 @@ namespace PRBD_2S_Aurélie
         public ICommand Connexion { get; set; }
         public ICommand Inscription { get; set; }
         public ICommand Deconnexion { get; set; }
-
+        private User current;
+        public User Current
+        {
+            get => current;
+            set
+            {
+                current = value;
+                RaisePropertyChanged(nameof(Current));
+            }
+        }
         private string connectUser;
         public string ConnectUser
         {
@@ -174,6 +183,11 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        public  bool getCurrentUser()
+        {
+           return App.CurrentUser != null;
+        }
+
         public void ConnexionAction()
         {
             Console.WriteLine("Maffo");
@@ -206,7 +220,7 @@ namespace PRBD_2S_Aurélie
 
             GetConnectUser();
             GetDeConnectUser();
-
+            getCurrentUser();
 
             Connexion = new RelayCommand(ConnexionAction, () => {
                 return true;

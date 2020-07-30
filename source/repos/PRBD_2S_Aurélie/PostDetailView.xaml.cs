@@ -78,6 +78,7 @@ namespace PRBD_2S_Aurélie
                 selectedPost = value;
                 RaisePropertyChanged(nameof(SelectedPost));
                 BodyResponse = selectedPost.Body;
+                Console.WriteLine("repose selectionnée");
             }
         }
 
@@ -177,15 +178,18 @@ namespace PRBD_2S_Aurélie
                 {
                     App.Model.Votes.Remove(vote);
                     App.Model.SaveChanges();
-                }
+                } 
             }
         }
-        //public void UpdateQuestion()
-        //{
-        //     var post = from p in App.Model.Posts
-        //               where p.PostId == Post.PostId
-        //               select p;
-        //}
+
+        private void UpdateResponseAction()
+        {
+            Console.WriteLine("Modifier une repnse");
+            SelectedPost.Body = bodyResponse;
+            bodyResponse = "";
+            App.Model.SaveChanges();
+        }
+        
         public PostDetailView(Post post)
         {
             InitializeComponent();
@@ -223,6 +227,12 @@ namespace PRBD_2S_Aurélie
             DeletePost = new RelayCommand<Post>(p =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
+            });
+
+            UpdateResponse = new RelayCommand(UpdateResponseAction, () =>
+            {
+                Console.WriteLine("boutton modifier reponse ok");
+                return BodyResponse != null && BodyResponse.Length != 0;
             });
             //App.Register(this, AppMessages.MSG_QUESTION_CHANGED,
             //        () => { UpdateQuestion(); });

@@ -44,10 +44,10 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        public bool IsExisting
-        {
-            get { return !isNew; }
-        }
+        //public bool IsExisting
+        //{
+        //    get { return !isNew; }
+        //}
 
 
         //public bool IsNotCurrentMember

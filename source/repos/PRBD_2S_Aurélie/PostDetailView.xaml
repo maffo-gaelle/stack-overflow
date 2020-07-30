@@ -39,7 +39,10 @@
         <TextBlock Text="{Binding Post.Body}" Grid.Row="3" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         
         <!-- ROW #3 -->
-        <TextBlock Text="Score :" Grid.Row="5" Margin="10, 2, 2, 0" FontSize="10" />
+        <TextBlock Grid.Row="5" >
+              <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
+              <TextBlock Text="{Binding Post.Score}" FontWeight="Bold"/>
+        </TextBlock>
         <!-- ROW #4 -->
         <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="6" TextAlignment="Center" >
             <TextBox Text="{Binding NbAnswers, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
@@ -59,11 +62,13 @@
                         <StackPanel Margin="15">
                             <TextBlock Height="auto" TextAlignment="Left" Text="{Binding Body}"  HorizontalAlignment="Left" Grid.Row="1" />
                             <TextBlock Grid.Row="2">
-                                <TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
-                                <TextBox Text="{Binding Timestamp}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold"/>
+                                <TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" Background="#E0F8F7"/>
+                                <TextBox Text="{Binding Timestamp}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
                                 <Button Content="modifier" Command="{Binding UpdateResponse}" Width="60" Visibility="{Binding Path=ConnectUser}"/>
                                 <Button Content="supprimer" Command="{Binding DeleteResponse}" Width="80" Visibility="{Binding Path=ConnectUser}"/>
                                 <Button Content="accepter" Command="{Binding AcceptResponse}" Width="80" Visibility="{Binding  Path=ConnectUser}"/>
+                                <Button Content="+1" Command="{Binding VoteUpPost}" Width="20" Visibility="{Binding ConnectUser}"/>
+                                <Button Content="-1" Command="{Binding VoteDownPost}" Width="20" Visibility="{Binding ConnectUser}"/>
                             </TextBlock>
                         </StackPanel>
                     </Border>
@@ -75,7 +80,7 @@
         </TextBlock>
         <f:ValidatedField Grid.Row="9" Visibility="{Binding ConnectUser}">
             <TextBox x:Name="txtBody" TextWrapping="Wrap"
-                     Text="{Binding BodyResponse, UpdateSourceTrigger=PropertyChanged}" MinLines="5" MaxLines="10" VerticalScrollBarVisibility="Auto"/>
+                     Text="{Binding BodyResponse, UpdateSourceTrigger=PropertyChanged}" MinLines="5" MaxLines="10" VerticalScrollBarVisibility="Auto" Background="#E0F8F7"/>
         </f:ValidatedField>
         <Button x:Name="btnSave" Grid.Row="10" Content="Publiez votre reponse" Visibility="{Binding ConnectUser}" Command="{Binding Valider}" FontWeight="Bold" Margin="0,10,584,0" Padding="5,1" Height="25" VerticalAlignment="Top"/>
     </Grid>
