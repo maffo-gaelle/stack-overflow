@@ -92,11 +92,9 @@ namespace PRBD_2S_Aurélie
             return comment;
         }
 
-        public Vote CreateVote(int userId, User user, Post post, int postId, int updown)
+        public Vote CreateVote(User user, Post post, int updown)
         {
             var vote = Votes.Create();
-            vote.UserId = userId;
-            vote.PostId = postId;
             vote.UpDown = updown;
             //ici on établit les relations dans le sens 1-N avec post et user
             post.Votes.Add(vote);

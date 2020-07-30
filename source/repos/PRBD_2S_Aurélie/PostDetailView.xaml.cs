@@ -89,6 +89,8 @@ namespace PRBD_2S_Aurélie
         public ICommand UpdateResponse { get; set; }
         public ICommand DeleteResponse { get; set; }
         public ICommand AcceptResponse { get; set; }
+        public ICommand VoteUpPost { get; set; }
+        public ICommand VoteDownPost { get; set; }
 
         private void GetConnectUser()
         {
@@ -126,6 +128,7 @@ namespace PRBD_2S_Aurélie
         //        BtnDeleteActive = "collapse";
         //    }
         //}
+
         public void SaveAction()
         {
             var user = App.CurrentUser;
@@ -137,6 +140,46 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
         }
 
+        public void VoteUpAction()
+        {
+            Console.WriteLine("Vote Up");
+            var user = App.CurrentUser;
+            var vote = (from v in App.Model.Votes
+                        where v.PostId == Post.PostId && v.UserId == user.UserId
+                        select v).FirstOrDefault();
+            if(vote == null)
+            {
+                App.Model.CreateVote(user, Post, 1);
+            } else
+            {
+                if(vote.UpDown == -1)
+                {
+                    App.Model.Votes.Remove(vote);
+                    App.Model.SaveChanges();
+                }
+            }
+        }
+
+        public void VoteDownAction()
+        {
+            Console.WriteLine("Vote Down");
+            var user = App.CurrentUser;
+            var vote = (from v in App.Model.Votes
+                        where v.PostId == Post.PostId && v.UserId == user.UserId
+                        select v).FirstOrDefault();
+            if (vote == null)
+            {
+                App.Model.CreateVote(user, Post, -1);
+            }
+            else
+            {
+                if (vote.UpDown == 1)
+                {
+                    App.Model.Votes.Remove(vote);
+                    App.Model.SaveChanges();
+                }
+            }
+        }
         //public void UpdateQuestion()
         //{
         //     var post = from p in App.Model.Posts
@@ -158,21 +201,29 @@ namespace PRBD_2S_Aurélie
                 Console.WriteLine(answer.Body);
             }
             
-
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return BodyResponse != null && BodyResponse.Length != 0;
             });
 
+            VoteUpPost = new RelayCommand(VoteUpAction, () =>
+            {
+                return true;
+            });
+
+            VoteDownPost = new RelayCommand(VoteDownAction, () =>
+            {
+                return true;
+            });
             UpdatePost = new RelayCommand<Post>(p =>
             {
                 App.NotifyColleagues(AppMessages.MSG_UPDATE_QUESTION, post);
             });
 
             DeletePost = new RelayCommand<Post>(p =>
-           {
+            {
                 App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
-           });
+            });
             //App.Register(this, AppMessages.MSG_QUESTION_CHANGED,
             //        () => { UpdateQuestion(); });
 

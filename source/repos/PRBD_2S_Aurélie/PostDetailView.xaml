@@ -8,7 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root">
-    <Grid Margin="10">
+    <Grid Margin="10" Background="#E0F8F7">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -31,20 +31,22 @@
             <TextBlock Text="{Binding Post.Timestamp}" FontSize="10" FontWeight="Bold"/>
             <Button Content="modifier" Command="{Binding UpdatePost}" Width="60" Visibility="{Binding BtnDeletePost}"/>
             <Button Content="supprimer" Command="{Binding DeletePost}" Width="80" Visibility="{Binding ConnectUser}"/>
+             <Button Content="+1" Command="{Binding VoteUpPost}" Width="20" Visibility="{Binding ConnectUser}"/>
+             <Button Content="-1" Command="{Binding VoteDownPost}" Width="20" Visibility="{Binding ConnectUser}"/>
         </TextBlock>
         <Line X1="2" Y1="2" X2="750" Y2="2" Stroke="Black" StrokeThickness="7" Grid.Row="2"/>
         <!--ROW #2-->
         <TextBlock Text="{Binding Post.Body}" Grid.Row="3" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
         
         <!-- ROW #3 -->
-        <TextBlock Text="Score" Grid.Row="5" Margin="10, 2, 2, 0" FontSize="10" />
+        <TextBlock Text="Score :" Grid.Row="5" Margin="10, 2, 2, 0" FontSize="10" />
         <!-- ROW #4 -->
         <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="6" TextAlignment="Center" >
             <TextBox Text="{Binding NbAnswers, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
             <Run Text="Réponse(s)" />
         </TextBlock>
         <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="7" SelectionMode="Single" SelectedItem="{Binding SelectedPost}"
-                  ItemsSource="{Binding Answers}" Height="Auto">
+                  ItemsSource="{Binding Answers}" Height="Auto" Background="#E0F8F7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical"></WrapPanel>
