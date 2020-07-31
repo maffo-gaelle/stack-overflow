@@ -58,6 +58,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private ObservableCollection<Vote> votes;
+        public ObservableCollection<Vote> Votes
+        {
+            get { return votes; }
+            set
+            {
+                votes = value;
+                RaisePropertyChanged(nameof(Votes));
+            }
+        }
+
         private string bodyResponse;
         public string BodyResponse
         {
@@ -137,6 +148,7 @@ namespace PRBD_2S_Aurélie
             Post.Answers.Add(post);
            
             App.Model.SaveChanges();
+            BodyResponse = "";
 
             Answers = new ObservableCollection<Post>(Post.Answers);
         }
@@ -159,6 +171,7 @@ namespace PRBD_2S_Aurélie
                     App.Model.SaveChanges();
                 }
             }
+            Votes = new ObservableCollection<Vote>(Post.Votes);
         }
 
         public void VoteDownAction()
@@ -180,8 +193,10 @@ namespace PRBD_2S_Aurélie
                     App.Model.SaveChanges();
                 } 
             }
+            Votes = new ObservableCollection<Vote>(Post.Votes);
         }
 
+        //le SelectedPost ne prend pas
         private void UpdateResponseAction()
         {
             Console.WriteLine("Modifier une repnse");

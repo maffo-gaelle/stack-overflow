@@ -94,20 +94,6 @@ namespace PRBD_2S_Aurélie
         public ICommand Annuler { get; set; }
         public ICommand Valider { get; set; }
 
-        public AskQuestionView(Post post, bool isNew, bool isQuestion)
-        {
-            InitializeComponent();
-            DataContext = this;
-            Post = post;
-            IsNew = isNew;
-            IsQuestion = isQuestion;
-
-            Valider = new RelayCommand(
-                SaveAction, CanSaveOrCancelAction
-            );
-        }
-
-
         public bool ValidateTitle()
         {
             ClearErrors();
@@ -161,6 +147,39 @@ namespace PRBD_2S_Aurélie
                           select c).FirstOrDefault();
             return change != null && change.State != EntityState.Unchanged;
         }
+
+        private void CancelAction()
+        {
+            Console.WriteLine("J'annule l'ajout d'une question");
+            if (IsNew)
+            {
+                Post.Title = "";
+                Post.Body = "";
+                RaisePropertyChanged(nameof(Post));
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            }
+            else
+            {
+                //Post.Reload();
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            }
+        }
+        public AskQuestionView(Post post, bool isNew, bool isQuestion)
+        {
+            InitializeComponent();
+            DataContext = this;
+            Post = post;
+            IsNew = isNew;
+            IsQuestion = isQuestion;
+
+            Valider = new RelayCommand(
+                SaveAction, CanSaveOrCancelAction
+            );
+            Annuler = new RelayCommand(
+                CancelAction
+           ); 
+        }
+
     }
 }
 

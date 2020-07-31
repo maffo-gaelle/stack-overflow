@@ -181,6 +181,9 @@
   <ItemGroup>
     <Content Include="database\my_social_network_base.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
