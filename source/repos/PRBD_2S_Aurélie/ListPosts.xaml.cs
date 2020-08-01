@@ -56,6 +56,39 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(DeConnectUser));
             }
         }
+
+        private Post selectedPost;
+        public Post SelectedPost
+        {
+            get => selectedPost;
+            set
+            {
+                selectedPost = value;
+                RaisePropertyChanged(nameof(SelectedPost));
+            }
+        }
+
+        private int countAnswers;
+        public int CountAnswers
+        {
+            get => countAnswers;
+            set
+            {
+                countAnswers = value;
+                RaisePropertyChanged(nameof(CountAnswers));
+            }
+        }
+
+        private int scoreQuestion;
+        public int ScoreQuestion
+        {
+            get => scoreQuestion;
+            set
+            {
+                scoreQuestion = value;
+                RaisePropertyChanged(nameof(ScoreQuestion));
+            }
+        }
         private string filter;
         public string Filter
         {
@@ -93,16 +126,18 @@ namespace PRBD_2S_Aurélie
                 DeConnectUser = "Visible";
             }
         }
-        public void GetParentPost()
-        {//Pourquoi IIEnumerable fonctionne et pas ICollection, Quelle est la difference et il y'a un overstackflow ??
-            Console.WriteLine("Posts parents séléctionnés");
-            IEnumerable<Post> parentsPosts = App.Model.Posts;
-            parentsPosts = from p in App.Model.Posts
-                           where p.Parent == null
-                           select p;
-            Console.WriteLine(parentsPosts);
-            Posts = new ObservableCollection<Post>(parentsPosts);
-        }
+
+
+        //public void GetParentPost()
+        //{//Pourquoi IIEnumerable fonctionne et pas ICollection, Quelle est la difference et il y'a un overstackflow ??
+        //    Console.WriteLine("Posts parents séléctionnés");
+        //    IEnumerable<Post> parentsPosts = App.Model.Posts;
+        //    parentsPosts = from p in App.Model.Posts
+        //                   where p.Parent == null
+        //                   select p;
+        //    Console.WriteLine(parentsPosts);
+        //    Posts = new ObservableCollection<Post>(parentsPosts);
+        //}
 
         public void NewestAction()
         {
@@ -166,9 +201,18 @@ namespace PRBD_2S_Aurélie
             GetDeConnectUser();
 
             Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null));
-
-            //this.nameStudent.BackColor = System.Drawing.Color.Aqua;
-
+            Console.WriteLine("Nombre des réponses");
+            foreach(var p in Posts)
+            {
+                CountAnswers = p.NbAnswers;
+                Console.WriteLine(CountAnswers);
+            }
+            Console.WriteLine("Score des questions");
+            foreach (var p in Posts)
+            {
+                ScoreQuestion = p.Score;
+                Console.WriteLine(ScoreQuestion);
+            }
             Newest = new RelayCommand(NewestAction, () => {
                 return true;
             });

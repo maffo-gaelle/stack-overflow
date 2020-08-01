@@ -78,6 +78,49 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private string btnUpdatePost;
+        public string BtnUpdatePost
+        {
+            get => btnUpdatePost;
+            set
+            {
+                btnUpdatePost = value;
+                RaisePropertyChanged(nameof(BtnUpdatePost));
+            }
+        }
+
+        private string btnAnswerActive;
+        public string BtnAnswerActive
+        {
+            get => btnAnswerActive;
+            set
+            {
+                btnAnswerActive = value;
+                RaisePropertyChanged(nameof(BtnAnswerActive));
+            }
+        }
+
+        private string btnAcceptAnswer;
+        public string BtnAcceptAnswer
+        {
+            get => btnAcceptAnswer;
+            set
+            {
+                btnAcceptAnswer = value;
+                RaisePropertyChanged(nameof(BtnAcceptAnswer));
+            }
+        }
+
+        private string accept;
+        public string Accept
+        {
+            get => accept;
+            set
+            {
+                accept = value;
+                RaisePropertyChanged(nameof(Accept));
+            }
+        }
         private ObservableCollection<Post> answers;
         public ObservableCollection<Post> Answers
         {
@@ -175,6 +218,7 @@ namespace PRBD_2S_Aurélie
 
         private void BtnDeleteActive()
         {
+            Console.WriteLine($"Nobre de réponses: {CountAnswers}");
             if ((App.CurrentUser != null && App.CurrentUser.Equals(Post.Author) && CountAnswers == 0) ||
                          (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && CountAnswers == 0))
             {
@@ -186,6 +230,67 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private void BtnUpdateActive()
+        {
+            if((App.CurrentUser != null && App.CurrentUser.Equals(post.Author)) || 
+                (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
+            {
+                BtnUpdatePost = "visible";
+            }
+            else
+            {
+                BtnUpdatePost = "Collapsed";
+            }
+        }
+
+        private void BtnResponseActive()
+        {
+            foreach (var a in Answers)
+            {
+                Console.WriteLine($"L'utilisteur connecté est l'auteur de la reponse:  {a.Author.Equals(App.CurrentUser)}");
+                Console.WriteLine($"Utilisteur connecté? {App.CurrentUser != null}");
+                if ((App.CurrentUser != null && a.Author.Equals(App.CurrentUser)) ||
+                    (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
+                {
+                    BtnAnswerActive = "Visible";
+                }
+                else
+                {
+                    BtnAnswerActive = "Collapsed";
+                }
+            }
+        }
+
+        //private void BtnAcceptActive()
+        //{
+        //    foreach (var a in Answers)
+        //    {
+        //        if ((App.CurrentUser != null && Post.Author.Equals(App.CurrentUser) && !Post.AcceptedAnswer.Equals(a)) ||
+        //            App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && !Post.AcceptedAnswer.Equals(a))
+        //        {
+        //            BtnAcceptAnswer = "Visible";
+        //        }
+        //        else
+        //        {
+        //            BtnAcceptAnswer = "Collapsed";
+        //        }
+        //    }
+        //}
+
+        //private void AcceptDisplay()
+        //{
+        //    foreach(var a in Answers)
+        //    {
+        //        if(Post.AcceptedAnswer != null && Post.AcceptedAnswer.Equals(a))
+        //        {
+        //            Accept = "Visible";
+        //        } else
+        //        {
+        //            Accept = "Collapsed";
+        //        }
+        //    }
+        //}
+
         public void SaveAction()
         {
             var user = App.CurrentUser;
@@ -193,7 +298,8 @@ namespace PRBD_2S_Aurélie
             {
                 var post = App.Model.CreateAnswer(user, Post, BodyResponse);
                 Post.Answers.Add(post);
-            } else
+            } 
+            else
             {
                 var post = (from p in App.Model.Posts
                             where p.PostId == editPostId
@@ -249,15 +355,6 @@ namespace PRBD_2S_Aurélie
             Post = post;
         }
 
-        //le SelectedPost ne prend pas
-        private void UpdateResponseAction()
-        {
-            Console.WriteLine("Modifier une repnse");
-            SelectedPost.Body = bodyResponse;
-            bodyResponse = "";
-            App.Model.SaveChanges();
-        }
-       
         public PostDetailView(Post post)
         {
             InitializeComponent();
@@ -267,14 +364,16 @@ namespace PRBD_2S_Aurélie
 
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
-            //foreach(var answer in Answers)
-            //{
-            //    Console.WriteLine(answer.Body);
-            //}
+            Console.WriteLine("Auteur des reponses");
+                        
             CountAnswers = Answers.Count();
             GetConnectUser();
             GetDeConnectUser();
             BtnDeleteActive();
+            BtnUpdateActive();
+            BtnResponseActive();
+            //BtnAcceptActive();
+            //AcceptDisplay();
 
             Valider = new RelayCommand(SaveAction, () =>
             {
@@ -307,7 +406,18 @@ namespace PRBD_2S_Aurélie
                 editResponse = true;
                 Console.WriteLine(BodyResponse);
             });
-
+            AcceptResponse = new RelayCommand<Post>(p => {
+                if(post.AcceptedAnswer == null)
+                {
+                    post.AcceptedAnswer = p;
+                }
+                else
+                {
+                    post.AcceptedAnswer = null;
+                    post.AcceptedAnswer = p;
+                }
+                App.Model.SaveChanges();
+            });
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
                 Console.WriteLine("ok");
                 Post = post;

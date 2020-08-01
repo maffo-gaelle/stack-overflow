@@ -46,7 +46,6 @@ namespace PRBD_2S_Aurélie
                 return (from answer in Answers
                         select answer).Count();
             }
-
         }
 
         [NotMapped]

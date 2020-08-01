@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800" x:Name="root">
     <StackPanel Background="#E0F8F7">
         <StackPanel Orientation="Horizontal" Background="#E0F8F7" Margin ="0,0,0,0">
             <Menu>
@@ -20,7 +20,7 @@
             </Menu>
         </StackPanel>
         <Button x:Name="btnNew" Content="Poser une question"  Visibility="{Binding ConnectUser}" Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,20,0" RenderTransformOrigin="0.406,-0.16" Height="32"/>
-        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Height="530" Background="#E0F8F7">
+        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Height="530" Background="#E0F8F7" SelectedItem="{Binding SelectedPost}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
@@ -37,14 +37,16 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <!--Command="{Binding ShowPost, UpdateSourceTrigger=PropertyChanged}"-->
                                 <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1" Margin="0,10" >
                                     <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                                 </TextBlock>
                                 <TextBlock Grid.Row="3" Margin="0,10">
-                                    <TextBox  x:Name="nameStudent" Text="{Binding Author.FullName, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" Background="#E0F8F7" />
-                                    <TextBox Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
+                                    <Run Text="{Binding Author.FullName, UpdateSourceTrigger=PropertyChanged}" FontSize="12" FontWeight="Bold" FontStyle="Italic" Foreground="#007FFF"/>
+                                    <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
                                     <TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
+                                    <Run Text="((" FontSize="10" FontWeight="DemiBold"/>
+                                    <Run Text="{Binding Path=CountAnswers, UpdateSourceTrigger=PropertyChanged, ElementName=root}" FontSize="10" FontWeight="DemiBold"/>
+                                    <Run Text="{Binding Path=ScoreQuestion, UpdateSourceTrigger=PropertyChanged, ElementName=root}" FontSize="10" FontWeight="DemiBold"/>
                                 </TextBlock>
                             </Grid>
                         </DockPanel>
