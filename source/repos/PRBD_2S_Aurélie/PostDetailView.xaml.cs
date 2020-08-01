@@ -12,6 +12,18 @@ namespace PRBD_2S_Aurélie
     /// </summary>
     public partial class PostDetailView : UserControlBase
     {
+        private bool editResponse = false;
+        private int editPostId;
+        //private bool editResponse;
+        //public bool EditResponse
+        //{
+        //    get => editResponse;
+        //    set
+        //    {
+        //        editResponse = value;
+        //        RaisePropertyChanged(nameof(EditResponse));
+        //    }
+        //}
         private Post post;
         public Post Post
         {
@@ -177,12 +189,19 @@ namespace PRBD_2S_Aurélie
         public void SaveAction()
         {
             var user = App.CurrentUser;
-            var post = App.Model.CreateAnswer(user, Post, BodyResponse);
-            Post.Answers.Add(post);
-           
+            if(!editResponse)
+            {
+                var post = App.Model.CreateAnswer(user, Post, BodyResponse);
+                Post.Answers.Add(post);
+            } else
+            {
+                var post = (from p in App.Model.Posts
+                            where p.PostId == editPostId
+                            select p).FirstOrDefault();
+                post.Body = BodyResponse;
+            }
             App.Model.SaveChanges();
             BodyResponse = "";
-
             Answers = new ObservableCollection<Post>(Post.Answers);
         }
 
@@ -238,13 +257,7 @@ namespace PRBD_2S_Aurélie
             bodyResponse = "";
             App.Model.SaveChanges();
         }
-
-        private void UpdateQuestion(Post post)
-        {
-            Post = post;
-        }
-
-
+       
         public PostDetailView(Post post)
         {
             InitializeComponent();
@@ -290,6 +303,8 @@ namespace PRBD_2S_Aurélie
             UpdateResponse = new RelayCommand<Post>(Post =>
             {
                 BodyResponse = Post.Body;
+                editPostId = Post.PostId;
+                editResponse = true;
                 Console.WriteLine(BodyResponse);
             });
 
