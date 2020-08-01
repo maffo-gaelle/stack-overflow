@@ -37,6 +37,7 @@ namespace PRBD_2S_Aurélie
         public virtual ICollection<Post> Answers { get; set; } = new HashSet<Post>();
         protected Post() { }
 
+        [NotMapped]
         //nombre de reponses
         public int NbAnswers
         {
@@ -48,6 +49,7 @@ namespace PRBD_2S_Aurélie
 
         }
 
+        [NotMapped]
         //le score de chaque vote en faisant la somme des differents score de ma liste
         public int Score
         {
@@ -57,6 +59,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        [NotMapped]
+        //Le score d'une question avec ses reponses
+        public int ScorePost
+        {
+            get
+            {
+                return Math.Max(Score, Answers.Count > 0 ? Answers.Max(answer => answer.Score) : Score);
+            }
+        }
+
+        [NotMapped]
         //le nombre de commentaires de chaque post
         public int NbComments
         {

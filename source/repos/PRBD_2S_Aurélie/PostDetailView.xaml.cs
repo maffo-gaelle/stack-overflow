@@ -12,7 +12,26 @@ namespace PRBD_2S_Aurélie
     /// </summary>
     public partial class PostDetailView : UserControlBase
     {
-        public Post Post { get; set; }
+        private Post post;
+        public Post Post
+        {
+            get => post;
+            set
+            {
+                post = value;
+                RaisePropertyChanged(nameof(Post));
+            }
+        }
+        private int score;
+        public int Score
+        {
+            get => Post.Score; 
+            set
+            {
+                score = value;
+                RaisePropertyChanged(nameof(Score));
+            }
+        }
 
         private string connectUser;
         public string ConnectUser
@@ -36,14 +55,14 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private string btnDeleteActive;
-        public string BtnDeleteActive
+        private string btnDeletePost;
+        public string BtnDeletePost
         {
-            get => btnDeleteActive;
+            get => btnDeletePost;
             set
             {
-                btnDeleteActive = value;
-                RaisePropertyChanged(nameof(btnDeleteActive));
+                btnDeletePost = value;
+                RaisePropertyChanged(nameof(BtnDeletePost));
             }
         }
 
@@ -76,9 +95,22 @@ namespace PRBD_2S_Aurélie
             set
             {
                 bodyResponse = value;
-                RaiseErrorsChanged(nameof(BodyResponse));
+                RaisePropertyChanged(nameof(BodyResponse));
             }
         }
+
+        private int countAnwsers;
+        public int CountAnswers
+        {
+            get => countAnwsers;
+            set
+            {
+                countAnwsers = value;
+                RaiseErrorsChanged(nameof(CountAnswers));
+            }
+        }
+
+
 
         private Post selectedPost;
         public Post SelectedPost
@@ -89,7 +121,7 @@ namespace PRBD_2S_Aurélie
                 selectedPost = value;
                 RaisePropertyChanged(nameof(SelectedPost));
                 BodyResponse = selectedPost.Body;
-                Console.WriteLine("repose selectionnée");
+                Console.WriteLine(selectedPost.Body);
             }
         }
 
@@ -129,17 +161,18 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        //private void BtnDeletePost()
-        //{
-        //    if( App.CurrentUser != null && App.CurrentUser == Post.Author && Post.NbAnswers == 0 ||
-        //                 App.CurrentUser != null && App.CurrentUser.Role is Role.Admin && Post.NbAnswers == 0)
-        //    {
-        //        BtnDeleteActive = "Visible";
-        //    } else
-        //    {
-        //        BtnDeleteActive = "collapse";
-        //    }
-        //}
+        private void BtnDeleteActive()
+        {
+            if ((App.CurrentUser != null && App.CurrentUser.Equals(Post.Author) && CountAnswers == 0) ||
+                         (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && CountAnswers == 0))
+            {
+                BtnDeletePost = "Visible";
+            }
+            else
+            {
+                BtnDeletePost = "Collapsed";
+            }
+        }
 
         public void SaveAction()
         {
@@ -155,7 +188,7 @@ namespace PRBD_2S_Aurélie
 
         public void VoteUpAction()
         {
-            Console.WriteLine("Vote Up");
+            Console.WriteLine($"Vote Up Score : {Post.Score} ");
             var user = App.CurrentUser;
             var vote = (from v in App.Model.Votes
                         where v.PostId == Post.PostId && v.UserId == user.UserId
@@ -171,7 +204,8 @@ namespace PRBD_2S_Aurélie
                     App.Model.SaveChanges();
                 }
             }
-            Votes = new ObservableCollection<Vote>(Post.Votes);
+            Console.WriteLine($"Vote Up Score : {Post.Score} ");
+            Score = Post.Score;
         }
 
         public void VoteDownAction()
@@ -193,7 +227,7 @@ namespace PRBD_2S_Aurélie
                     App.Model.SaveChanges();
                 } 
             }
-            Votes = new ObservableCollection<Vote>(Post.Votes);
+            Post = post;
         }
 
         //le SelectedPost ne prend pas
@@ -204,22 +238,31 @@ namespace PRBD_2S_Aurélie
             bodyResponse = "";
             App.Model.SaveChanges();
         }
-        
+
+        private void UpdateQuestion(Post post)
+        {
+            Post = post;
+        }
+
+
         public PostDetailView(Post post)
         {
             InitializeComponent();
             DataContext = this;
-            GetConnectUser();
-            GetDeConnectUser();
-            //BtnDeletePost();
+           
+            Console.WriteLine(BtnDeletePost);
 
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
-            foreach(var answer in Answers)
-            {
-                Console.WriteLine(answer.Body);
-            }
-            
+            //foreach(var answer in Answers)
+            //{
+            //    Console.WriteLine(answer.Body);
+            //}
+            CountAnswers = Answers.Count();
+            GetConnectUser();
+            GetDeConnectUser();
+            BtnDeleteActive();
+
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return BodyResponse != null && BodyResponse.Length != 0;
@@ -244,13 +287,16 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
             });
 
-            UpdateResponse = new RelayCommand(UpdateResponseAction, () =>
+            UpdateResponse = new RelayCommand<Post>(Post =>
             {
-                Console.WriteLine("boutton modifier reponse ok");
-                return BodyResponse != null && BodyResponse.Length != 0;
+                BodyResponse = Post.Body;
+                Console.WriteLine(BodyResponse);
             });
-            //App.Register(this, AppMessages.MSG_QUESTION_CHANGED,
-            //        () => { UpdateQuestion(); });
+
+            App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
+                Console.WriteLine("ok");
+                Post = post;
+            });
 
         }
     }

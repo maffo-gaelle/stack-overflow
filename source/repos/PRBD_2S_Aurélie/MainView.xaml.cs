@@ -160,7 +160,6 @@ namespace PRBD_2S_Aurélie
         }
         private void GetConnectUser()
         {
-            Console.WriteLine("hello");
             if (App.CurrentUser != null)
             {
                 ConnectUser = "Visible";
@@ -217,6 +216,10 @@ namespace PRBD_2S_Aurélie
         {
             InitializeComponent();
             DataContext = this;
+
+            Current = App.CurrentUser;
+
+            Console.WriteLine(App.CurrentUser);
 
             GetConnectUser();
             GetDeConnectUser();

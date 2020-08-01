@@ -29,8 +29,8 @@
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
             <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
             <TextBlock Text="{Binding Post.Timestamp}" FontSize="10" FontWeight="Bold"/>
-            <Button Content="modifier" Command="{Binding UpdatePost}" Width="60" Visibility="{Binding BtnDeletePost}"/>
-            <Button Content="supprimer" Command="{Binding DeletePost}" Width="80" Visibility="{Binding ConnectUser}"/>
+            <Button Content="modifier" Command="{Binding UpdatePost}" Width="60" Visibility="{Binding ConnectUser}"/>
+            <Button Content="supprimer" Command="{Binding DeletePost}" Width="80" Visibility="{Binding BtnDeletePost}"/>
              <Button Content="+1" Command="{Binding VoteUpPost}" Width="20" Visibility="{Binding ConnectUser}"/>
              <Button Content="-1" Command="{Binding VoteDownPost}" Width="20" Visibility="{Binding ConnectUser}"/>
         </TextBlock>
@@ -45,10 +45,10 @@
         </TextBlock>
         <!-- ROW #4 -->
         <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="6" TextAlignment="Center" >
-            <TextBox Text="{Binding NbAnswers, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
+            <TextBox Text="{Binding CountAnswers}" TextAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" />
             <Run Text="Réponse(s)" />
         </TextBlock>
-        <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="7" SelectionMode="Single" SelectedItem="{Binding SelectedPost}"
+        <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="7" SelectionMode="Single"
                   ItemsSource="{Binding Answers}" Height="Auto" Background="#E0F8F7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -64,7 +64,7 @@
                             <TextBlock Grid.Row="2">
                                 <TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" Background="#E0F8F7"/>
                                 <TextBox Text="{Binding Timestamp}" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
-                                <Button Content="modifier" Command="{Binding UpdateResponse}" Width="60" Visibility="{Binding Path=ConnectUser}"/>
+                                <Button  Content="modifier" Command="{Binding UpdateResponse, ElementName=root}" CommandParameter="{Binding}" Width="60" Visibility="{Binding Path=ConnectUser}" />
                                 <Button Content="supprimer" Command="{Binding DeleteResponse}" Width="80" Visibility="{Binding Path=ConnectUser}"/>
                                 <Button Content="accepter" Command="{Binding AcceptResponse}" Width="80" Visibility="{Binding  Path=ConnectUser}"/>
                                 <Button Content="+1" Command="{Binding VoteUpPost}" Width="20" Visibility="{Binding ConnectUser}"/>

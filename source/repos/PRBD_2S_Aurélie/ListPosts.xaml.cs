@@ -109,19 +109,24 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("Newest");
             IEnumerable<Post> newest = App.Model.Posts;
             newest = from p in App.Model.Posts
+                     where p.Parent == null
                      orderby p.Timestamp descending
                      select p;
             Posts = new ObservableCollection<Post>(newest);
         }
 
+        //ScorePost ne marche pas de la meme façon que neest et autres parce que le tri se fait sur une proprieté qui n'a pas été mappée donc non supportée par Linq
         public void VoteAction()
         {
             Console.WriteLine("Vote");
-            //IEnumerable<Post> vote = App.Model.Posts;
-            //vote = from p in App.Model.Posts
-            //         orderby p.Score descending
-            //         select p;
-            //Posts = new ObservableCollection<Post>(vote);
+            IEnumerable<Post> vote = App.Model.Posts;
+            vote = from p in App.Model.Posts
+                   where p.Parent == null
+                   //orderby p.ScorePost descending
+                   select p;
+            //Ici on transforme IEnumerable en AsEnumerable pour pouvoir utiliser  OrderByDescending sur le ScorePost non mappé
+            var postVote = vote.AsEnumerable().OrderByDescending(p => p.ScorePost).ToList();
+            Posts = new ObservableCollection<Post>(vote);
         }
 
         public void UnansweredAction()
@@ -129,7 +134,7 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("Unanswered");
             IEnumerable<Post> unanswered = App.Model.Posts;
             unanswered = from p in App.Model.Posts
-                         where p.AcceptedAnswer == null 
+                         where p.AcceptedAnswer == null && p.Parent == null
                          orderby p.Timestamp descending
                    select p;
             Posts = new ObservableCollection<Post>(unanswered);
@@ -160,7 +165,7 @@ namespace PRBD_2S_Aurélie
             GetConnectUser();
             GetDeConnectUser();
 
-            Posts = new ObservableCollection<Post>(App.Model.Posts);
+            Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null));
 
             //this.nameStudent.BackColor = System.Drawing.Color.Aqua;
 
