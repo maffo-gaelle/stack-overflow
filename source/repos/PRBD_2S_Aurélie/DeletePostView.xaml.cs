@@ -21,9 +21,20 @@ namespace PRBD_2S_Aurélie
 
         public void DeleteQuestionAction()
         {
-            App.Model.Posts.Remove(Post);
-            App.Model.SaveChanges();
-            App.NotifyColleagues(AppMessages.MSG_QUESTION_DELETED);
+            if (Post.Parent == null)
+            {
+                App.Model.Posts.Remove(Post);
+                App.Model.SaveChanges();
+                App.NotifyColleagues(AppMessages.MSG_QUESTION_DELETED, Post);
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            }
+            else
+            {
+                App.Model.Posts.Remove(Post);
+                App.Model.SaveChanges();
+                App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETED, Post);
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            }
         }
         public DeletePostView(Post post)
         {

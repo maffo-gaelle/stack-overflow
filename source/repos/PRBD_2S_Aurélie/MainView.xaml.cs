@@ -261,6 +261,12 @@ namespace PRBD_2S_Aurélie
             {
                 AddTabDeletePost(post);
             });
+
+            App.Register<Post>(this, AppMessages.MSG_ANSWER_DELETE, post =>
+            {
+                AddTabDeletePost(post);
+            });
+
             //?????
             App.Register<UserControlBase>(this, AppMessages.MSG_CLOSE_TAB, ctl =>
             {

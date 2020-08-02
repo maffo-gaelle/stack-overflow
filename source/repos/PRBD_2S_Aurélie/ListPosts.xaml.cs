@@ -184,7 +184,7 @@ namespace PRBD_2S_Aurélie
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
-            IEnumerable<Post> query = App.Model.Posts;
+            IEnumerable<Post> query = App.Model.Posts.Where(p => p.Parent == null && p.Title != null);
             if(!string.IsNullOrEmpty(Filter))
                query = from p in App.Model.Posts
                         where p.Body.Contains(Filter) || p.Title.Contains(Filter)
@@ -200,7 +200,7 @@ namespace PRBD_2S_Aurélie
             GetConnectUser();
             GetDeConnectUser();
 
-            Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null));
+            Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
             Console.WriteLine("Nombre des réponses");
             foreach(var p in Posts)
             {
