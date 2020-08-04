@@ -7,7 +7,7 @@
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root" >
     <Grid Margin="10" Background="#E0F8F7">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,11 +41,11 @@
         <!-- ROW #3 -->
         <TextBlock Grid.Row="5" >
               <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
-              <TextBlock Text="{Binding Post.Score}" FontWeight="Bold"/>
+              <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
         </TextBlock>
         <!-- ROW #4 -->
         <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="6" TextAlignment="Center" FontWeight="Bold">
-            <Run Text="{Binding CountAnswers}" />
+            <Run Text="{Binding CountAnswers, UpdateSourceTrigger=PropertyChanged}" />
             <Run Text="Réponse(s)" />
         </TextBlock>
         <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="7" SelectionMode="Single"
@@ -65,11 +65,15 @@
                                 <!--<TextBox  x:Name="name" Text="{Binding Path=Author.UserName}" IsReadOnly="True" BorderThickness="0" FontSize="12" FontWeight="Bold" FontStyle="Italic" Background="#E0F8F7"/>-->
                                 <Run Text="{Binding Path=Author.UserName}" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
                                 <Run Text="{Binding Timestamp}" FontSize="10" FontWeight="DemiBold"/>
-                                <Button  Content="modifier" Command="{Binding UpdateResponse, ElementName=root}" CommandParameter="{Binding}" Width="60" Visibility="{Binding BtnAnswerActive, ElementName=root}" />
-                                <Button Content="supprimer" Command="{Binding DeleteResponse, ElementName=root}" CommandParameter="{Binding}" Width="80" Visibility="{Binding Path=BtnAnswerActive, ElementName=root}"/>
-                                <Button Content="accepter" Command="{Binding AcceptResponse, ElementName=root}" CommandParameter="{Binding}" Width="80" Visibility="{Binding  Path=BtnAcceptAnswer, ElementName=root}"/>
-                                <Button Content="+1" Command="{Binding VoteUpPost, ElementName=root}" CommandParameter="{Binding}" Width="20" Visibility="{Binding ConnectUser, ElementName=root}"/>
-                                <Button Content="-1" Command="{Binding VoteDownPost, ElementName=root}" CommandParameter="{Binding}" Width="20" Visibility="{Binding ConnectUser, ElementName=root}"/>
+                                <Button  Content="modifier" Command="{Binding UpdateResponse, ElementName=root}" CommandParameter="{Binding}" Width="60" Visibility="{Binding BtnResponse}" />
+                                <Button Content="supprimer" Command="{Binding DeleteResponse, ElementName=root}" CommandParameter="{Binding}" Width="80" Visibility="{Binding BtnAnswerActive}"/>
+                                <Button Content="accepter" Command="{Binding AcceptResponse, ElementName=root}" CommandParameter="{Binding}" Width="80" Visibility="{Binding  BtnAcceptAnswer}"/>
+                                <Button Content="+1" Command="{Binding VoteUpPost, ElementName=root}" CommandParameter="{Binding}" Width="20" Visibility="{Binding ConnectUser}"/>
+                                <Button Content="-1" Command="{Binding VoteDownPost, ElementName=root}" CommandParameter="{Binding}" Width="20" Visibility="{Binding ConnectUser}"/>
+                                    <!--<TextBlock  >
+                                          <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
+                                          <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                                    </TextBlock>-->                            
                             </TextBlock >
                             <TextBlock Grid.Row="3" Visibility="{Binding Accept, ElementName=root, UpdateSourceTrigger=PropertyChanged}">
                                 <Run Text="Réponse acceptéé" Foreground="Green" FontWeight="Bold" FontSize="12" FontStyle="Italic"/>

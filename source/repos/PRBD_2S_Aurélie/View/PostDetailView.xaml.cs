@@ -153,6 +153,7 @@ namespace PRBD_2S_Aurélie
             {
                 countAnwsers = value;
                 RaiseErrorsChanged(nameof(CountAnswers));
+                
             }
         }
 
@@ -218,21 +219,16 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private void BtnResponseActive()
+        private void BtnResponseActive(Post a)
         {
-            foreach (var a in Answers)
+            if ((App.CurrentUser != null && a.Author.Equals(App.CurrentUser)) ||
+                (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
             {
-                Console.WriteLine($"L'utilisteur connecté est l'auteur de la reponse:  {a.Author.Equals(App.CurrentUser)}");
-                Console.WriteLine($"Utilisteur connecté? {App.CurrentUser != null}");
-                if ((App.CurrentUser != null && a.Author.Equals(App.CurrentUser)) ||
-                    (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
-                {
-                    BtnAnswerActive = "Visible";
-                }
-                else
-                {
-                    BtnAnswerActive = "Collapsed";
-                }
+                BtnAnswerActive = "Visible";
+            }
+            else
+            {
+                BtnAnswerActive = "Collapsed";
             }
         }
 
@@ -300,9 +296,25 @@ namespace PRBD_2S_Aurélie
             App.Model.SaveChanges();
             BodyResponse = "";
             Answers = new ObservableCollection<Post>(Post.Answers);
+            App.NotifyColleagues(AppMessages.MSG_ANSWER_ADDED);
             CountAnswers = Answers.Count();
         }
 
+        private void AcceptAnswerAction(Post p)
+        {
+            if (post.AcceptedAnswer == null)
+            {
+                post.AcceptedAnswer = p;
+            }
+            else
+            {
+                post.AcceptedAnswer = null;
+                post.AcceptedAnswer = p;
+            }
+            App.Model.SaveChanges();
+            Post.AcceptedAnswer = p;
+            Console.WriteLine("Réponse acceptée ok");
+        }
         public void VoteUpAction()
         {
             Console.WriteLine($"Vote Up Score : {Post.Score} ");
@@ -321,8 +333,9 @@ namespace PRBD_2S_Aurélie
                     App.Model.SaveChanges();
                 }
             }
-            Console.WriteLine($"Vote Up Score : {Post.Score} ");
+            
             Score = Post.Score;
+            Console.WriteLine($"Vote Up Score : {Score} ");
         }
 
         public void VoteDownAction()
@@ -357,19 +370,19 @@ namespace PRBD_2S_Aurélie
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
             Console.WriteLine("Auteur des reponses");
-                        
+            
             CountAnswers = Answers.Count();
             GetConnectUser();
             GetDeConnectUser();
             BtnDeleteActive();
             BtnUpdateActive();
-            BtnResponseActive();
+            BtnResponseActive(post);
             BtnAcceptActive();
             AcceptDisplay();
 
             Valider = new RelayCommand(SaveAction, () =>
             {
-                return BodyResponse != null && BodyResponse.Length != 0;
+                return BodyResponse != null && BodyResponse.Length != 0;              
             });
 
             VoteUpPost = new RelayCommand(VoteUpAction, () =>
@@ -404,19 +417,23 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETE, Post);
                 Console.WriteLine("Supprimer une réponse");
             });
-            AcceptResponse = new RelayCommand<Post>(p => {
-                if(post.AcceptedAnswer == null)
-                {
-                    post.AcceptedAnswer = p;
-                }
-                else
-                {
-                    post.AcceptedAnswer = null;
-                    post.AcceptedAnswer = p;
-                }
-                App.Model.SaveChanges();
-                
+            AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
+            {
+                return true;
             });
+            //AcceptResponse = new RelayCommand<Post>(p => {
+            //    if(post.AcceptedAnswer == null)
+            //    {
+            //        post.AcceptedAnswer = p;
+            //    }
+            //    else
+            //    {
+            //        post.AcceptedAnswer = null;
+            //        post.AcceptedAnswer = p;
+            //    }
+            //    App.Model.SaveChanges();
+            //    Console.WriteLine("Réponse acceptée ok");
+            //});
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
                 Console.WriteLine("ok");
                 Post = post;

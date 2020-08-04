@@ -202,17 +202,17 @@ namespace PRBD_2S_Aurélie
 
             Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
             Console.WriteLine("Nombre des réponses");
-            foreach(var p in Posts)
-            {
-                CountAnswers = p.NbAnswers;
-                Console.WriteLine(CountAnswers);
-            }
-            Console.WriteLine("Score des questions");
-            foreach (var p in Posts)
-            {
-                ScoreQuestion = p.Score;
-                Console.WriteLine(ScoreQuestion);
-            }
+            //foreach(var p in Posts)
+            //{
+            //    CountAnswers = p.NbAnswers;
+            //    Console.WriteLine(CountAnswers);
+            //}
+            //Console.WriteLine("Score des questions");
+            //foreach (var p in Posts)
+            //{
+            //    ScoreQuestion = p.Score;
+            //    Console.WriteLine(ScoreQuestion);
+            //}
             Newest = new RelayCommand(NewestAction, () => {
                 return true;
             });
@@ -238,6 +238,10 @@ namespace PRBD_2S_Aurélie
                                 post => { ApplyFilterAction(); });
             App.Register<Post>(this, AppMessages.MSG_QUESTION_DELETED,
                                 post => { ApplyFilterAction(); });
+            App.Register(this, AppMessages.MSG_ANSWER_ADDED, () =>
+            {
+                Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
+            });
 
             //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
             ShowPost = new RelayCommand<Post>(Post =>

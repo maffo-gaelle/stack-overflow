@@ -74,43 +74,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AskQuestionView.xaml.cs">
+    <Compile Include="View\AskQuestionView.xaml.cs">
       <DependentUpon>AskQuestionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DeletePostView.xaml.cs">
+    <Compile Include="View\DeletePostView.xaml.cs">
       <DependentUpon>DeletePostView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListPosts.xaml.cs">
+    <Compile Include="View\ListPosts.xaml.cs">
       <DependentUpon>ListPosts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Message.cs" />
-    <Compile Include="PostDetailView.xaml.cs">
+    <Compile Include="View\PostDetailView.xaml.cs">
       <DependentUpon>PostDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Signup.xaml.cs">
+    <Compile Include="View\Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TagsView.xaml.cs">
+    <Compile Include="View\TagsView.xaml.cs">
       <DependentUpon>TagsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AskQuestionView.xaml">
+    <Page Include="View\AskQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Connexion.xaml">
+    <Page Include="View\Connexion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DeletePostView.xaml">
+    <Page Include="View\DeletePostView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainView.xaml">
+    <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListPosts.xaml">
+    <Page Include="View\ListPosts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,21 +118,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connexion.xaml.cs">
+    <Compile Include="View\Connexion.xaml.cs">
       <DependentUpon>Connexion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainView.xaml.cs">
+    <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Page Include="PostDetailView.xaml">
+    <Page Include="View\PostDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Signup.xaml">
+    <Page Include="View\Signup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TagsView.xaml">
+    <Page Include="View\TagsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,9 +181,7 @@
   <ItemGroup>
     <Content Include="database\my_social_network_base.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

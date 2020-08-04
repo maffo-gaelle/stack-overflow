@@ -45,6 +45,10 @@ namespace PRBD_2S_Aurélie
             {
                 return (from answer in Answers
                         select answer).Count();
+            } 
+            set
+            {
+
             }
         }
 
@@ -55,6 +59,10 @@ namespace PRBD_2S_Aurélie
             get
             {
                 return Votes.Sum(vote => vote.UpDown);
+            }
+            set
+            {
+
             }
         }
 

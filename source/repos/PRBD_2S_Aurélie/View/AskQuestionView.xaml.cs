@@ -9,14 +9,16 @@ using PRBD_Framework;
 
 namespace PRBD_2S_Aurélie
 {
-    /// <summary>
-    /// Logique d'interaction pour AskQuestionView.xaml
-    /// </summary>
-    /// 
-    public class checkedTag
+    //je crée une classe qui va m'aider à récuperer les tags qui ont été checkés
+    public class CheckedTag
     {
         public string Name { get; set; }
         public bool IsChecked { get; set; }
+
+        public override string ToString()
+        {
+            return Name + " " + IsChecked;
+        }
     }
     public partial class AskQuestionView : UserControlBase
     {
@@ -44,17 +46,6 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        //public bool IsExisting
-        //{
-        //    get { return !isNew; }
-        //}
-
-
-        //public bool IsNotCurrentMember
-        //{
-        //    get => user != App.CurrentUser;
-        //}
-
         public string Title
         {
             get => Post.Title;
@@ -79,8 +70,8 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        public ObservableCollection<Tag> tags;
-        public ObservableCollection<Tag> Tags
+        public ObservableCollection<CheckedTag> tags;
+        public ObservableCollection<CheckedTag> Tags
         {
             get => tags;
             set
@@ -94,6 +85,7 @@ namespace PRBD_2S_Aurélie
         public ICommand Annuler { get; set; }
         public ICommand Valider { get; set; }
 
+        public ICommand CheckTagCommand { get; set; }
         public bool ValidateTitle()
         {
             ClearErrors();
@@ -160,10 +152,26 @@ namespace PRBD_2S_Aurélie
             }
             else
             {
-                //Post.Reload();
                 App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
             }
         }
+
+        public void GetTags()
+        {
+            Tags = new ObservableCollection<CheckedTag>();
+
+            foreach(var tag in App.Model.Tags)
+            {
+                var checkedTag = new CheckedTag()
+                {
+                    Name = tag.TagName,
+                    IsChecked = Post.Tags.Contains(tag)
+                };
+
+                Tags.Add(checkedTag);
+            }
+        }
+
         public AskQuestionView(Post post, bool isNew, bool isQuestion)
         {
             InitializeComponent();
@@ -172,12 +180,29 @@ namespace PRBD_2S_Aurélie
             IsNew = isNew;
             IsQuestion = isQuestion;
 
+            GetTags();
             Valider = new RelayCommand(
                 SaveAction, CanSaveOrCancelAction
             );
             Annuler = new RelayCommand(
                 CancelAction
-           ); 
+           );
+
+            CheckTagCommand = new RelayCommand<CheckedTag>(t =>
+            {
+                
+                Console.WriteLine("Liste avant:  \n");
+                foreach(var tag in Tags)
+                {
+                    Console.WriteLine(tag);
+                }
+                Console.WriteLine($"Tag sélectionné: {t} \n");
+                Console.WriteLine("Liste après:  \n");
+                foreach (var tag in Tags)
+                {
+                    Console.WriteLine(tag);
+                }
+            });
         }
 
     }

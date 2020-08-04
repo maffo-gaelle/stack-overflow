@@ -20,7 +20,8 @@
             </Menu>
         </StackPanel>
         <Button x:Name="btnNew" Content="Poser une question"  Visibility="{Binding ConnectUser}" Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,20,0" RenderTransformOrigin="0.406,-0.16" Height="32"/>
-        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" Height="530" Background="#E0F8F7" SelectedItem="{Binding SelectedPost}">
+        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" 
+                  Height="530" Background="#E0F8F7" SelectedItem="{Binding SelectedPost}"  ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
@@ -45,8 +46,8 @@
                                     <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
                                     <TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
                                     <Run Text="((" FontSize="10" FontWeight="DemiBold"/>
-                                    <Run Text="{Binding Path=CountAnswers, UpdateSourceTrigger=PropertyChanged, ElementName=root}" FontSize="10" FontWeight="DemiBold"/>
-                                    <Run Text="{Binding Path=ScoreQuestion, UpdateSourceTrigger=PropertyChanged, ElementName=root}" FontSize="10" FontWeight="DemiBold"/>
+                                    <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
+                                    <Run Text="{Binding Score}" FontSize="10" FontWeight="DemiBold"/>
                                 </TextBlock>
                             </Grid>
                         </DockPanel>

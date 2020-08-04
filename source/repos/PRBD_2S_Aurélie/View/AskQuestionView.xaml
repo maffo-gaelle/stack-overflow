@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10" Background="#E0F8F7">
         <Grid.ColumnDefinitions>
@@ -30,9 +30,18 @@
                      Text="{Binding Body, UpdateSourceTrigger=PropertyChanged}" MinLines="8" MaxLines="20" VerticalScrollBarVisibility="Auto" Background="#E0F8F7"/>
         </f:ValidatedField>
         <Label Content="Tags: " FontWeight="Bold" Grid.Row="3" VerticalAlignment="Top" Padding="5" />
-        <f:ValidatedField Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom">
-            <CheckBox Content="{Binding Tags}"  />
-        </f:ValidatedField>
+        <ListView BorderBrush="Transparent" ItemsSource="{Binding Tags}"  SelectionMode="Single" Grid.Row="3" Grid.Column="2">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" Command="{Binding CheckTagCommand, ElementName=root}" CommandParameter="{Binding}" Margin="10"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <WrapPanel Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="1" Width="300" Grid.ColumnSpan="2">
             <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="100" FontWeight="Bold" Padding="5,1"/>
             <Button x:Name="btnSave" Content="Valider" Command="{Binding Valider}" Width="100" FontWeight="Bold" Margin="20,0,0,0" Padding="5,1"/>
