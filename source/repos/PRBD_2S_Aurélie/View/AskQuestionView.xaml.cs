@@ -134,34 +134,39 @@ namespace PRBD_2S_Aurélie
 
         private void SaveAction()
         {
-           
             var user = App.CurrentUser;
+
             if(IsNew)
             {
                 Post.Author = user;
                 App.Model.Posts.Add(Post);
-                Console.WriteLine($"Nombre de tags dans selectTags: {SelectTags.Count()}");
-                foreach (var tag in SelectTags)
-                {
-                    var posttag = App.Model.CreatePostTag(tag, Post);
-                    Post.PostTags.Add(posttag);
-                }
                 IsNew = false;
             } else
             {
-                foreach (var tag in SelectTags)
+                foreach (var posttag in PostTags)
                 {
+                    App.Model.PostTags.Remove(posttag);
+                    App.Model.SaveChanges();
+                }                
+            }
+
+            foreach (var tag in Tags)
+            {
+                if (tag.IsChecked)
+                {
+                    var t = (from c in App.Model.Tags
+                             where tag.Name.Equals(c.TagName)
+                             select c).FirstOrDefault();
+
                     var posttag = (from p in App.Model.PostTags
-                                   where Post == Post && Tag == tag
-                                   select p);
-                    if(posttag != null)
-                    {
-                        var Newposttag = App.Model.CreatePostTag(tag, Post);
-                        Post.PostTags.Add(Newposttag);
-                    }
-                    
+                                   where p.PostId.Equals(Post.PostId) && p.TagId.Equals(t.TagId)
+                                   select p).FirstOrDefault();
+
+                    var Newposttag = App.Model.CreatePostTag(t, Post);
+                    Post.PostTags.Add(Newposttag);
                 }
             }
+
             App.Model.SaveChanges();
             App.NotifyColleagues(AppMessages.MSG_QUESTION_CHANGED, Post);
             App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
@@ -182,7 +187,7 @@ namespace PRBD_2S_Aurélie
 
         private void CancelAction()
         {
-            Console.WriteLine("J'annule l'ajout d'une question");
+            //Console.WriteLine("J'annule l'ajout d'une question");
             if (IsNew)
             {
                 Post.Title = "";
@@ -222,7 +227,7 @@ namespace PRBD_2S_Aurélie
             IsNew = isNew;
             IsQuestion = isQuestion;
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
-            //SelectTags = new ObservableCollection<Tag>(Post.Tags);
+            SelectTags = new ObservableCollection<Tag>(Post.Tags);
             GetTags();
             Valider = new RelayCommand(
                 SaveAction, CanSaveOrCancelAction
@@ -233,15 +238,16 @@ namespace PRBD_2S_Aurélie
              
             CheckTagCommand = new RelayCommand<CheckedTag>(t =>
             {
-                Console.WriteLine("j'entre dans le checktagCommand");
-                Console.WriteLine($"La valeur du t {t}");
-                SelectTags = new ObservableCollection<Tag>(Post.Tags);
+                //Console.WriteLine("j'entre dans le checktagCommand");
+                //Console.WriteLine($"La valeur du t {t}");
+                //SelectTags = new ObservableCollection<Tag>(Post.Tags);
                 var tt = (from c in App.Model.Tags
-                          where t.Name.Equals(c.TagName)
-                          select c).FirstOrDefault();
-                Console.WriteLine(tt);
-                Console.WriteLine($"Le nombre de tag dans selectTags: {SelectTags.Count()}");
+                where t.Name.Equals(c.TagName)
+                select c).FirstOrDefault();
+                //Console.WriteLine(tt);
+                //Console.WriteLine($"Le nombre de tag dans selectTags: {SelectTags.Count()}");
                 SelectTags.Add(tt);
+               
             });
             
         }

@@ -391,6 +391,7 @@ namespace PRBD_2S_Aurélie
             BtnResponseActive(post);
             BtnAcceptActive();
             AcceptDisplay();
+            
 
             Valider = new RelayCommand(SaveAction, () =>
             {

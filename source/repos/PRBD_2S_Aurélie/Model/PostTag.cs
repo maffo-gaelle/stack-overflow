@@ -18,5 +18,10 @@ namespace PRBD_2S_Aurélie
         public int PostId { get; set; }
 
         protected PostTag () { }
+
+        public override string ToString()
+        {
+            return " tag: " + Tag.TagName + " post: " + Post.Title;
+        }
     }
 }

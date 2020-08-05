@@ -65,12 +65,14 @@ namespace PRBD_2S_Aurélie.View
                 //posts.Add(postag.Post);
                 var post = (from p in App.Model.Posts
                             where p.PostId == postag.PostId
-                            select p).FirstOrDefault(); 
-                if(post != null)
+                            select p).FirstOrDefault();
+                Console.WriteLine($"Le tag dontenu dans le posttag: {postag.Tag.TagName}");
+                Console.WriteLine($"Le post contenu dans le posttag est :{post.Title}");
+                if (post != null)
                 {
                     Posts.Add(post);
                 }
-                
+
             }
         }
         public PostOfTagView(Tag tag)
@@ -82,9 +84,15 @@ namespace PRBD_2S_Aurélie.View
             // Ttag = tag;
             Console.WriteLine(tag.TagName);
             Ttag = tag;
-            Console.WriteLine(Ttag.ToString());
-            PosttTags = new ObservableCollection<PostTag>(Ttag.PostTags);
-            getPostByTag();
+            Posts = new ObservableCollection<Post>(Ttag.Posts);
+            Console.WriteLine("liste de post: ");
+            foreach (var t in Posts)
+            {
+                Console.WriteLine(t.Title);
+            }
+            //Console.WriteLine(Ttag.ToString());
+            //PosttTags = new ObservableCollection<PostTag>(Ttag.PostTags);
+            //getPostByTag();
         }
     }
 }
