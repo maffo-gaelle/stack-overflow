@@ -147,8 +147,21 @@ namespace PRBD_2S_Aurélie
                     Post.PostTags.Add(posttag);
                 }
                 IsNew = false;
+            } else
+            {
+                foreach (var tag in SelectTags)
+                {
+                    var posttag = (from p in App.Model.PostTags
+                                   where Post == Post && Tag == tag
+                                   select p);
+                    if(posttag != null)
+                    {
+                        var Newposttag = App.Model.CreatePostTag(tag, Post);
+                        Post.PostTags.Add(Newposttag);
+                    }
+                    
+                }
             }
-            
             App.Model.SaveChanges();
             App.NotifyColleagues(AppMessages.MSG_QUESTION_CHANGED, Post);
             App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);

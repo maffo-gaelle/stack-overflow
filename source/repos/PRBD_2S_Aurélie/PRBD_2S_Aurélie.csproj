@@ -88,6 +88,9 @@
     <Compile Include="View\PostDetailView.xaml.cs">
       <DependentUpon>PostDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PostOfTagView.xaml.cs">
+      <DependentUpon>PostOfTagView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\PostDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PostOfTagView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

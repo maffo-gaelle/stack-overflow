@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;MSSQL
 C:\Users\pdedi\Desktop\TGPR1920\Travail\prbd_2s_aurelie\source\repos\PRBD_2S_Aurélie\App.xaml
-81487950041
+9-280634660
 123565042
-23143745600
+24-2004172183
 18170695227
-View\AskQuestionView.xaml;View\Connexion.xaml;View\DeletePostView.xaml;View\MainView.xaml;View\ListPosts.xaml;View\PostDetailView.xaml;View\Signup.xaml;View\TagsView.xaml;
+View\AskQuestionView.xaml;View\Connexion.xaml;View\DeletePostView.xaml;View\MainView.xaml;View\ListPosts.xaml;View\PostDetailView.xaml;View\PostOfTagView.xaml;View\Signup.xaml;View\TagsView.xaml;
 
 True
 

@@ -22,7 +22,8 @@ namespace PRBD_2S_Aurélie
         public ICommand Active { get; set; }
         public ICommand DetailPost { get; set; }
         public ICommand NewQuestion { get; set; }
-        
+        public ICommand AffichePostsTag { get; set; }
+
         private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
         {
@@ -128,17 +129,6 @@ namespace PRBD_2S_Aurélie
         }
 
 
-        //public void GetParentPost()
-        //{//Pourquoi IIEnumerable fonctionne et pas ICollection, Quelle est la difference et il y'a un overstackflow ??
-        //    Console.WriteLine("Posts parents séléctionnés");
-        //    IEnumerable<Post> parentsPosts = App.Model.Posts;
-        //    parentsPosts = from p in App.Model.Posts
-        //                   where p.Parent == null
-        //                   select p;
-        //    Console.WriteLine(parentsPosts);
-        //    Posts = new ObservableCollection<Post>(parentsPosts);
-        //}
-
         public void NewestAction()
         {
             Console.WriteLine("Newest");
@@ -157,7 +147,6 @@ namespace PRBD_2S_Aurélie
             IEnumerable<Post> vote = App.Model.Posts;
             vote = from p in App.Model.Posts
                    where p.Parent == null
-                   //orderby p.ScorePost descending
                    select p;
             //Ici on transforme IEnumerable en AsEnumerable pour pouvoir utiliser  OrderByDescending sur le ScorePost non mappé
             var postVote = vote.AsEnumerable().OrderByDescending(p => p.ScorePost).ToList();
@@ -202,17 +191,7 @@ namespace PRBD_2S_Aurélie
 
             Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
             Console.WriteLine("Nombre des réponses");
-            //foreach(var p in Posts)
-            //{
-            //    CountAnswers = p.NbAnswers;
-            //    Console.WriteLine(CountAnswers);
-            //}
-            //Console.WriteLine("Score des questions");
-            //foreach (var p in Posts)
-            //{
-            //    ScoreQuestion = p.Score;
-            //    Console.WriteLine(ScoreQuestion);
-            //}
+            
             Newest = new RelayCommand(NewestAction, () => {
                 return true;
             });
@@ -249,6 +228,11 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
             });
 
+            AffichePostsTag = new RelayCommand<Tag>(tag =>
+            {
+                Console.WriteLine("Affiche post tags clické");
+                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, tag);
+            });
         }
 
 

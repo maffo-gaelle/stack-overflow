@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PRBD_2S_Aurélie.View;
 
 namespace PRBD_2S_Aurélie
 {
@@ -100,6 +101,38 @@ namespace PRBD_2S_Aurélie
             var tab = new TabItem()
             {
                 Header = $"<Details Question {post.PostId}>",
+                Content = ctl
+            };
+
+            tab.MouseDown += (o, e) =>
+            {
+                if (e.ChangedButton == MouseButton.Middle &&
+                    e.ButtonState == MouseButtonState.Pressed)
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tab.PreviewKeyDown += (o, e) =>
+            {
+                if (e.Key == Key.W && Keyboard.IsKeyDown(Key.LeftCtrl))
+                {
+                    tabControl.Items.Remove(o);
+                    (tab.Content as UserControlBase).Dispose();
+                }
+            };
+
+            tabControl.Items.Add(tab);
+            Dispatcher.InvokeAsync(() => tab.Focus());
+        }
+
+        private void AddTabPostOfTag(Tag tag)
+        {
+            var ctl = new PostOfTagView(tag);
+            var tab = new TabItem()
+            {
+                Header = $"<Tag: {tag.TagName}>",
                 Content = ctl
             };
 
@@ -241,11 +274,12 @@ namespace PRBD_2S_Aurélie
                 //App.Model.Posts.Add(post);
                 AddTabPost(post, true, true);
             });
-
+             
             App.Register<Post>(this, AppMessages.MSG_UPDATE_QUESTION, post =>
             {
                 AddTabPost(post, false, true);
             });
+
             App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
             {
                 if (post != null)
@@ -253,6 +287,18 @@ namespace PRBD_2S_Aurélie
                     var tab = (from TabItem t in tabControl.Items where (string)t.Header == $"<Details Question {post.PostId}>" select t).FirstOrDefault();
                     if (tab == null)
                         AddTabDetailsQuestion(post);
+                    else
+                        Dispatcher.InvokeAsync(() => tab.Focus());
+                }
+            });
+
+            App.Register<Tag>(this, AppMessages.MSG_DISPLAY_POSTOFTAG, tag =>
+            { 
+                if(tag != null)
+                {
+                    var tab = (from TabItem t in tabControl.Items where (string)t.Header == $"<Tag: {tag.TagName}>" select t).FirstOrDefault();
+                    if (tab == null)
+                        AddTabPostOfTag(tag);
                     else
                         Dispatcher.InvokeAsync(() => tab.Focus());
                 }
