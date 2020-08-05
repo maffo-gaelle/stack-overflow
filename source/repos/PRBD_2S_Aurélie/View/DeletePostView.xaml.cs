@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,16 @@ namespace PRBD_2S_Aurélie
     public partial class DeletePostView : UserControlBase
     {
         public Post Post { get; set; }
+        private ObservableCollection<PostTag> postTags;
+        public ObservableCollection<PostTag> PostTags
+        {
+            get { return postTags; }
+            set
+            {
+                postTags = value;
+                RaisePropertyChanged(nameof(PostTags));
+            }
+        }
         public ICommand DeleteQuestion { get; set; }
         public ICommand CancelDelete { get; set; }
 
@@ -23,6 +34,14 @@ namespace PRBD_2S_Aurélie
         {
             if (Post.Parent == null)
             {
+                if(Post.PostTags.Count() != 0)
+                {
+                    foreach (var posttag in PostTags)
+                    {
+                        App.Model.PostTags.Remove(posttag);
+                        App.Model.SaveChanges();
+                    }
+                }
                 App.Model.Posts.Remove(Post);
                 App.Model.SaveChanges();
                 App.NotifyColleagues(AppMessages.MSG_QUESTION_DELETED, Post);
@@ -42,6 +61,8 @@ namespace PRBD_2S_Aurélie
             DataContext = this;
 
             Post = post;
+            PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+            
             DeleteQuestion = new RelayCommand(DeleteQuestionAction, () =>
             {
                 return true;
