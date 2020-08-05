@@ -9,7 +9,7 @@ using PRBD_Framework;
 
 namespace PRBD_2S_Aurélie
 {
-    //je crée une classe qui va m'aider à récuperer les tags qui ont été checkés
+    //je crée une classe qui va m'aider à récuperer les tags qui ont été checkés 
     public class CheckedTag
     {
         public string Name { get; set; }
@@ -69,7 +69,7 @@ namespace PRBD_2S_Aurélie
 
             }
         }
-
+        //ma listeview binde avec les tags de type CheckedTag et je donne la valeur de la liste Tags dans la fonction getTags
         public ObservableCollection<CheckedTag> tags;
         public ObservableCollection<CheckedTag> Tags
         {
@@ -80,7 +80,28 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(Tags));
             }
         }
-        
+
+        private ObservableCollection<PostTag> postTags;
+        public ObservableCollection<PostTag> PostTags
+        {
+            get => postTags;
+            set
+            {
+                postTags = value;
+                RaisePropertyChanged(nameof(PostTags));
+            }
+        }
+
+        private ObservableCollection<Tag> selectTags ;
+        public ObservableCollection<Tag> SelectTags
+        {
+            get => selectTags;
+            set
+            {
+                selectTags = value;
+                RaisePropertyChanged(nameof(SelectTags));
+            }
+        }
 
         public ICommand Annuler { get; set; }
         public ICommand Valider { get; set; }
@@ -119,6 +140,12 @@ namespace PRBD_2S_Aurélie
             {
                 Post.Author = user;
                 App.Model.Posts.Add(Post);
+                Console.WriteLine($"Nombre de tags dans selectTags: {SelectTags.Count()}");
+                foreach (var tag in SelectTags)
+                {
+                    var posttag = App.Model.CreatePostTag(tag, Post);
+                    Post.PostTags.Add(posttag);
+                }
                 IsNew = false;
             }
             
@@ -155,16 +182,18 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
             }
         }
-
+        //dans cette fonction getTags,je recopie tout mon dbset de tags dans la collection observable Tags de type CheckedTag
         public void GetTags()
         {
             Tags = new ObservableCollection<CheckedTag>();
 
             foreach(var tag in App.Model.Tags)
             {
+                //je crée un nouveau checktag qui va contenir le name du tag qui fait partir du App.Model.Tags et la proprieté ISChecked
                 var checkedTag = new CheckedTag()
                 {
                     Name = tag.TagName,
+                    //le Ischecked si me dit si le post est associé à ce tag; IsChecked me renvoie bien entendu un booléen
                     IsChecked = Post.Tags.Contains(tag)
                 };
 
@@ -179,7 +208,8 @@ namespace PRBD_2S_Aurélie
             Post = post;
             IsNew = isNew;
             IsQuestion = isQuestion;
-
+            PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+            //SelectTags = new ObservableCollection<Tag>(Post.Tags);
             GetTags();
             Valider = new RelayCommand(
                 SaveAction, CanSaveOrCancelAction
@@ -187,22 +217,20 @@ namespace PRBD_2S_Aurélie
             Annuler = new RelayCommand(
                 CancelAction
            );
-
+             
             CheckTagCommand = new RelayCommand<CheckedTag>(t =>
             {
-                
-                Console.WriteLine("Liste avant:  \n");
-                foreach(var tag in Tags)
-                {
-                    Console.WriteLine(tag);
-                }
-                Console.WriteLine($"Tag sélectionné: {t} \n");
-                Console.WriteLine("Liste après:  \n");
-                foreach (var tag in Tags)
-                {
-                    Console.WriteLine(tag);
-                }
+                Console.WriteLine("j'entre dans le checktagCommand");
+                Console.WriteLine($"La valeur du t {t}");
+                SelectTags = new ObservableCollection<Tag>(Post.Tags);
+                var tt = (from c in App.Model.Tags
+                          where t.Name.Equals(c.TagName)
+                          select c).FirstOrDefault();
+                Console.WriteLine(tt);
+                Console.WriteLine($"Le nombre de tag dans selectTags: {SelectTags.Count()}");
+                SelectTags.Add(tt);
             });
+            
         }
 
     }

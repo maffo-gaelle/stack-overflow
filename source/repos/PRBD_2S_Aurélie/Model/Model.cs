@@ -106,11 +106,9 @@ namespace PRBD_2S_Aurélie
             return vote;
         }
 
-        public PostTag CreatePostTag(int tagId, Tag tag, Post post, int postId)
+        public PostTag CreatePostTag(Tag tag, Post post)
         {
             var posttag = PostTags.Create();
-            posttag.TagId = tagId;
-            posttag.PostId = postId;
             //ici on établit les relations dans le sens 1-N avec post et tag
             tag.PostTags.Add(posttag);
             post.PostTags.Add(posttag);

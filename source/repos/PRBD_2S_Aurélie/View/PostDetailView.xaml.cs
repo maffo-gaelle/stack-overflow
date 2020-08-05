@@ -123,6 +123,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private ObservableCollection<PostTag> postTags;
+        public ObservableCollection<PostTag> PostTags
+        {
+            get { return postTags; }
+            set
+            {
+                postTags = value;
+                RaisePropertyChanged(nameof(PostTags));
+            }
+        }
+
         private ObservableCollection<Vote> votes;
         public ObservableCollection<Vote> Votes
         {
@@ -369,8 +380,9 @@ namespace PRBD_2S_Aurélie
 
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
+            PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Console.WriteLine("Auteur des reponses");
-            
+            Console.WriteLine($"Nombre de PostTags associés à cette question {Post.PostTags.Count()}");
             CountAnswers = Answers.Count();
             GetConnectUser();
             GetDeConnectUser();
