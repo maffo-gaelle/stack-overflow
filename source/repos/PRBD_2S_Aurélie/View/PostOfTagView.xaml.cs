@@ -52,47 +52,28 @@ namespace PRBD_2S_Aurélie.View
             }
         }
 
-        private void getPostByTag()
-        {
-            foreach (var postag in PosttTags)
-            {
-                //if (postag.Tag.TagName == Ttag.TagName)
-                //{
-                //    Console.WriteLine($"Le tag dontenu dans le posttag: {postag.Tag.TagName}");
-                //    Console.WriteLine($"Le post contenu dans le posttag est :{postag.Post.Title}");
-                //    Posts.Add(postag.Post);
-                //}
-                //posts.Add(postag.Post);
-                var post = (from p in App.Model.Posts
-                            where p.PostId == postag.PostId
-                            select p).FirstOrDefault();
-                Console.WriteLine($"Le tag dontenu dans le posttag: {postag.Tag.TagName}");
-                Console.WriteLine($"Le post contenu dans le posttag est :{post.Title}");
-                if (post != null)
-                {
-                    Posts.Add(post);
-                }
-
-            }
-        }
+        public ICommand ShowPost { get; set; }
+        public ICommand AffichePostsTag { get; set; }
         public PostOfTagView(Tag tag)
         {
             DataContext = this;
             InitializeComponent();
-            
-            //Console.WriteLine(Tag.ToString());
-            // Ttag = tag;
-            Console.WriteLine(tag.TagName);
+ 
             Ttag = tag;
             Posts = new ObservableCollection<Post>(Ttag.Posts);
-            Console.WriteLine("liste de post: ");
-            foreach (var t in Posts)
+            Console.WriteLine($"Le tag ici est {Ttag.TagName}");
+
+            ShowPost = new RelayCommand<Post>(Post =>
             {
-                Console.WriteLine(t.Title);
-            }
-            //Console.WriteLine(Ttag.ToString());
-            //PosttTags = new ObservableCollection<PostTag>(Ttag.PostTags);
-            //getPostByTag();
+                Console.WriteLine("Post sélectionné");
+                App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
+            });
+
+            AffichePostsTag = new RelayCommand<Tag>(t =>
+            {
+                Console.WriteLine("tag sélectionné");
+                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, t);
+            });
         }
     }
 }

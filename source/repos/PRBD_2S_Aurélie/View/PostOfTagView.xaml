@@ -6,59 +6,72 @@
              xmlns:local="clr-namespace:PRBD_2S_Aurélie.View"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" 
-                  Height="530" Background="#E0F8F7" SelectedItem="{Binding SelectedPost}"  ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
-                        Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ListView.ItemTemplate>
-                <DataTemplate >
-                    <Border BorderBrush="Black" BorderThickness="3" Width="720" >
-                        <DockPanel Margin="0,14,0,0" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1" Margin="0,10" >
-                                    <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
-                                </TextBlock>
-                                <TextBlock Grid.Row="3" Margin="0,10">
-                                    <Run Text="{Binding Author.FullName, UpdateSourceTrigger=PropertyChanged}" FontSize="12" FontWeight="Bold" FontStyle="Italic" Foreground="#007FFF"/>
-                                    <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
-                                    <!--<TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>-->
-                                    <Run Text="(" FontSize="10" FontWeight="DemiBold"/>
-                                    <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
-                                    <Run Text="Réponse(s), " FontWeight="DemiBold" FontSize="10"/>
-                                    <Run Text="{Binding Score}" FontSize="10" FontWeight="DemiBold" />
-                                    <Run Text="Vote(s)), " FontWeight="DemiBold" FontSize="10"/>
-                                    <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding Tags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
-                                        <ListView.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <WrapPanel></WrapPanel>
-                                            </ItemsPanelTemplate>
-                                        </ListView.ItemsPanel>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock>
-                                                    <Hyperlink Command="{Binding AffichePostsTag, ElementName=root}" CommandParameter="{Binding}"><Run Text="{Binding TagName}" FontWeight="DemiBold" FontSize="12" /></Hyperlink>
-                                                </TextBlock>
-                                                </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>     
-                                </TextBlock>
-                            </Grid>
-                        </DockPanel>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackPanel>
+    <Grid Background="#E0F8F7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Margin="0,20,0,0" Background="#E0F8F7" >
+                <Run Text="Liste de Posts associés au Tag: " FontSize="16" FontWeight="Bold"/>
+                <Run Text="{Binding Ttag.TagName}" Foreground="AliceBlue" FontWeight="Bold" FontSize="16"/>
+            </TextBlock>
+            <Line X1="2" Y1="2" X2="750" Y2="2" Stroke="Black" StrokeThickness="7" Grid.Row="2" Margin="0,0,0,40"/>
+            <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" 
+                      Height="530" Background="#E0F8F7" SelectedItem="{Binding SelectedPost}"  ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.Row="3">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding ShowPost}" CommandParameter="{Binding ElementName=listView, 
+                            Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <Border BorderBrush="Black" BorderThickness="3" Width="720" >
+                            <DockPanel Margin="0,14,0,0" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Height="auto" TextAlignment="Left" HorizontalAlignment="Left" Grid.Row="1" Margin="0,10" >
+                                        <Run Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" FontSize="16"/>
+                                        
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="3" Margin="0,10">
+                                        <Run Text="{Binding Author.FullName, UpdateSourceTrigger=PropertyChanged}" FontSize="12" FontWeight="Bold" FontStyle="Italic" Foreground="#007FFF"/>
+                                        <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
+                                        <TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
+                                        <Run Text="(" FontSize="10" FontWeight="DemiBold"/>
+                                        <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
+                                        <Run Text="Réponse(s), " FontWeight="DemiBold" FontSize="10"/>
+                                        <Run Text="{Binding Score}" FontSize="10" FontWeight="DemiBold" />
+                                        <Run Text="Vote(s)), " FontWeight="DemiBold" FontSize="10"/>
+                                        <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding Tags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel></WrapPanel>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Hyperlink Command="{Binding AffichePostsTag, ElementName=root}" CommandParameter="{Binding}"><Run Text="{Binding TagName}" FontWeight="DemiBold" FontSize="12" /></Hyperlink>
+                                                    </TextBlock>
+                                                    </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>     
+                                    </TextBlock>
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
 </f:UserControlBase>

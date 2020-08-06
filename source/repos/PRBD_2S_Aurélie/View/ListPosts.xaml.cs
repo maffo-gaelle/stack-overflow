@@ -58,16 +58,16 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private Post selectedPost;
-        public Post SelectedPost
-        {
-            get => selectedPost;
-            set
-            {
-                selectedPost = value;
-                RaisePropertyChanged(nameof(SelectedPost));
-            }
-        }
+        //private Post selectedPost;
+        //public Post SelectedPost
+        //{
+        //    get => selectedPost;
+        //    set
+        //    {
+        //        selectedPost = value;
+        //        RaisePropertyChanged(nameof(SelectedPost));
+        //    }
+        //}
 
         private int countAnswers;
         public int CountAnswers

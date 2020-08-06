@@ -34,12 +34,26 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
-                        <Button Content="{Binding Path=Tag.TagName}" Command="{Binding AffichePostsTag, ElementName=root}" Width="60" CommandParameter="{Binding}"/>
-                        <Button Content="X" Command="{Binding DeletePostTag, ElementName=root}" Width="Auto" CommandParameter="{Binding}" />
+                        <Hyperlink  Command="{Binding AffichePostsOfTag, ElementName=root}"  CommandParameter="{Binding}"><Run Text="{Binding Path=Tag.TagName}"/></Hyperlink>
+                        <Button Content="X" Command="{Binding DeletePostTag, ElementName=root}" Width="Auto" CommandParameter="{Binding}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10" FontWeight="Bold"/>
                     </TextBlock>
                  </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <!--<ComboBox  Grid.Row="2" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" >
+            <ListView x:Name="listView4" BorderBrush="Transparent" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ComboBoxItem Content="{Binding Path=TagName}" Width="180px" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ComboBox>-->
         <TextBlock Grid.Row="5" Margin="10,0,2,20">
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
             <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>

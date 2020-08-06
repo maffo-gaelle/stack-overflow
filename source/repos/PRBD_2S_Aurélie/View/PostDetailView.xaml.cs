@@ -14,7 +14,6 @@ namespace PRBD_2S_Aurélie
     {
         private bool editResponse = false;
         private int editPostId;
-        
         private Post post;
         public Post Post
         {
@@ -145,6 +144,16 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private ObservableCollection<Tag> tags;
+        public ObservableCollection<Tag> Tags
+        {
+            get { return tags; }
+            set
+            {
+                tags = value;
+                RaisePropertyChanged(nameof(Tags));
+            }
+        }
         private string bodyResponse;
         public string BodyResponse
         {
@@ -177,6 +186,7 @@ namespace PRBD_2S_Aurélie
         public ICommand AcceptResponse { get; set; }
         public ICommand VoteUpPost { get; set; }
         public ICommand VoteDownPost { get; set; }
+        public ICommand AffichePostsOfTag { get; set; }
 
         private void GetConnectUser()
         {
@@ -381,6 +391,7 @@ namespace PRBD_2S_Aurélie
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+            Tags = new ObservableCollection<Tag>(App.Model.Tags);
             Console.WriteLine("Auteur des reponses");
             Console.WriteLine($"Nombre de PostTags associés à cette question {Post.PostTags.Count()}");
             CountAnswers = Answers.Count();
@@ -391,8 +402,7 @@ namespace PRBD_2S_Aurélie
             BtnResponseActive(post);
             BtnAcceptActive();
             AcceptDisplay();
-            
-
+          
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return BodyResponse != null && BodyResponse.Length != 0;              
@@ -430,9 +440,16 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETE, Post);
                 Console.WriteLine("Supprimer une réponse");
             });
+
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
             {
                 return true;
+            });
+
+            AffichePostsOfTag = new RelayCommand<PostTag>(PostTag =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
+                //Console.WriteLine($"Afficher les posts liés au tag: {PostTag}");
             });
             //AcceptResponse = new RelayCommand<Post>(p => {
             //    if(post.AcceptedAnswer == null)
@@ -463,6 +480,8 @@ namespace PRBD_2S_Aurélie
                 Answers = new ObservableCollection<Post>(Post.Answers);
                 CountAnswers = Answers.Count();
             });
+
+            
         }
     }
 }
