@@ -200,6 +200,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private Tag selectedTag;
+        public Tag SelectedTag
+        {
+            get { return selectedTag; }
+            set
+            {
+                selectedTag = value;
+                RaisePropertyChanged(nameof(SelectedTag));
+            }
+        }
+
 
         public ICommand Valider { get; set; }
         public ICommand ValiderComment { get; set; }
@@ -465,6 +476,7 @@ namespace PRBD_2S_Aurélie
             BtnResponseActive(post);
             BtnAcceptActive();
             AcceptDisplay();
+            Console.WriteLine(SelectedTag);
           
             Valider = new RelayCommand(SaveAction, () =>
             {

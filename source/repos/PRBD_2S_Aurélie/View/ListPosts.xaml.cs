@@ -58,17 +58,6 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        //private Post selectedPost;
-        //public Post SelectedPost
-        //{
-        //    get => selectedPost;
-        //    set
-        //    {
-        //        selectedPost = value;
-        //        RaisePropertyChanged(nameof(SelectedPost));
-        //    }
-        //}
-
         private int countAnswers;
         public int CountAnswers
         {
@@ -178,6 +167,13 @@ namespace PRBD_2S_Aurélie
                query = from p in App.Model.Posts
                         where p.Body.Contains(Filter) || p.Title.Contains(Filter)
                         select p;
+            //foreach(var p in query)
+            //{
+            //    if(p.Parent == null)
+            //    {
+                    
+            //    }
+            //}
             Posts = new ObservableCollection<Post>(query);
             Console.WriteLine($"{query.Count()} Posts trouvés");
         }

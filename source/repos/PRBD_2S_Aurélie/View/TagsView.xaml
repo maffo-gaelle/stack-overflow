@@ -17,7 +17,6 @@
                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Background="#E0F8F7" >
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"  />
-                <!--<DataGridTextColumn Header="Nombre de post associés au Tag">-->
                 <DataGridTemplateColumn Header="Nombre de posts associés au Tag" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
