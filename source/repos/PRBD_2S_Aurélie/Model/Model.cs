@@ -74,14 +74,10 @@ namespace PRBD_2S_Aurélie
             return tag;
         }
 
-        public Comment CreateComment(int commentId, int userId, User user, int postId, Post post, string body, DateTime timestamp)
+        public Comment CreateComment(User user, Post post, string body)
         {
             var comment = Comments.Create();
-            comment.CommentId = commentId;
-            comment.UserId = userId;
-            comment.PostId = postId;
             comment.Body = body;
-            comment.Timestamp = timestamp;
             //ici on établit les relations dans le sens 1-N avec post et user
             post.Comments.Add(comment);
             user.Comments.Add(comment);

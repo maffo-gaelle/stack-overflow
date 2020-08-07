@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PRBD_Framework;
+using System.ComponentModel.DataAnnotations.Schema;
+
+using System.Windows;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
-using PRBD_Framework;
 using System.Data.Entity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Windows;
+
 
 namespace PRBD_2S_Aurélie
 

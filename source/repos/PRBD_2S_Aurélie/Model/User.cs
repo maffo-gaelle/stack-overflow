@@ -1,11 +1,14 @@
-﻿using System;
+﻿using PRBD_Framework;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+
+
 using System.Security.Cryptography;
-using PRBD_Framework;
+using System.ComponentModel.DataAnnotations.Schema;
+using System;
+
 
 namespace PRBD_2S_Aurélie
 {
