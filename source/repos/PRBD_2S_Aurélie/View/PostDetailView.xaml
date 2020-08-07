@@ -8,8 +8,11 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root"  >
-    <Grid Margin="10" Background="#E0F8F7" s>
+    <Grid Margin="10,10,10,0" Background="#E0F8F7" ScrollViewer.HorizontalScrollBarVisibility="Auto">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -23,8 +26,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
         <!--ROW #1-->
         <TextBlock x:Name="txtTitle" Margin="10, 0, 0, 5" Grid.Row="1" Text="{Binding Post.Title}" VerticalAlignment="Top"  FontSize="20" FontWeight="Bold"/>
+
+        <!--ROW #2-->
         <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding PostTags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -37,7 +43,7 @@
                         <Hyperlink  Command="{Binding AffichePostsOfTag, ElementName=root}"  CommandParameter="{Binding}"><Run Text="{Binding Path=Tag.TagName}"/></Hyperlink>
                         <Button Content="X" Command="{Binding DeletePostTag, ElementName=root}" Width="Auto" CommandParameter="{Binding}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10" FontWeight="Bold"/>
                     </TextBlock>
-                 </DataTemplate>
+                </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <!--<ComboBox  Grid.Row="2" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" >
@@ -54,6 +60,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ComboBox>-->
+
+        <!--ROW #5-->
         <TextBlock Grid.Row="5" Margin="10,0,2,20">
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
             <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
@@ -63,21 +71,68 @@
             <Button Content="+1" Command="{Binding VoteUpPost}" Width="20" Visibility="{Binding ConnectUser}"/>
             <Button Content="-1" Command="{Binding VoteDownPost}" Width="20" Visibility="{Binding ConnectUser}"/>
         </TextBlock>
+
+        <!--ROW #3-->
         <Line X1="2" Y1="2" X2="750" Y2="2" Stroke="Black" StrokeThickness="7" Grid.Row="3"/>
-        <!--ROW #2-->
-        <TextBlock Text="{Binding Post.Body}" Grid.Row="3" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
-        
-        <!-- ROW #3 -->
+
+        <!--ROW #4-->
+        <TextBlock Text="{Binding Post.Body}" Grid.Row="4" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+
+        <!-- ROW #6 -->
         <TextBlock Grid.Row="6" >
               <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
               <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
         </TextBlock>
-        <!-- ROW #4 -->
-        <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="7" TextAlignment="Center" FontWeight="Bold">
+
+        <!-- ROW #7 -->
+        <TextBlock Text="Commentaire(s)" Grid.Row="7" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" />
+
+        <!-- ROW #8 -->
+        <ListView x:Name="listView5" BorderBrush="Transparent" Grid.Row="8" SelectionMode="Single"
+                  ItemsSource="{Binding Comments}" Height="Auto" Background="#E0F8F7">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <StackPanel >
+                            <TextBlock Height="auto" TextAlignment="Left" Text="{Binding Body}"  HorizontalAlignment="Left" Grid.Row="1" FontSize="10"/>
+                            <TextBlock Grid.Row="2">
+                                <Run Text="{Binding Path=User.UserName}" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
+                                <Run Text="{Binding Timestamp}" FontSize="8" FontWeight="DemiBold"/>
+                                <Button Content="X" Command="{Binding DeleteComment, ElementName=root}" CommandParameter="{Binding}" Visibility="{Binding BtnAnswerActive}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
+                                <Button  Content="modifier" Command="{Binding UpdateComment, ElementName=root}" CommandParameter="{Binding}" Width="50" Visibility="{Binding BtnResponse}" BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" />
+                            </TextBlock >
+                        </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- ROW #9 -->
+        <Grid Grid.Row="9" Visibility="{Binding ConnectUser}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" MinWidth="549"/>
+            </Grid.ColumnDefinitions>
+            <f:ValidatedField Margin="0,0,14,0" >
+                <TextBox x:Name="txtComment" TextWrapping="Wrap"
+                     Text="{Binding BodyComment, UpdateSourceTrigger=PropertyChanged}" MinLines="2" MaxLines="5" VerticalScrollBarVisibility="Auto" Background="#E0F8F7" Margin="0,10,0,0" Height="36"/>
+            </f:ValidatedField>
+            <Button x:Name="btnSaveComment" Content="Ajoutez un commentaire" Width="118" BorderThickness="0"  Background="Transparent" FontSize="10"
+                Command="{Binding ValiderComment}" FontWeight="Bold" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="222,0,0,0"/>
+        </Grid>
+
+        <!-- ROW #10 -->
+        <TextBlock Background="#B0E0E6" Margin="0,0,10,10" Height="20" Grid.Row="10" TextAlignment="Center" FontWeight="Bold">
             <Run Text="{Binding CountAnswers, UpdateSourceTrigger=PropertyChanged}" />
             <Run Text="Réponse(s)" />
         </TextBlock>
-        <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="8" SelectionMode="Single"
+
+        <!--ROW #11-->
+        <ListView x:Name="listView2" BorderBrush="Transparent" Grid.Row="11" SelectionMode="Single"
                   ItemsSource="{Binding Answers}" Height="Auto" Background="#E0F8F7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -102,7 +157,7 @@
                                     <!--<TextBlock  >
                                           <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
                                           <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
-                                    </TextBlock>-->                            
+                                    </TextBlock>-->
                             </TextBlock >
                             <TextBlock Grid.Row="3" Visibility="{Binding Accept, ElementName=root, UpdateSourceTrigger=PropertyChanged}">
                                 <Run Text="Réponse acceptéé" Foreground="Green" FontWeight="Bold" FontSize="12" FontStyle="Italic"/>
@@ -112,14 +167,20 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock Grid.Row="9" Visibility="{Binding ConnectUser}">
+
+        <!--ROW #12-->
+        <TextBlock Grid.Row="12" Visibility="{Binding ConnectUser}">
             <Run Text="Votre reponse" FontSize="12" FontWeight="Bold"/>
         </TextBlock>
-        <f:ValidatedField Grid.Row="10" Visibility="{Binding ConnectUser}">
+
+        <!--ROW #13-->
+        <f:ValidatedField Grid.Row="13" Visibility="{Binding ConnectUser}">
             <TextBox x:Name="txtBody" TextWrapping="Wrap"
                      Text="{Binding BodyResponse, UpdateSourceTrigger=PropertyChanged}" MinLines="5" MaxLines="10" VerticalScrollBarVisibility="Auto" Background="#E0F8F7"/>
         </f:ValidatedField>
-        <Button x:Name="btnSave" Grid.Row="11" Content="Publiez votre reponse" 
+
+        <!--ROW #14-->
+        <Button x:Name="btnSave" Grid.Row="14" Content="Publiez votre reponse" 
                 Visibility="{Binding ConnectUser}" Command="{Binding Valider}" FontWeight="Bold" Margin="0,10,584,0" Padding="5,1" Height="25" VerticalAlignment="Top"/>
     </Grid>
 </f:UserControlBase>

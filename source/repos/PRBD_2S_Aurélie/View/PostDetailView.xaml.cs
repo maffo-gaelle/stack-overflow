@@ -12,8 +12,8 @@ namespace PRBD_2S_Aurélie
     /// </summary>
     public partial class PostDetailView : UserControlBase
     {
-        private bool editResponse = false;
-        private int editPostId;
+        private bool editMode = false;
+        private int editId;
         private Post post;
         public Post Post
         {
@@ -111,6 +111,7 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(Accept));
             }
         }
+
         private ObservableCollection<Post> answers;
         public ObservableCollection<Post> Answers
         {
@@ -119,6 +120,17 @@ namespace PRBD_2S_Aurélie
             {
                 answers = value;
                 RaisePropertyChanged(nameof(Answers));
+            }
+        }
+
+        private ObservableCollection<Comment> comments;
+        public ObservableCollection<Comment> Comments
+        {
+            get { return comments; }
+            set
+            {
+                comments = value;
+                RaisePropertyChanged(nameof(Comments));
             }
         }
 
@@ -154,7 +166,7 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(Tags));
             }
         }
-        private string bodyResponse;
+        private string bodyResponse; 
         public string BodyResponse
         {
             get => bodyResponse;
@@ -162,6 +174,17 @@ namespace PRBD_2S_Aurélie
             {
                 bodyResponse = value;
                 RaisePropertyChanged(nameof(BodyResponse));
+            }
+        }
+
+        private string bodyComment; 
+        public string BodyComment
+        {
+            get => bodyComment;
+            set
+            {
+                bodyComment = value;
+                RaisePropertyChanged(nameof(BodyComment));
             }
         }
 
@@ -179,6 +202,7 @@ namespace PRBD_2S_Aurélie
 
 
         public ICommand Valider { get; set; }
+        public ICommand ValiderComment { get; set; }
         public ICommand UpdatePost { get; set; }
         public ICommand DeletePost { get; set; }
         public ICommand UpdateResponse { get; set; }
@@ -188,6 +212,8 @@ namespace PRBD_2S_Aurélie
         public ICommand VoteDownPost { get; set; }
         public ICommand AffichePostsOfTag { get; set; }
         public ICommand DeletePostTag { get; set; }
+        public ICommand UpdateComment { get; set; }
+        public ICommand DeleteComment { get; set; }
 
         private void GetConnectUser()
         {
@@ -303,7 +329,7 @@ namespace PRBD_2S_Aurélie
         public void SaveAction()
         {
             var user = App.CurrentUser;
-            if(!editResponse)
+            if(!editMode)
             {
                 var post = App.Model.CreateAnswer(user, Post, BodyResponse);
                 Post.Answers.Add(post);
@@ -311,7 +337,7 @@ namespace PRBD_2S_Aurélie
             else
             {
                 var post = (from p in App.Model.Posts
-                            where p.PostId == editPostId
+                            where p.PostId == editId
                             select p).FirstOrDefault();
                 post.Body = BodyResponse;
             }
@@ -322,6 +348,31 @@ namespace PRBD_2S_Aurélie
             CountAnswers = Answers.Count();
         }
 
+        private void SaveActionComment()
+        {
+            var user = App.CurrentUser;
+            if (!editMode)
+            {
+                var comment = App.Model.CreateComment(user, Post, BodyComment);
+                Post.Comments.Add(comment);
+            } else
+            {
+                var comment = (from c in App.Model.Comments
+                               where c.CommentId == editId
+                               select c).FirstOrDefault();
+                comment.Body = BodyComment;
+                App.Model.SaveChanges();
+            }          
+            BodyComment = "";
+            Comments = new ObservableCollection<Comment>(Post.Comments);
+        }
+
+        public void DeleteCommentAction(Comment comment)
+        {
+            App.Model.Comments.Remove(comment);
+            App.Model.SaveChanges();
+            Comments = new ObservableCollection<Comment>(Post.Comments);
+        }
         private void AcceptAnswerAction(Post p)
         {
             if (post.AcceptedAnswer == null)
@@ -404,7 +455,8 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
-            
+            Comments = new ObservableCollection<Comment>(Post.Comments);
+
             CountAnswers = Answers.Count();
             GetConnectUser();
             GetDeConnectUser();
@@ -417,6 +469,10 @@ namespace PRBD_2S_Aurélie
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return BodyResponse != null && BodyResponse.Length != 0;              
+            });
+
+            ValiderComment = new RelayCommand(SaveActionComment, () => {
+                return BodyComment != null && BodyComment.Length != 0;
             });
 
             VoteUpPost = new RelayCommand(VoteUpAction, () =>
@@ -447,15 +503,28 @@ namespace PRBD_2S_Aurélie
             UpdateResponse = new RelayCommand<Post>(Post =>
             {
                 BodyResponse = Post.Body;
-                editPostId = Post.PostId;
-                editResponse = true;
+                editId = Post.PostId;
+                editMode = true;
                 Console.WriteLine(BodyResponse);
+            });
+
+            UpdateComment = new RelayCommand<Comment>(comment =>
+            {
+                BodyComment = comment.Body;
+                editId = comment.CommentId;
+                editMode = true;
+
             });
 
             DeleteResponse = new RelayCommand<Post>(Post => 
             {
                 App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETE, Post);
             });
+
+            DeleteComment = new RelayCommand<Comment>(DeleteCommentAction, comment =>
+            {
+                return true;
+            }); 
 
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
             {
@@ -499,5 +568,7 @@ namespace PRBD_2S_Aurélie
 
             
         }
+
+       
     }
 }
