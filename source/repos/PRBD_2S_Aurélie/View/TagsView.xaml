@@ -17,20 +17,32 @@
                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Background="#E0F8F7" >
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"  />
-                <DataGridTextColumn Header="Nombre de post associés au Tag" Binding="{Binding NbPost}"  Width="250"/>
-
+                <!--<DataGridTextColumn Header="Nombre de post associés au Tag">-->
+                <DataGridTemplateColumn Header="Nombre de posts associés au Tag" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock  HorizontalAlignment="Center">
+                                <Run Text="("/>
+                                <Hyperlink Command="{Binding AffichePostOfTag, ElementName=root}" CommandParameter="{Binding}" >
+                                    <Run Text="{Binding NbPosts}"/><Run Text="Post(s)" />
+                                </Hyperlink>
+                                <Run Text=")"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
         <TextBlock Grid.Row="1" Background="#E0F8F7">
             <f:ValidatedField VerticalAlignment="Center">
                 <TextBox x:Name="txtUserName" TextWrapping="Wrap" Grid.Column="1" Width="210"
-                     Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Background="#E0F8F7"/>
+                     Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Background="#E0F8F7" Visibility="{Binding ConnectAdmin}"/>
             </f:ValidatedField>
             
-            <Button Content="Ajouter un Tag" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130"/>
-            <Button Content="Supprimer un Tag" Command="{Binding DeleteTag}" Width="150"/>
-            <Button Content="Modifier un Tag" Command="{Binding UpdateTag}" Width="130"/>
+            <Button Content="Ajouter un Tag" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130" Visibility="{Binding ConnectAdmin}"/>
+            <Button Content="Supprimer un Tag" Command="{Binding DeleteTag}" Width="150" Visibility="{Binding ConnectAdmin}"/>
+            <Button Content="Modifier un Tag" Command="{Binding UpdateTag}" Width="130" Visibility="{Binding ConnectAdmin}"/>
         </TextBlock>
     </Grid>
 </f:UserControlBase>

@@ -123,9 +123,29 @@ namespace PRBD_2S_Aurélie
         public bool ValidateBody()
         {
             ClearErrors();
-            if (string.IsNullOrEmpty(Body))
+            if (string.IsNullOrEmpty(Body)) 
             {
                 AddError("Body", Properties.Resources.Error_Required);
+            }
+            RaiseErrors();
+
+            return !HasErrors;
+        }
+
+        public bool ValidateNbTag()
+        {
+            int i = 0;
+            ClearErrors();
+            foreach(var t in Tags)
+            {
+                if(t.IsChecked)
+                {
+                    ++i;
+                    if(i > 3)
+                    {
+                        AddError("Tag", Properties.Resources.Error_NbTags);
+                    }
+                }
             }
             RaiseErrors();
 
@@ -176,18 +196,22 @@ namespace PRBD_2S_Aurélie
         {
             if(IsNew)
             {
-                //doit renvoyer true
-                return ValidateTitle() && ValidateBody();
+                return ValidateTitle() && ValidateBody() && ValidateNbTag();
             }
+           
             var change = (from c in App.Model.ChangeTracker.Entries<Post>()
-                          where c.Entity == Post
+                          where c.Entity == Post 
                           select c).FirstOrDefault();
-            return change != null && change.State != EntityState.Unchanged;
+            foreach(var posttag in PostTags)
+            {
+                Console.WriteLine(posttag.Tag);
+            }
+            //IL faut utiliser le ChangeTracker pour avoir l'enti
+            return change != null && change.State != EntityState.Unchanged && ValidateNbTag() ;
         }
 
         private void CancelAction()
         {
-            //Console.WriteLine("J'annule l'ajout d'une question");
             if (IsNew)
             {
                 Post.Title = "";
@@ -234,20 +258,17 @@ namespace PRBD_2S_Aurélie
             );
             Annuler = new RelayCommand(
                 CancelAction
-           );
+            );
              
             CheckTagCommand = new RelayCommand<CheckedTag>(t =>
             {
-                //Console.WriteLine("j'entre dans le checktagCommand");
-                //Console.WriteLine($"La valeur du t {t}");
-                //SelectTags = new ObservableCollection<Tag>(Post.Tags);
+                
+                Console.WriteLine($"{t.Name} {t.IsChecked}");
                 var tt = (from c in App.Model.Tags
                 where t.Name.Equals(c.TagName)
                 select c).FirstOrDefault();
-                //Console.WriteLine(tt);
-                //Console.WriteLine($"Le nombre de tag dans selectTags: {SelectTags.Count()}");
+
                 SelectTags.Add(tt);
-               
             });
             
         }

@@ -187,6 +187,7 @@ namespace PRBD_2S_Aurélie
         public ICommand VoteUpPost { get; set; }
         public ICommand VoteDownPost { get; set; }
         public ICommand AffichePostsOfTag { get; set; }
+        public ICommand DeletePostTag { get; set; }
 
         private void GetConnectUser()
         {
@@ -381,6 +382,17 @@ namespace PRBD_2S_Aurélie
             Score = Post.Score;
         }
 
+        private void DeletePostTagAction(PostTag posttag)
+        {
+            Console.WriteLine($"On va supprimer ce tag associé au post: {posttag.Tag.TagName} ");
+            App.Model.PostTags.Remove(posttag);
+            App.Model.SaveChanges();
+
+            PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+            App.NotifyColleagues(AppMessages.MSG_POSTTAG_DELETED, Post);
+            Console.WriteLine("Suppression du posttag ok");
+        }
+
         public PostDetailView(Post post)
         {
             InitializeComponent();
@@ -392,8 +404,7 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
-            Console.WriteLine("Auteur des reponses");
-            Console.WriteLine($"Nombre de PostTags associés à cette question {Post.PostTags.Count()}");
+            
             CountAnswers = Answers.Count();
             GetConnectUser();
             GetDeConnectUser();
@@ -417,6 +428,12 @@ namespace PRBD_2S_Aurélie
             {
                 return true;
             });
+
+            DeletePostTag = new RelayCommand<PostTag>(DeletePostTagAction, posttag =>
+            {
+                return true;
+            });
+
             UpdatePost = new RelayCommand<Post>(p =>
             {
                 App.NotifyColleagues(AppMessages.MSG_UPDATE_QUESTION, post);
@@ -438,7 +455,6 @@ namespace PRBD_2S_Aurélie
             DeleteResponse = new RelayCommand<Post>(Post => 
             {
                 App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETE, Post);
-                Console.WriteLine("Supprimer une réponse");
             });
 
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
@@ -449,8 +465,8 @@ namespace PRBD_2S_Aurélie
             AffichePostsOfTag = new RelayCommand<PostTag>(PostTag =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
-                //Console.WriteLine($"Afficher les posts liés au tag: {PostTag}");
             });
+
             //AcceptResponse = new RelayCommand<Post>(p => {
             //    if(post.AcceptedAnswer == null)
             //    {
@@ -464,8 +480,8 @@ namespace PRBD_2S_Aurélie
             //    App.Model.SaveChanges();
             //    Console.WriteLine("Réponse acceptée ok");
             //});
+
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
-                Console.WriteLine("ok");
                 Post = post;
             });
 

@@ -222,6 +222,8 @@ namespace PRBD_2S_Aurélie
                 Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
             });
 
+            App.Register<Post>(this, AppMessages.MSG_POSTTAG_DELETED,
+                                post => { ApplyFilterAction(); });
             //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
             ShowPost = new RelayCommand<Post>(Post =>
             {

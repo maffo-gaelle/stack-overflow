@@ -19,6 +19,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private ObservableCollection<PostTag> postTags;
+        public ObservableCollection<PostTag> PostTags
+        {
+            get { return postTags; }
+            set
+            {
+                postTags = value;
+                RaisePropertyChanged(nameof(PostTags));
+            }
+        }
+
         private string name;
         public string Nom
         {
@@ -38,9 +49,21 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private string connectAdmin;
+        public string ConnectAdmin
+        {
+            get { return connectAdmin; }
+            set
+            {
+                connectAdmin = value;
+                RaisePropertyChanged(nameof(ConnectAdmin));
+            }
+        }
+
         public ICommand NewTag { get; set; }
         public ICommand DeleteTag { get; set; }
         public ICommand UpdateTag { get; set; }
+        public ICommand AffichePostOfTag { get; set; }
         public bool ValidateTag()
         {
             ClearErrors();
@@ -63,6 +86,22 @@ namespace PRBD_2S_Aurélie
             RaiseErrors();
 
             return !HasErrors;
+        }
+
+        public void GetConnectAdmin()
+        {
+            if(App.CurrentUser != null && App.CurrentUser.Role == Role.Admin)
+            {
+                ConnectAdmin = "Visible";
+            } else
+            {
+                ConnectAdmin = "Collapsed";
+            }
+        }
+
+        private void GetNbPostsByTag()
+        {
+                        
         }
         public void AddTagAction()
         {
@@ -105,10 +144,19 @@ namespace PRBD_2S_Aurélie
             Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName));
         }
 
+        private void RefreshTags()
+        {
+            Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
+        }
         public TagsView()
         {
+            InitializeComponent();
             DataContext = this;
+
             Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
+            
+            GetConnectAdmin();
+            GetNbPostsByTag();
 
             DeleteTag = new RelayCommand(DeleteTagAction, () => {
                 return SelectedTag != null && Nom == SelectedTag.TagName;
@@ -125,7 +173,14 @@ namespace PRBD_2S_Aurélie
                 return SelectedTag != null && Nom != null;
             });
 
-            InitializeComponent();
+            AffichePostOfTag = new RelayCommand<PostTag>(PostTag =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
+            });
+
+           // App.Register<Tag>(this, AppMessages.MSG_QUESTION_CHANGED,
+           //     t => PostTags = new ObservableCollection<PostTag>(t.PostTags)
+           //);
         }
     }
 }

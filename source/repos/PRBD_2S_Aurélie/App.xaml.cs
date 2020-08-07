@@ -22,7 +22,8 @@ namespace PRBD_2S_Aurélie
         MSG_ANSWER_DELETE,
         MSG_ANSWER_DELETED,
         MSG_ANSWER_ADDED,
-        MSG_DISPLAY_POSTOFTAG
+        MSG_DISPLAY_POSTOFTAG,
+        MSG_POSTTAG_DELETED
     }
 
     public partial class App : ApplicationBase 

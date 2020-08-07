@@ -196,6 +196,15 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le nombre de tags associé au post doit être inférieur ou égal à 3.
+        /// </summary>
+        public static string Error_NbTags {
+            get {
+                return ResourceManager.GetString("Error_NbTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Cet utilisateur n&apos;existe pas.
         /// </summary>
         public static string Error_NotExist {

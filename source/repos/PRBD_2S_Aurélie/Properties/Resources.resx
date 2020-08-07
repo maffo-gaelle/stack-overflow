@@ -162,6 +162,9 @@
   <data name="Error_MinLengthPassword" xml:space="preserve">
     <value>Le mot de passe doit contenir au moins 8 caractères</value>
   </data>
+  <data name="Error_NbTags" xml:space="preserve">
+    <value>Le nombre de tags associé au post doit être inférieur ou égal à 3</value>
+  </data>
   <data name="Error_NotExist" xml:space="preserve">
     <value>Cet utilisateur n'existe pas</value>
   </data>

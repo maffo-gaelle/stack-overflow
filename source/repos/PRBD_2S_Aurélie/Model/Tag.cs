@@ -21,6 +21,11 @@ namespace PRBD_2S_Aurélie
 
         [NotMapped]//je ne veux pas cet enregistrement dans la base de données
         public IEnumerable<Post> Posts { get => PostTags.Select(posttag => posttag.Post); }
+
+        [NotMapped]
+        public int NbPosts { get => PostTags.Count(); set { } }
+
+
         protected Tag() { }
 
         //Une TagName est requis et doit être unique dans la base de données
