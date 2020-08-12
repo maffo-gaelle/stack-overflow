@@ -69,6 +69,7 @@ namespace PRBD_2S_Aurélie
 
             }
         }
+
         //ma listeview binde avec les tags de type CheckedTag et je donne la valeur de la liste Tags dans la fonction getTags
         public ObservableCollection<CheckedTag> tags;
         public ObservableCollection<CheckedTag> Tags
@@ -143,7 +144,7 @@ namespace PRBD_2S_Aurélie
                     ++i;
                     if(i > 3)
                     {
-                        AddError("Tag", Properties.Resources.Error_NbTags);
+                        AddError("Tags", Properties.Resources.Error_NbTags);
                     }
                 }
             }
@@ -183,7 +184,9 @@ namespace PRBD_2S_Aurélie
                                    select p).FirstOrDefault();
 
                     var Newposttag = App.Model.CreatePostTag(t, Post);
+                    
                     Post.PostTags.Add(Newposttag);
+
                 }
             }
 
@@ -202,14 +205,19 @@ namespace PRBD_2S_Aurélie
             var change = (from c in App.Model.ChangeTracker.Entries<Post>()
                           where c.Entity == Post 
                           select c).FirstOrDefault();
-            foreach(var posttag in PostTags)
-            {
-                Console.WriteLine(posttag.Tag);
-            }
+            //foreach(var posttag in PostTags)
+            //{
+            //    Console.WriteLine(posttag.Tag);
+            //}
             //IL faut utiliser le ChangeTracker pour avoir l'enti
-            return change != null && change.State != EntityState.Unchanged && ValidateNbTag() ;
+
+            //return change != null && change.State != EntityState.Unchanged && ValidateNbTag();
+
+            return App.tagModified && ValidateNbTag() || 
+                (change != null && change.State != EntityState.Unchanged && ValidateNbTag());
         }
 
+        
         private void CancelAction()
         {
             if (IsNew)
@@ -223,6 +231,8 @@ namespace PRBD_2S_Aurélie
             {
                 App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
             }
+
+            App.tagModified = false;
         }
         //dans cette fonction getTags,je recopie tout mon dbset de tags dans la collection observable Tags de type CheckedTag
         public void GetTags()
@@ -262,13 +272,17 @@ namespace PRBD_2S_Aurélie
              
             CheckTagCommand = new RelayCommand<CheckedTag>(t =>
             {
-                
+
+                App.tagModified = true;
                 Console.WriteLine($"{t.Name} {t.IsChecked}");
                 var tt = (from c in App.Model.Tags
                 where t.Name.Equals(c.TagName)
                 select c).FirstOrDefault();
-
+                
                 SelectTags.Add(tt);
+
+                ValidateNbTag();
+               
             });
             
         }

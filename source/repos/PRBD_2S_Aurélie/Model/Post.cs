@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-
+using System.Windows.Navigation;
 
 namespace PRBD_2S_Aurélie
 
@@ -22,6 +22,21 @@ namespace PRBD_2S_Aurélie
         public string Body { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.Now;
         public virtual Post AcceptedAnswer { get; set; }
+        //[NotMapped]
+        //public string Accepted { 
+        //    get {
+        //        if(Parent != null && Parent.AcceptedAnswer == this)
+        //        {
+        //            return "reponse Acceptée";
+        //        }
+
+        //        return "";
+        //    } 
+        //    set
+        //    {
+
+        //    }
+        //}
         public virtual Post Parent { get; set; }//relation de post vers post: one to many
         //Posttags recupère tous les tags du post et c'est une relation one-to-many avec posttag et posttag a une relation one-to-many avec tag
         public virtual ICollection<PostTag> PostTags { get; set; } = new HashSet<PostTag>();
@@ -88,5 +103,13 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        //[NotMapped]
+        //public bool IfCurrentUser
+        //{
+        //    get { return App.CurrentUser == this.Author; }
+        //    set {}
+        //}
+
+       
     }
 }

@@ -162,21 +162,36 @@ namespace PRBD_2S_Aurélie
         private void ApplyFilterAction()
         {
             Console.WriteLine("Search clicked! " + Filter);
-            IEnumerable<Post> query = App.Model.Posts.Where(p => p.Parent == null && p.Title != null);
+            ObservableCollection<Post> PostsFilter = new ObservableCollection<Post>();
+
+            IEnumerable<Post> query = App.Model.Posts.Where(p => p.Parent == null);
             if(!string.IsNullOrEmpty(Filter))
-               query = from p in App.Model.Posts
+                query = (from p in App.Model.Posts
                         where p.Body.Contains(Filter) || p.Title.Contains(Filter)
-                        select p;
-            //foreach(var p in query)
-            //{
-            //    if(p.Parent == null)
-            //    {
-                    
-            //    }
-            //}
-            Posts = new ObservableCollection<Post>(query);
-            Console.WriteLine($"{query.Count()} Posts trouvés");
+                        select p);
+
+            foreach (var p in query)
+            {
+                if (p.Parent == null)
+                {
+                    PostsFilter.Add(p);
+                } else
+                {
+                    var a = (from s in App.Model.Posts
+                             where s.PostId.Equals(p.Parent.PostId)
+                             select s).FirstOrDefault();
+
+                    if(!PostsFilter.Contains(a))
+                    {
+                        PostsFilter.Add(a);
+                    }
+                }
+            }
+
+            Posts = PostsFilter;
+            Console.WriteLine($"{PostsFilter.Count()} Posts trouvés");
         }
+
         public ListPosts()
         {
 

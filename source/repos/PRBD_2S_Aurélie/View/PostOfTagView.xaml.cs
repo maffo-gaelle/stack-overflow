@@ -52,13 +52,15 @@ namespace PRBD_2S_Aurélie.View
             }
         }
 
+
         public ICommand ShowPost { get; set; }
         public ICommand AffichePostsTag { get; set; }
         public PostOfTagView(Tag tag)
         {
-            DataContext = this;
+           //MEttre initialize component tjrs en premier
             InitializeComponent();
- 
+            DataContext = this;
+
             Ttag = tag;
             Posts = new ObservableCollection<Post>(Ttag.Posts);
             Console.WriteLine($"Le tag ici est {Ttag.TagName}");

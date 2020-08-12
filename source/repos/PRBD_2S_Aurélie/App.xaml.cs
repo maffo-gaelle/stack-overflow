@@ -31,6 +31,7 @@ namespace PRBD_2S_Aurélie
         public static User CurrentUser { get; set; }
         public static Model Model { get; } = new Model();
         //1.public static Model Model { get; set; }
+        public static bool tagModified = false;
         public App()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Culture);

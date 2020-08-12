@@ -269,7 +269,9 @@ namespace PRBD_2S_Aurélie
             Deconnexion = new RelayCommand(LogOutAction);
 
             App.Register(this, AppMessages.MSG_NEW_QUESTION, () =>
-            {   //Crée dynamiquement une nouvelle instance pour le post
+            {
+                App.tagModified = false;
+                //Crée dynamiquement une nouvelle instance pour le post
                 var post = App.Model.Posts.Create();
                 //App.Model.Posts.Add(post);
                 AddTabPost(post, true, true);
@@ -282,6 +284,7 @@ namespace PRBD_2S_Aurélie
 
             App.Register<Post>(this, AppMessages.MSG_DETAILS_POST, post =>
             {
+                App.tagModified = false;
                 if (post != null)
                 {
                     var tab = (from TabItem t in tabControl.Items where (string)t.Header == $"<Details Question {post.PostId}>" select t).FirstOrDefault();
@@ -305,11 +308,13 @@ namespace PRBD_2S_Aurélie
             });
             App.Register<Post>(this, AppMessages.MSG_DELETE_QUESTION, post =>
             {
+                App.tagModified = false;
                 AddTabDeletePost(post);
             });
 
             App.Register<Post>(this, AppMessages.MSG_ANSWER_DELETE, post =>
             {
+                App.tagModified = false;
                 AddTabDeletePost(post);
             });
 
@@ -317,6 +322,7 @@ namespace PRBD_2S_Aurélie
             App.Register<UserControlBase>(this, AppMessages.MSG_CLOSE_TAB, ctl =>
             {
                 var tab = (from TabItem t in tabControl.Items where t.Content == ctl select t).SingleOrDefault();
+                App.tagModified = false;
                 ctl.Dispose();
                 tabControl.Items.Remove(tab);
             });

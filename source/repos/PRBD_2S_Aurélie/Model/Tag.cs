@@ -49,7 +49,7 @@ namespace PRBD_2S_Aurélie
 
         public override string ToString()
         {
-            return $"TagName: {TagName}; TagID: {TagId}";
+            return TagName;
         }
     }
 }

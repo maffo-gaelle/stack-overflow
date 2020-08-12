@@ -56,7 +56,7 @@
                      Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
             </f:ValidatedField>
             <!-- ROW #5 -->
-            <Label Content="Email:" FontWeight="Bold" Grid.Row="5" VerticalAlignment="Center" Padding="5" />
+            <Label Content="{x:Static p:Resources.Signup_Email}" FontWeight="Bold" Grid.Row="5" VerticalAlignment="Center" Padding="5" />
             <f:ValidatedField Grid.Row="5" Grid.Column="1" VerticalAlignment="Center">
                 <TextBox x:Name="txtEmail" TextWrapping="Wrap" Grid.Column="1" 
                      Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
@@ -68,7 +68,7 @@
             </DockPanel>
             <DockPanel Margin="0,14,0,0" Grid.Row="7" Grid.ColumnSpan="2">
                 <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Width="220" >
-                <Run Text="Si vous êtes déjà inscrit, veuillez cliquer"/>            
+                <Run Text="{x:Static p:Resources.Connexion_Message_1}"/>            
                 <Hyperlink Command="{Binding Login}"><Run Text="{x:Static p:Resources.Connexion_Message_2}"/></Hyperlink>
                 <Run Text="pour vous connecter"/>
                 </TextBlock>

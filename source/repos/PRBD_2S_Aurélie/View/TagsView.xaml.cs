@@ -173,9 +173,10 @@ namespace PRBD_2S_Aurélie
                 return SelectedTag != null && Nom != null;
             });
 
-            AffichePostOfTag = new RelayCommand<PostTag>(PostTag =>
+            AffichePostOfTag = new RelayCommand<Tag>(tag =>
             {
-                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
+                Console.WriteLine(tag);
+                App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, tag);
             });
 
            // App.Register<Tag>(this, AppMessages.MSG_QUESTION_CHANGED,

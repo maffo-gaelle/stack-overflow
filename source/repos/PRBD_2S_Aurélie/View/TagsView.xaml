@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="#E0F8F7">

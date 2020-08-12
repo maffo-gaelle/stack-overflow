@@ -3,17 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Windows.Input;
 
 namespace PRBD_2S_Aurélie
 {
-    /// <summary>
-    /// Logique d'interaction pour PostDetailView.xaml
-    /// </summary>
+    
     public partial class PostDetailView : UserControlBase
     {
+       
+        /// /////////////////////PROPRIT2S SIMPLES/////////////////////////////////////////////////
+      
         private bool editMode = false;
         private int editId;
+        //public User user = null;
+
+        /// ////////////////////////////PROPRIET2S AVEC ACCESSEURS////////////////////////////////////////////
+
         private Post post;
         public Post Post
         {
@@ -35,104 +41,77 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private string connectUser;
-        public string ConnectUser
+        //private Post acceptedAnswer;
+        //public Post AcceptedAnswer
+        //{
+        //    get => Post.AcceptedAnswer;
+        //    set
+        //    {
+        //        acceptedAnswer = value;
+        //        RaisePropertyChanged(nameof(AcceptedAnswer));
+        //    }
+        //}
+
+        private int countAnwsers;
+        public int CountAnswers
         {
-            get => connectUser;
+            get => countAnwsers;
             set
             {
-                connectUser = value;
-                RaisePropertyChanged(nameof(ConnectUser));
+                countAnwsers = value;
+                RaiseErrorsChanged(nameof(CountAnswers));
+
             }
         }
 
-        private string deconnectUser;
-        public string DeConnectUser
+        private string bodyComment;
+        public string BodyComment
         {
-            get => deconnectUser;
+            get => bodyComment;
             set
             {
-                deconnectUser = value;
-                RaisePropertyChanged(nameof(DeConnectUser));
+                bodyComment = value;
+                RaisePropertyChanged(nameof(BodyComment));
             }
         }
 
-        private string btnDeletePost;
-        public string BtnDeletePost
+        private string bodyCommentAnswer;
+        public string BodyCommentAnswer
         {
-            get => btnDeletePost;
+            get => bodyCommentAnswer;
             set
             {
-                btnDeletePost = value;
-                RaisePropertyChanged(nameof(BtnDeletePost));
+                bodyCommentAnswer = value;
+                RaisePropertyChanged(nameof(BodyCommentAnswer));
             }
         }
 
-        private string btnUpdatePost;
-        public string BtnUpdatePost
+        private string bodyResponse;
+        public string BodyResponse
         {
-            get => btnUpdatePost;
+            get => bodyResponse;
             set
             {
-                btnUpdatePost = value;
-                RaisePropertyChanged(nameof(BtnUpdatePost));
+                bodyResponse = value;
+                RaisePropertyChanged(nameof(BodyResponse));
             }
         }
 
-        private string btnAnswerActive;
-        public string BtnAnswerActive
+
+
+        private Tag selectedTag;
+        public Tag SelectedTag
         {
-            get => btnAnswerActive;
+            get { return selectedTag; }
             set
             {
-                btnAnswerActive = value;
-                RaisePropertyChanged(nameof(BtnAnswerActive));
+                selectedTag = value;
+                AddPostTag();
+                RaisePropertyChanged(nameof(SelectedTag));
             }
         }
 
-        private string btnAcceptAnswer;
-        public string BtnAcceptAnswer
-        {
-            get => btnAcceptAnswer;
-            set
-            {
-                btnAcceptAnswer = value;
-                RaisePropertyChanged(nameof(BtnAcceptAnswer));
-            }
-        }
-
-        private string accept;
-        public string Accept
-        {
-            get => accept;
-            set
-            {
-                accept = value;
-                RaisePropertyChanged(nameof(Accept));
-            }
-        }
-
-        private ObservableCollection<Post> answers;
-        public ObservableCollection<Post> Answers
-        {
-            get { return answers; }
-            set
-            {
-                answers = value;
-                RaisePropertyChanged(nameof(Answers));
-            }
-        }
-
-        private ObservableCollection<Comment> comments;
-        public ObservableCollection<Comment> Comments
-        {
-            get { return comments; }
-            set
-            {
-                comments = value;
-                RaisePropertyChanged(nameof(Comments));
-            }
-        }
+        ////////////////////COLLECTIONS OBSERVABLES///////////////////////////////////////////////////////////
 
         private ObservableCollection<PostTag> postTags;
         public ObservableCollection<PostTag> PostTags
@@ -166,51 +145,140 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(Tags));
             }
         }
-        private string bodyResponse; 
-        public string BodyResponse
+
+        private ObservableCollection<Post> answers;
+        public ObservableCollection<Post> Answers
         {
-            get => bodyResponse;
+            get { return answers; }
             set
             {
-                bodyResponse = value;
-                RaisePropertyChanged(nameof(BodyResponse));
+                answers = value;
+                RaisePropertyChanged(nameof(Answers));
             }
         }
 
-        private string bodyComment; 
-        public string BodyComment
+        /// /////////////////////////////////////Visibilité des boutons/////////////////////////////////////////
+
+        private string btnDeletePost;
+        public string BtnDeletePost
         {
-            get => bodyComment;
+            get => btnDeletePost;
             set
             {
-                bodyComment = value;
-                RaisePropertyChanged(nameof(BodyComment));
+                btnDeletePost = value;
+                RaisePropertyChanged(nameof(BtnDeletePost));
             }
         }
 
-        private int countAnwsers;
-        public int CountAnswers
+        private string btnUpdatePost;
+        public string BtnUpdatePost
         {
-            get => countAnwsers;
+            get => btnUpdatePost;
             set
             {
-                countAnwsers = value;
-                RaiseErrorsChanged(nameof(CountAnswers));
-                
+                btnUpdatePost = value;
+                RaisePropertyChanged(nameof(BtnUpdatePost));
             }
         }
 
-        private Tag selectedTag;
-        public Tag SelectedTag
+        //private string btnUpdateAnswer;
+        //public string BtnUpdateAnswer
+        //{
+        //    get { return btnUpdateAnswer; }
+        //    set
+        //    {
+        //        btnUpdateAnswer = value;
+        //        RaisePropertyChanged(nameof(BtnUpdateAnswer));
+        //    }
+        //}
+
+        //private string btnDeleteAnswer;
+        //public string BtnDeleteAnswer
+        //{
+        //    get => btnDeleteAnswer;
+        //    set
+        //    {
+        //        btnDeleteAnswer = value;
+        //        RaisePropertyChanged(nameof(BtnDeleteAnswer));
+        //    }
+        //}
+
+        //private string btnAcceptAnswer;
+        //public string BtnAcceptAnswer
+        //{
+        //    get => btnAcceptAnswer;
+        //    set
+        //    {
+        //        btnAcceptAnswer = value;
+        //        RaisePropertyChanged(nameof(BtnAcceptAnswer));
+        //    }
+        //}
+
+        //private string acceptAnswerVisible;
+        //public string AcceptAnswerVisible
+        //{
+        //    get => acceptAnswerVisible;
+        //    set
+        //    {
+        //        acceptAnswerVisible = value; 
+        //        RaisePropertyChanged(nameof(AcceptAnswerVisible));
+        //    }
+        //}
+
+        private string btnCancelacceptAnswer;
+        public string BtnCancelacceptAnswer
         {
-            get { return selectedTag; }
+            get => btnCancelacceptAnswer;
             set
             {
-                selectedTag = value;
-                RaisePropertyChanged(nameof(SelectedTag));
+                btnCancelacceptAnswer = value; 
+                RaisePropertyChanged(nameof(BtnCancelacceptAnswer));
             }
         }
 
+        private string btnDeletePostTag; 
+        public string BtnDeletePostTag
+        {
+            get { return btnDeletePostTag; }
+            set
+            {
+                btnDeletePostTag = value;
+                RaisePropertyChanged(nameof(BtnDeletePostTag));
+            }
+        }
+
+        private string btnAddPostTag; 
+        public string BtnAddPostTag
+        {
+            get { return btnAddPostTag; }
+            set
+            {
+                btnAddPostTag = value;
+                RaisePropertyChanged(nameof(BtnAddPostTag));
+            }
+        }
+
+        private string connectUser;
+        public string ConnectUser
+        {
+            get => connectUser;
+            set
+            {
+                connectUser = value;
+                RaisePropertyChanged(nameof(ConnectUser));
+            }
+        }
+
+        private string deconnectUser;
+        public string DeConnectUser
+        {
+            get => deconnectUser;
+            set
+            {
+                deconnectUser = value;
+                RaisePropertyChanged(nameof(DeConnectUser));
+            }
+        }
 
         public ICommand Valider { get; set; }
         public ICommand ValiderComment { get; set; }
@@ -219,13 +287,18 @@ namespace PRBD_2S_Aurélie
         public ICommand UpdateResponse { get; set; }
         public ICommand DeleteResponse { get; set; }
         public ICommand AcceptResponse { get; set; }
+        public ICommand CancelAcceptResponse { get; set; }
         public ICommand VoteUpPost { get; set; }
         public ICommand VoteDownPost { get; set; }
         public ICommand AffichePostsOfTag { get; set; }
         public ICommand DeletePostTag { get; set; }
         public ICommand UpdateComment { get; set; }
         public ICommand DeleteComment { get; set; }
+        public ICommand ValiderCommentAnswer { get; set; }
 
+       /// <summary>
+       /// //////////////////////////////////////FONCTIONS POUR LA VISIBILIT2 DES BOUTONS////////////////////////////////
+       /// </summary>
         private void GetConnectUser()
         {
             Console.WriteLine("hello");
@@ -251,11 +324,12 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private void BtnDeleteActive()
+        private void BtnDeletePostActive()
         {
-            Console.WriteLine($"Nobre de réponses: {CountAnswers}");
-            if ((App.CurrentUser != null && App.CurrentUser.Equals(Post.Author) && CountAnswers == 0) ||
-                         (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && CountAnswers == 0))
+            Console.WriteLine($"Nombre de réponses: {CountAnswers}");
+            Console.WriteLine($"Nombre de Commentaires: {Post.Comments.Count()}");
+            if ((App.CurrentUser != null && App.CurrentUser.Equals(Post.Author) && CountAnswers == 0 && Post.Comments.Count() == 0) ||
+                         (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && CountAnswers == 0 && Post.Comments.Count() == 0))
             {
                 BtnDeletePost = "Visible";
             }
@@ -265,7 +339,7 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private void BtnUpdateActive()
+        private void BtnUpdatePostActive()
         {
             if((App.CurrentUser != null && App.CurrentUser.Equals(post.Author)) || 
                 (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
@@ -278,71 +352,132 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private void BtnResponseActive(Post a)
+
+        //private void BtnDeleteAnswerActive()
+        //{
+        //    //je veux recupérer la réponse sur laquelle j'ai cliqué, pas juste
+        //    if ((user != null && user.Role == Role.Admin || user != null && IfCurrentUser))
+        //    {
+        //        BtnDeleteAnswer = "Visible";
+        //    }
+        //    else
+        //    {
+        //        BtnDeleteAnswer = "Collapsed";
+        //    }
+        //}
+
+        //private void BtnAcceptAnswerActive()
+        //{
+        //    if (Post.AcceptedAnswer != null)
+        //    {
+        //        if ((user != null &&  IfCurrentUser) || (user != null && user.Role == Role.Admin))
+
+        //        {
+        //            BtnAcceptAnswer = "Visible";
+        //        }
+        //        else
+        //        {
+        //            BtnAcceptAnswer = "Collapsed";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if ((user != null && Post.Author.Equals(user)) || (user != null && user.Role == Role.Admin))
+        //        {
+        //            BtnAcceptAnswer = "Visible";
+        //        }
+        //        else
+        //        {
+        //            BtnAcceptAnswer = "Collapsed";
+        //        }
+        //    //}
+        //}
+
+        //private void AcceptDisplayActive()
+        //{
+        //    if(Post.AcceptedAnswer != null)
+        //    {
+
+        //    }
+        //        if (Post.AcceptedAnswer != null)
+        //        {
+        //            if(Post.AcceptedAnswer.PostId.Equals(a.PostId))
+        //            {
+        //                AcceptAnswerVisible = "Visible";
+        //            } else
+        //            {
+        //                AcceptAnswerVisible = "Collapsed";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            AcceptAnswerVisible = "Collapsed";
+        //        }
+        //}
+
+        private void BtnCancelacceptAnswerActive()
         {
-            if ((App.CurrentUser != null && a.Author.Equals(App.CurrentUser)) ||
-                (App.CurrentUser != null && App.CurrentUser.Role == Role.Admin))
+            if(App.CurrentUser != null)
             {
-                BtnAnswerActive = "Visible";
+                if((Post.Author.Equals(App.CurrentUser) && Post.AcceptedAnswer != null) || 
+                    (App.CurrentUser.Role == Role.Admin && Post.AcceptedAnswer != null))
+                {
+                    foreach (var a in Post.Answers)
+                    {
+                        if (a.Equals(Post.AcceptedAnswer))
+                        {
+                            BtnCancelacceptAnswer = "visible";
+                        }
+                        else
+                        {
+                            BtnCancelacceptAnswer = "Collapsed";
+                        }
+                    }
+                } else
+                {
+                    BtnCancelacceptAnswer = "Collapsed";
+                }
+            } 
+            else
+            {
+                BtnCancelacceptAnswer = "Collapsed";
+            }
+                
+        }
+        private void BtnDeletePostTagActive()
+        {
+            //var user = App.CurrentUser;
+            if(App.CurrentUser != null && Post.Author.Equals(App.CurrentUser) || App.CurrentUser != null && App.CurrentUser.Role == Role.Admin)
+            {
+                BtnDeletePostTag = "Visible";
+            } else
+            {
+                BtnDeletePostTag = "Collapsed";
+            }
+        }
+
+        private void BtnAddPostTagActive()
+        {
+            //var user = App.CurrentUser;
+            if (App.CurrentUser != null && Post.Author.Equals(App.CurrentUser) && Post.PostTags.Count < 3 || App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && Post.PostTags.Count < 3)
+            {
+                BtnAddPostTag = "Visible";
             }
             else
             {
-                BtnAnswerActive = "Collapsed";
+                BtnAddPostTag = "Collapsed";
             }
         }
 
-        private void BtnAcceptActive()
-        {
-            foreach (var a in Answers)
-            {
-                if(Post.AcceptedAnswer != null)
-                {
-                    if ((App.CurrentUser != null && Post.Author.Equals(App.CurrentUser) && !Post.AcceptedAnswer.Equals(a)) ||
-                    App.CurrentUser != null && App.CurrentUser.Role == Role.Admin && !Post.AcceptedAnswer.Equals(a))
-                    {
-                        BtnAcceptAnswer = "Visible";
-                    }
-                    else
-                    {
-                        BtnAcceptAnswer = "Collapsed";
-                    }
-                }  
-                else
-                {
-                    if(App.CurrentUser != null && Post.Author.Equals(App.CurrentUser) || App.CurrentUser != null && App.CurrentUser.Role == Role.Admin)
-                    {
-                        BtnAcceptAnswer = "Visible";
-                    }
-                    else
-                    {
-                        BtnAcceptAnswer = "Collapsed";
-                    }
-                }
-
-            }
-        }
-
-        private void AcceptDisplay()
-        {
-            foreach (var a in Answers)
-            {
-                if (Post.AcceptedAnswer != null && Post.AcceptedAnswer.Equals(a))
-                {
-                    Accept = "Visible";
-                }
-                else
-                {
-                    Accept = "Collapsed";
-                }
-            }
-        }
+        /// /////////////////////////////////////////FONCTION DE TYPE ACTION//////////////////////////////////
 
         public void SaveAction()
         {
-            var user = App.CurrentUser;
+            //var user = App.CurrentUser;
             if(!editMode)
             {
-                var post = App.Model.CreateAnswer(user, Post, BodyResponse);
+                var post = App.Model.CreateAnswer(App.CurrentUser, Post, BodyResponse);
+                post.AcceptedAnswer = null;
                 Post.Answers.Add(post);
             } 
             else
@@ -375,30 +510,26 @@ namespace PRBD_2S_Aurélie
                 App.Model.SaveChanges();
             }          
             BodyComment = "";
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            //Comments = new ObservableCollection<Comment>(Post.Comments);
         }
 
         public void DeleteCommentAction(Comment comment)
         {
             App.Model.Comments.Remove(comment);
             App.Model.SaveChanges();
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            //Comments = new ObservableCollection<Comment>(Post.Comments);
         }
         private void AcceptAnswerAction(Post p)
         {
-            if (post.AcceptedAnswer == null)
-            {
-                post.AcceptedAnswer = p;
-            }
-            else
-            {
-                post.AcceptedAnswer = null;
-                post.AcceptedAnswer = p;
-            }
-            App.Model.SaveChanges();
+            
             Post.AcceptedAnswer = p;
+            
+            App.Model.SaveChanges();
+            //AcceptedAnswer = p;
+            //Answers = new ObservableCollection<Post>(Post.Answers);
             Console.WriteLine("Réponse acceptée ok");
         }
+
         public void VoteUpAction()
         {
             Console.WriteLine($"Vote Up Score : {Post.Score} ");
@@ -442,6 +573,7 @@ namespace PRBD_2S_Aurélie
                 } 
             }
             Score = Post.Score;
+            Console.WriteLine($"Vote Down Score : {Score} ");
         }
 
         private void DeletePostTagAction(PostTag posttag)
@@ -455,29 +587,46 @@ namespace PRBD_2S_Aurélie
             Console.WriteLine("Suppression du posttag ok");
         }
 
+        private void AddPostTag()
+        {
+            Console.WriteLine(SelectedTag);
+        }
+
+        private void UpdateResponseAction(Post post)
+        {
+            BodyResponse = Post.Body;
+            editId = Post.PostId;
+            editMode = true;
+            Console.WriteLine(BodyResponse);
+        }
+        /// /////////////////////////////////CONSTRUCTEUR/////////////////////////////////////////////////////
+
         public PostDetailView(Post post)
         {
             InitializeComponent();
             DataContext = this;
-           
-            Console.WriteLine(BtnDeletePost);
 
             Post = post;
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            //Comments = new ObservableCollection<Comment>(Post.Comments);
 
             CountAnswers = Answers.Count();
+            //GetUser();
             GetConnectUser();
             GetDeConnectUser();
-            BtnDeleteActive();
-            BtnUpdateActive();
-            BtnResponseActive(post);
-            BtnAcceptActive();
-            AcceptDisplay();
-            Console.WriteLine(SelectedTag);
-          
+            BtnDeletePostActive();
+            BtnUpdatePostActive();
+            //ça doit bindé directement sur la reponse sur laquelle j'ai cliqué et je ne sais pas comment recuperer le bouton sur leql je clique
+            //BtnDeleteAnswerActive();
+            //BtnUpdateAnswerActive();
+            //BtnAcceptAnswerActive();
+            //AcceptDisplayActive();
+            BtnDeletePostTagActive();
+            BtnAddPostTagActive();
+            BtnCancelacceptAnswerActive();
+
             Valider = new RelayCommand(SaveAction, () =>
             {
                 return BodyResponse != null && BodyResponse.Length != 0;              
@@ -486,6 +635,11 @@ namespace PRBD_2S_Aurélie
             ValiderComment = new RelayCommand(SaveActionComment, () => {
                 return BodyComment != null && BodyComment.Length != 0;
             });
+
+            //ValiderCommentAnswer = new RelayCommand<Comment>(SaveActionComment, comment =>
+            //{
+            //    return BodyCommentAnswer != null && BodyCommentAnswer.Length != 0;
+            //});
 
             VoteUpPost = new RelayCommand(VoteUpAction, () =>
             {
@@ -512,12 +666,16 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
             });
 
-            UpdateResponse = new RelayCommand<Post>(Post =>
+            UpdateResponse = new RelayCommand<Post>(UpdateResponseAction, Post =>
             {
-                BodyResponse = Post.Body;
-                editId = Post.PostId;
-                editMode = true;
-                Console.WriteLine(BodyResponse);
+                //if(Post != null)
+                //{
+
+                //    return user != null && (Post.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin);
+                //}
+
+                //return false;
+                return true;
             });
 
             UpdateComment = new RelayCommand<Comment>(comment =>
@@ -525,7 +683,6 @@ namespace PRBD_2S_Aurélie
                 BodyComment = comment.Body;
                 editId = comment.CommentId;
                 editMode = true;
-
             });
 
             DeleteResponse = new RelayCommand<Post>(Post => 
@@ -540,27 +697,37 @@ namespace PRBD_2S_Aurélie
 
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
             {
+                //if (p != null && user != null)
+                //{
+                //    if (Post.AcceptedAnswer != null)
+                //    {
+                //        return Post.AcceptedAnswer.PostId != p.PostId
+                //            && (user.Role == Role.Admin || user.UserId == p.Author.UserId);
+                //    }
+                //    else
+                //    {
+                //        return (user.Role == Role.Admin || user.UserId == p.Author.UserId);
+                //    }
+
+                //}
+
+                //return false;
                 return true;
+            });
+
+            CancelAcceptResponse = new RelayCommand(() =>
+            {
+                Post.AcceptedAnswer = null;
+                App.Model.SaveChanges();
+                
+                //AcceptedAnswer = Post.AcceptedAnswer;
+                //Answers = new ObservableCollection<Post>(Post.Answers);
             });
 
             AffichePostsOfTag = new RelayCommand<PostTag>(PostTag =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
             });
-
-            //AcceptResponse = new RelayCommand<Post>(p => {
-            //    if(post.AcceptedAnswer == null)
-            //    {
-            //        post.AcceptedAnswer = p;
-            //    }
-            //    else
-            //    {
-            //        post.AcceptedAnswer = null;
-            //        post.AcceptedAnswer = p;
-            //    }
-            //    App.Model.SaveChanges();
-            //    Console.WriteLine("Réponse acceptée ok");
-            //});
 
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
                 Post = post;
@@ -578,7 +745,6 @@ namespace PRBD_2S_Aurélie
                 CountAnswers = Answers.Count();
             });
 
-            
         }
 
        
