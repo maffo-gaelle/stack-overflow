@@ -90,8 +90,8 @@
                         <TextBlock Grid.Row="2">
                                 <Run Text="{Binding Path=User.UserName}" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
                                 <Run Text="{Binding Timestamp}" FontSize="8" FontWeight="DemiBold"/>
-                                <Button Content="X" Command="{Binding DeleteComment, ElementName=root}" CommandParameter="{Binding}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
-                                <Button  Content="modifier" Command="{Binding UpdateComment, ElementName=root}" CommandParameter="{Binding}" Width="Auto"  BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" />
+                                <Button Content="X" Command="{Binding DeleteComment, ElementName=root}" CommandParameter="{Binding}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10" Visibility="{Binding ConnectUser, ElementName=root}"/>
+                                <Button  Content="modifier" Command="{Binding UpdateComment, ElementName=root}" CommandParameter="{Binding}" Width="Auto"  BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" Visibility="{Binding ConnectUser, ElementName=root}"/>
                         </TextBlock >
                     </StackPanel>
                 </DataTemplate>
@@ -136,19 +136,18 @@
                             <TextBlock Grid.Row="2">
                                 <Run Text="{Binding Path=Author.UserName}" FontSize="12" FontWeight="Bold" FontStyle="Italic" />
                                 <Run Text="{Binding Timestamp}" FontSize="10" FontWeight="DemiBold"/>
-                                <Button  Content="modifier" Command="{Binding UpdateResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto"  BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" />
-                                <Button Content="supprimer" Command="{Binding DeleteResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto"  BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
-                                <Button Content="accepter" Command="{Binding AcceptResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto"  BorderThickness="0" Foreground="Green" Background="Transparent" FontSize="10"/>
+                                <Button  Content="modifier" Command="{Binding UpdateResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser, ElementName=root}" BorderThickness="0" Background="Transparent" FontSize="10" />
+                                <Button Content="supprimer" Command="{Binding DeleteResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser, ElementName=root}" BorderThickness="0" Background="Transparent" FontSize="10"/>
+                                <Button Content="accepter" Command="{Binding AcceptResponse, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser, ElementName=root}"  BorderThickness="0" Background="Transparent" FontSize="10"/>
                                 <Button Content="+1" Command="{Binding VoteUpPost, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser, ElementName=root}" BorderThickness="0" Foreground="Green" Background="Transparent" FontSize="10"/>
-                                <Button Content="-1" Command="{Binding VoteDownPost, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
+                                <Button Content="-1" Command="{Binding VoteDownPost, ElementName=root}" CommandParameter="{Binding}" Width="Auto" Visibility="{Binding ConnectUser, ElementName=root}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
                                 <TextBlock Grid.Row="4">
                                         <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
                                         <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
                                 </TextBlock>
                             </TextBlock >
                             <TextBlock Grid.Row="3">
-                                <Run Text="" Foreground="Green" FontWeight="Bold" FontSize="12" FontStyle="Italic"/>
-                                <!--Text="{Binding Accepted}"-->
+                                <Run Text="{Binding Accepted}" Foreground="Green" FontWeight="Bold" FontSize="12" FontStyle="Italic"/>
                             </TextBlock>
                             <TextBlock Text="Commentaire(s)"  Grid.Row="7" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" FontWeight="Bold" />
                             <ListView x:Name="listView6" ItemsSource="{Binding Comments}" BorderBrush="Transparent" Grid.Row="8" SelectionMode="Single"
@@ -174,7 +173,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <Grid Grid.Row="9" Visibility="{Binding ConnectUser}">
+                            <Grid Grid.Row="9" Visibility="{Binding ConnectUser, ElementName=root}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto" MinWidth="549"/>
