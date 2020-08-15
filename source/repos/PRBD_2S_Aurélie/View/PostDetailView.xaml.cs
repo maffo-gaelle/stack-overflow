@@ -236,6 +236,16 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private string postTagExist;
+        public string PostTagExist
+        {
+            get { return postTagExist; }
+            set
+            {
+                postTagExist = value;
+                RaisePropertyChanged(nameof(PostTagExist));
+            }
+        }
         public ICommand Valider { get; set; }
         public ICommand ValiderComment { get; set; }
         public ICommand UpdatePost { get; set; }
@@ -358,6 +368,22 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private void PostTagExistActive()
+        {
+            if(SelectedTag != null)
+            {
+                if(Post.Tags.Contains(SelectedTag))
+                {
+                    PostTagExist = "Visible";
+                } else
+                {
+                    PostTagExist = "Collapsed";
+                }
+            } else
+            {
+                PostTagExist = "Collapsed";
+            }
+        }
         /// /////////////////////////////////////////FONCTION DE TYPE ACTION//////////////////////////////////
 
         public void SaveAction()
@@ -476,6 +502,16 @@ namespace PRBD_2S_Aurélie
         private void AddPostTag()
         {
             Console.WriteLine(SelectedTag);
+            
+            if(!Post.Tags.Contains(SelectedTag))
+            {
+                var posttag = App.Model.CreatePostTag(SelectedTag, Post);
+                App.Model.PostTags.Add(posttag);
+
+                PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+                App.NotifyColleagues(AppMessages.MSG_POSTTAG_ADDED, Post);
+            } 
+            
         }
 
         private void UpdateResponseAction(Post post)
@@ -503,6 +539,7 @@ namespace PRBD_2S_Aurélie
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
             //Comments = new ObservableCollection<Comment>(Post.Comments);
+            Console.WriteLine(Post.Tags);
 
             CountAnswers = Answers.Count();
             GetUser();
@@ -510,7 +547,7 @@ namespace PRBD_2S_Aurélie
             GetDeConnectUser();
             BtnDeletePostActive();
             BtnUpdatePostActive();
-           
+            PostTagExistActive();
             BtnDeletePostTagActive();
             BtnAddPostTagActive();
             BtnCancelacceptAnswerActive();

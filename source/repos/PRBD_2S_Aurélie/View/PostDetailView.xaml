@@ -24,6 +24,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -47,6 +48,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <ComboBox  Grid.Row="1" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="527,27,0,5" Grid.RowSpan="2" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding BtnAddPostTag}"/>
+        <Label Grid.Row="2" Content="Ce tag est déjà associé à ce post" Foreground="Red" FontSize="10" FontStyle="Italic" Visibility="{Binding PostTagExist}"/>
         <!--ROW #5-->
         <TextBlock Grid.Row="5" Margin="10,0,2,20">
             <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
