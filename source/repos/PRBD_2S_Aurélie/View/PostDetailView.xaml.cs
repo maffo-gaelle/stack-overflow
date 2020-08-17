@@ -123,17 +123,6 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        //private ICollection<Comment> commentsAnswer;
-        //public ICollection<Comment> CommentsAnswer
-        //{
-        //    get => commentsAnswer;
-        //    set
-        //    {
-        //        commentsAnswer = value;
-        //        RaisePropertyChanged(nameof(CommentsAnswer));
-        //    }
-        //}
-
         ////////////////////COLLECTIONS OBSERVABLES///////////////////////////////////////////////////////////
 
         private ObservableCollection<PostTag> postTags;
@@ -411,6 +400,10 @@ namespace PRBD_2S_Aurélie
         }
         /// /////////////////////////////////////////FONCTION DE TYPE ACTION//////////////////////////////////
 
+        private void CountAnswersAction()
+        {
+            CountAnswers = Answers.Count();
+        }
         public void SaveAction()
         {
             if(!editMode)
@@ -429,6 +422,7 @@ namespace PRBD_2S_Aurélie
             App.Model.SaveChanges();
             BodyResponse = "";
             Answers = new ObservableCollection<Post>(Post.Answers);
+            CountAnswersAction();
             App.NotifyColleagues(AppMessages.MSG_ANSWER_ADDED);
             CountAnswers = Answers.Count();
         }
@@ -453,6 +447,7 @@ namespace PRBD_2S_Aurélie
             Post = thisPost;
             CommentsQuestion = new ObservableCollection<Comment>(thisPost.Comments);
             BodyComment = "";
+            BtnDeletePostActive();
             //Post.Comments;
             //CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
         }
@@ -487,6 +482,7 @@ namespace PRBD_2S_Aurélie
             App.Model.SaveChanges();
             //Comments = Post.Comments;
             CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
+            BtnDeletePostActive();
         }
 
         private void AcceptAnswerAction(Post p)
@@ -600,7 +596,6 @@ namespace PRBD_2S_Aurélie
             CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
             Console.WriteLine(Post.Tags);
 
-            CountAnswers = Answers.Count();
             GetUser();
             GetConnectUser();
             GetDeConnectUser();
@@ -610,6 +605,7 @@ namespace PRBD_2S_Aurélie
             BtnDeletePostTagActive();
             BtnAddPostTagActive();
             BtnCancelacceptAnswerActive();
+            CountAnswersAction();
 
             Valider = new RelayCommand(SaveAction, () =>
             {
@@ -647,7 +643,7 @@ namespace PRBD_2S_Aurélie
 
             UpdateResponse = new RelayCommand<Post>(UpdateResponseAction, P =>
             {
-                if (P != null)
+                if (P != null && P.Author != null)
                 {
                     //j'ai une exception ici quand je supprime une question
                     return user != null && (P.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin);
@@ -672,13 +668,11 @@ namespace PRBD_2S_Aurélie
 
             DeleteResponse = new RelayCommand<Post>(DeleteResponseAction, P => 
             {
-                if (P != null)
+                if (P != null && P.Author != null && user != null && P.Comments.Count() == 0 && (P.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin))
                 {
-                    if (user != null && (P.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin))
-                    {
-                        return true;                       
-                    }
+                    return true;
                 }
+
                 return false;
             });
 
@@ -735,7 +729,8 @@ namespace PRBD_2S_Aurélie
             });
 
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED, p => {
-                Post = post;
+                var thisPost = (from pp in App.Model.Posts where pp.PostId.Equals(p.PostId) select pp).FirstOrDefault();
+                Post = thisPost;
             });
 
             App.Register<Post>(this, AppMessages.MSG_QUESTION_DELETED, p =>

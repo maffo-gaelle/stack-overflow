@@ -76,6 +76,14 @@ namespace PRBD_2S_Aurélie.View
                 Console.WriteLine("tag sélectionné");
                 App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, t);
             });
+
+            App.Register<Post>(this, AppMessages.MSG_POSTTAG_DELETED, post => {
+                Posts = new ObservableCollection<Post>(Ttag.Posts);
+            });
+
+            App.Register<Post>(this, AppMessages.MSG_POSTTAG_ADDED, post => {
+                Posts = new ObservableCollection<Post>(Ttag.Posts);
+            });
         }
     }
 }

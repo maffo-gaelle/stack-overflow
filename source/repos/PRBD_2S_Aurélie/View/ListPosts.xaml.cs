@@ -23,6 +23,7 @@ namespace PRBD_2S_Aurélie
         public ICommand DetailPost { get; set; }
         public ICommand NewQuestion { get; set; }
         public ICommand AffichePostsTag { get; set; }
+        public ICommand ClearFilter { get; set; }
 
         private ObservableCollection<Post> posts;
         public ObservableCollection<Post> Posts
@@ -224,6 +225,10 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_NEW_QUESTION);
             });
 
+            ClearFilter = new RelayCommand(() =>
+            {
+                Filter = "";
+            });
             App.Register<Post>(this, AppMessages.MSG_QUESTION_CHANGED,
                                 post => { ApplyFilterAction(); });
             App.Register<Post>(this, AppMessages.MSG_QUESTION_DELETED,

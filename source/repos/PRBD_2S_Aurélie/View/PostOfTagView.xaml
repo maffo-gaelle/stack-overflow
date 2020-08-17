@@ -50,7 +50,6 @@
                                     <TextBlock Grid.Row="3" Margin="0,10">
                                         <Run Text="{Binding Author.FullName, UpdateSourceTrigger=PropertyChanged}" FontSize="12" FontWeight="Bold" FontStyle="Italic" Foreground="#007FFF"/>
                                         <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
-                                        <TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>
                                         <Run Text="(" FontSize="10" FontWeight="DemiBold"/>
                                         <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
                                         <Run Text="Réponse(s), " FontWeight="DemiBold" FontSize="10"/>
