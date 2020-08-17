@@ -78,9 +78,11 @@ namespace PRBD_2S_Aurélie
         {
             var comment = Comments.Create();
             comment.Body = body;
+            comment.post = post;
+            comment.User = user;
             //ici on établit les relations dans le sens 1-N avec post et user
-            post.Comments.Add(comment);
-            user.Comments.Add(comment);
+            //post.Comments.Add(comment);
+            //user.Comments.Add(comment);
 
             Comments.Add(comment);
             SaveChanges();
@@ -105,12 +107,14 @@ namespace PRBD_2S_Aurélie
         public PostTag CreatePostTag(Tag tag, Post post)
         {
             var posttag = PostTags.Create();
+            posttag.Post = post;
+            posttag.Tag = tag;
             //ici on établit les relations dans le sens 1-N avec post et tag
-            tag.PostTags.Add(posttag);
-            post.PostTags.Add(posttag);
+            //tag.PostTags.Add(posttag);
+            //post.PostTags.Add(posttag);
 
-            PostTags.Add(posttag);
-            SaveChanges();
+            //PostTags.Add(posttag);
+            //SaveChanges();
 
             return posttag;
         }

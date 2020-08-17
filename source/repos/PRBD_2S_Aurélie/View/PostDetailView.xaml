@@ -47,7 +47,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ComboBox  Grid.Row="1" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="527,27,0,5" Grid.RowSpan="2" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding BtnAddPostTag}"/>
+        <ComboBox  Grid.Row="1" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="527,27,0,5" Grid.RowSpan="2" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding BtnAddPostTag, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="2" Content="Ce tag est déjà associé à ce post" Foreground="Red" FontSize="10" FontStyle="Italic" Visibility="{Binding PostTagExist}"/>
         <!--ROW #5-->
         <TextBlock Grid.Row="5" Margin="10,0,2,20">
@@ -78,7 +78,7 @@
 
         <!-- ROW #8 -->
         <ListView x:Name="listView5" BorderBrush="Transparent" Grid.Row="8" SelectionMode="Single"
-                  ItemsSource="{Binding Post.Comments}" Height="Auto" Background="#E0F8F7">
+                  ItemsSource="{Binding Comments, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Background="#E0F8F7">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical"></WrapPanel>

@@ -30,6 +30,7 @@ namespace PRBD_2S_Aurélie
                 RaisePropertyChanged(nameof(Post));
             }
         }
+
         private int score;
         public int Score
         {
@@ -108,6 +109,17 @@ namespace PRBD_2S_Aurélie
                 selectedTag = value;
                 AddPostTag();
                 RaisePropertyChanged(nameof(SelectedTag));
+            }
+        }
+
+        private ICollection<Comment> comments;
+        public ICollection<Comment> Comments
+        {
+            get => comments;
+            set
+            {
+                comments = value;
+                RaisePropertyChanged(nameof(Comments));
             }
         }
 
@@ -358,13 +370,13 @@ namespace PRBD_2S_Aurélie
 
         private void BtnAddPostTagActive()
         {
-            if (user != null && Post.Author.Equals(user) && Post.PostTags.Count < 3 || user != null && user.Role == Role.Admin && Post.PostTags.Count < 3)
+            if ((user != null && Post.Author.Equals(user) && PostTags.Count < 3 ) || (user != null && user.Role == Role.Admin && PostTags.Count < 3))
             {
                 BtnAddPostTag = "Visible";
             }
             else
             {
-                BtnAddPostTag = "Collapsed";
+                BtnAddPostTag = "Hidden";
             }
         }
 
@@ -413,24 +425,31 @@ namespace PRBD_2S_Aurélie
             if (!editMode)
             {
                 var comment = App.Model.CreateComment(user, Post, BodyComment);
-                Post.Comments.Add(comment);
+                
             } else
             {
                 var comment = (from c in App.Model.Comments
                                where c.CommentId == editId
                                select c).FirstOrDefault();
                 comment.Body = BodyComment;
+
                 App.Model.SaveChanges();
-            }          
+            }
+
+            var thisPost = (from p in App.Model.Posts where p.PostId.Equals(Post.PostId) select p).FirstOrDefault();
+            Post = thisPost;
+            Comments = new ObservableCollection<Comment>(thisPost.Comments);
             BodyComment = "";
-            //Comments = new ObservableCollection<Comment>(Post.Comments);
+            //Post.Comments;
+            Comments = new ObservableCollection<Comment>(Post.Comments);
         }
 
         public void DeleteCommentAction(Comment comment)
         {
             App.Model.Comments.Remove(comment);
             App.Model.SaveChanges();
-            //Comments = new ObservableCollection<Comment>(Post.Comments);
+            //Comments = Post.Comments;
+            Comments = new ObservableCollection<Comment>(Post.Comments);
         }
 
         private void AcceptAnswerAction(Post p)
@@ -492,9 +511,11 @@ namespace PRBD_2S_Aurélie
         {
             Console.WriteLine($"On va supprimer ce tag associé au post: {posttag.Tag.TagName} ");
             App.Model.PostTags.Remove(posttag);
+            Post.PostTags.Remove(posttag);
             App.Model.SaveChanges();
 
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+            BtnAddPostTagActive();
             App.NotifyColleagues(AppMessages.MSG_POSTTAG_DELETED, Post);
             Console.WriteLine("Suppression du posttag ok");
         }
@@ -503,12 +524,13 @@ namespace PRBD_2S_Aurélie
         {
             Console.WriteLine(SelectedTag);
             
-            if(!Post.Tags.Contains(SelectedTag))
+            if(!Post.Tags.Contains(SelectedTag) && PostTags.Count() < 3)
             {
                 var posttag = App.Model.CreatePostTag(SelectedTag, Post);
                 App.Model.PostTags.Add(posttag);
 
                 PostTags = new ObservableCollection<PostTag>(Post.PostTags);
+                BtnAddPostTagActive();
                 App.NotifyColleagues(AppMessages.MSG_POSTTAG_ADDED, Post);
             } 
             
@@ -538,7 +560,7 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
-            //Comments = new ObservableCollection<Comment>(Post.Comments);
+            Comments = new ObservableCollection<Comment>(Post.Comments);
             Console.WriteLine(Post.Tags);
 
             CountAnswers = Answers.Count();
