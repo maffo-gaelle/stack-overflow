@@ -112,27 +112,27 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private ICollection<Comment> comments;
-        public ICollection<Comment> Comments
+        private ICollection<Comment> commentsQuestion;
+        public ICollection<Comment> CommentsQuestion
         {
-            get => comments;
+            get => commentsQuestion;
             set
             {
-                comments = value;
-                RaisePropertyChanged(nameof(Comments));
+                commentsQuestion = value;
+                RaisePropertyChanged(nameof(CommentsQuestion));
             }
         }
 
-        private ICollection<Comment> commentsAnswer;
-        public ICollection<Comment> CommentsAnswer
-        {
-            get => commentsAnswer;
-            set
-            {
-                commentsAnswer = value;
-                RaisePropertyChanged(nameof(CommentsAnswer));
-            }
-        }
+        //private ICollection<Comment> commentsAnswer;
+        //public ICollection<Comment> CommentsAnswer
+        //{
+        //    get => commentsAnswer;
+        //    set
+        //    {
+        //        commentsAnswer = value;
+        //        RaisePropertyChanged(nameof(CommentsAnswer));
+        //    }
+        //}
 
         ////////////////////COLLECTIONS OBSERVABLES///////////////////////////////////////////////////////////
 
@@ -282,7 +282,9 @@ namespace PRBD_2S_Aurélie
         public ICommand AffichePostsOfTag { get; set; }
         public ICommand DeletePostTag { get; set; }
         public ICommand UpdateComment { get; set; }
+        public ICommand UpdateCommentAnswer { get; set; }
         public ICommand DeleteComment { get; set; }
+        public ICommand DeleteCommentAnswer { get; set; }
         public ICommand ValiderCommentAnswer { get; set; }
 
        /// //////////////////////////////////////FONCTIONS POUR LA VISIBILIT2 DES BOUTONS////////////////////////////////
@@ -443,22 +445,40 @@ namespace PRBD_2S_Aurélie
                                where c.CommentId == editId
                                select c).FirstOrDefault();
                 comment.Body = BodyComment;
-
+                editMode = false;
                 App.Model.SaveChanges();
             }
 
             var thisPost = (from p in App.Model.Posts where p.PostId.Equals(Post.PostId) select p).FirstOrDefault();
             Post = thisPost;
-            Comments = new ObservableCollection<Comment>(thisPost.Comments);
+            CommentsQuestion = new ObservableCollection<Comment>(thisPost.Comments);
             BodyComment = "";
             //Post.Comments;
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            //CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
         }
 
         private void SaveActionCommentAnswer(Post post)
         {
-            var comment = App.Model.CreateComment(user, post, BodyCommentAnswer);
-            BodyCommentAnswer = "";
+            if(!editMode)
+            {
+                var comment = App.Model.CreateComment(user, post, BodyCommentAnswer);
+                var thisPost = (from p in App.Model.Posts where p.PostId.Equals(Post.PostId) select p).FirstOrDefault();
+                Post = thisPost;
+                Answers = new ObservableCollection<Post>(Post.Answers);
+                BodyCommentAnswer = "";
+            } 
+            else
+            {
+                var comment = (from c in App.Model.Comments
+                               where c.CommentId == editId
+                               select c).FirstOrDefault();
+                comment.Body = BodyCommentAnswer;
+                editMode = false;
+                App.Model.SaveChanges();
+                BodyCommentAnswer = "";
+                Answers = new ObservableCollection<Post>(Post.Answers);
+            }
+            
         }
 
         public void DeleteCommentAction(Comment comment)
@@ -466,7 +486,7 @@ namespace PRBD_2S_Aurélie
             App.Model.Comments.Remove(comment);
             App.Model.SaveChanges();
             //Comments = Post.Comments;
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
         }
 
         private void AcceptAnswerAction(Post p)
@@ -577,7 +597,7 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
-            Comments = new ObservableCollection<Comment>(Post.Comments);
+            CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
             Console.WriteLine(Post.Tags);
 
             CountAnswers = Answers.Count();
@@ -599,11 +619,6 @@ namespace PRBD_2S_Aurélie
             ValiderComment = new RelayCommand(SaveActionComment, () => {
                 return BodyComment != null && BodyComment.Length != 0;
             });
-
-            //ValiderCommentAnswer = new RelayCommand<Comment>(SaveActionComment, comment =>
-            //{
-            //    return BodyCommentAnswer != null && BodyCommentAnswer.Length != 0;
-            //});
 
             VoteUpPost = new RelayCommand(VoteUpAction, () =>
             {
@@ -648,6 +663,13 @@ namespace PRBD_2S_Aurélie
                 editMode = true;
             });
 
+            UpdateCommentAnswer = new RelayCommand<Comment>(comment =>
+            {
+                BodyCommentAnswer = comment.Body;
+                editId = comment.CommentId;
+                editMode = true;
+            });
+
             DeleteResponse = new RelayCommand<Post>(DeleteResponseAction, P => 
             {
                 if (P != null)
@@ -663,7 +685,15 @@ namespace PRBD_2S_Aurélie
             DeleteComment = new RelayCommand<Comment>(DeleteCommentAction, comment =>
             {
                 return true;
-            }); 
+            });
+
+            DeleteCommentAnswer = new RelayCommand<Comment>(comment =>
+            {
+                App.Model.Comments.Remove(comment);
+                App.Model.SaveChanges();
+                Console.WriteLine("commentaire supprimé");
+                Answers = new ObservableCollection<Post>(Post.Answers);
+            });
 
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>
             {
@@ -695,7 +725,6 @@ namespace PRBD_2S_Aurélie
 
             ValiderCommentAnswer = new RelayCommand<Post>(SaveActionCommentAnswer, p =>
             {
-                Console.WriteLine(BodyCommentAnswer);
                 //return BodyCommentAnswer != null && BodyCommentAnswer.Length != 0;
                 return true;
             });
