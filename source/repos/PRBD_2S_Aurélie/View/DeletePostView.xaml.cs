@@ -67,6 +67,11 @@ namespace PRBD_2S_Aurélie
             {
                 return true;
             });
+
+            CancelDelete = new RelayCommand(() =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            });
         }
     }
 }

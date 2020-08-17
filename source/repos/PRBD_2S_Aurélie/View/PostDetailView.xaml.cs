@@ -123,6 +123,17 @@ namespace PRBD_2S_Aurélie
             }
         }
 
+        private ICollection<Comment> commentsAnswer;
+        public ICollection<Comment> CommentsAnswer
+        {
+            get => commentsAnswer;
+            set
+            {
+                commentsAnswer = value;
+                RaisePropertyChanged(nameof(CommentsAnswer));
+            }
+        }
+
         ////////////////////COLLECTIONS OBSERVABLES///////////////////////////////////////////////////////////
 
         private ObservableCollection<PostTag> postTags;
@@ -444,6 +455,12 @@ namespace PRBD_2S_Aurélie
             Comments = new ObservableCollection<Comment>(Post.Comments);
         }
 
+        private void SaveActionCommentAnswer(Post post)
+        {
+            var comment = App.Model.CreateComment(user, post, BodyCommentAnswer);
+            BodyCommentAnswer = "";
+        }
+
         public void DeleteCommentAction(Comment comment)
         {
             App.Model.Comments.Remove(comment);
@@ -538,8 +555,8 @@ namespace PRBD_2S_Aurélie
 
         private void UpdateResponseAction(Post post)
         {
-            BodyResponse = Post.Body;
-            editId = Post.PostId;
+            BodyResponse = post.Body;
+            editId = post.PostId;
             editMode = true;
             Console.WriteLine(BodyResponse);
         }
@@ -613,12 +630,12 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_DELETE_QUESTION, post);
             });
 
-            UpdateResponse = new RelayCommand<Post>(UpdateResponseAction, Post =>
+            UpdateResponse = new RelayCommand<Post>(UpdateResponseAction, P =>
             {
-                if (Post != null)
+                if (P != null)
                 {
-
-                    return user != null && (Post.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin);
+                    //j'ai une exception ici quand je supprime une question
+                    return user != null && (P.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin);
                 }
 
                 return false;
@@ -631,11 +648,11 @@ namespace PRBD_2S_Aurélie
                 editMode = true;
             });
 
-            DeleteResponse = new RelayCommand<Post>(DeleteResponseAction, Post => 
+            DeleteResponse = new RelayCommand<Post>(DeleteResponseAction, P => 
             {
-                if (Post != null)
+                if (P != null)
                 {
-                    if (user != null && (Post.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin))
+                    if (user != null && (P.Author.UserId.Equals(user.UserId) || user.Role == Role.Admin))
                     {
                         return true;                       
                     }
@@ -676,6 +693,13 @@ namespace PRBD_2S_Aurélie
                 Answers = new ObservableCollection<Post>(Post.Answers);
             });
 
+            ValiderCommentAnswer = new RelayCommand<Post>(SaveActionCommentAnswer, p =>
+            {
+                Console.WriteLine(BodyCommentAnswer);
+                //return BodyCommentAnswer != null && BodyCommentAnswer.Length != 0;
+                return true;
+            });
+
             AffichePostsOfTag = new RelayCommand<PostTag>(PostTag =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, PostTag.Tag);
@@ -699,6 +723,5 @@ namespace PRBD_2S_Aurélie
 
         }
 
-       
     }
 }
