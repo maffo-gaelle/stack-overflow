@@ -8,12 +8,12 @@ using System.Windows.Input;
 
 namespace PRBD_2S_Aurélie
 {
-    
+
     public partial class PostDetailView : UserControlBase
     {
-       
+
         /// /////////////////////PROPRIT2S SIMPLES/////////////////////////////////////////////////
-      
+
         private bool editMode = false;
         private int editId;
         public User user = null;
@@ -31,14 +31,14 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private int score;
-        public int Score
+        private int scorePost;
+        public int ScorePost
         {
-            get => Post.Score; 
+            get => scorePost;
             set
             {
-                score = value;
-                RaisePropertyChanged(nameof(Score));
+                scorePost = value;
+                RaisePropertyChanged(nameof(ScorePost));
             }
         }
 
@@ -199,12 +199,12 @@ namespace PRBD_2S_Aurélie
             get => btnCancelacceptAnswer;
             set
             {
-                btnCancelacceptAnswer = value; 
+                btnCancelacceptAnswer = value;
                 RaisePropertyChanged(nameof(BtnCancelacceptAnswer));
             }
         }
 
-        private string btnDeletePostTag; 
+        private string btnDeletePostTag;
         public string BtnDeletePostTag
         {
             get { return btnDeletePostTag; }
@@ -215,7 +215,7 @@ namespace PRBD_2S_Aurélie
             }
         }
 
-        private string btnAddPostTag; 
+        private string btnAddPostTag;
         public string BtnAddPostTag
         {
             get { return btnAddPostTag; }
@@ -276,11 +276,11 @@ namespace PRBD_2S_Aurélie
         public ICommand DeleteCommentAnswer { get; set; }
         public ICommand ValiderCommentAnswer { get; set; }
 
-       /// //////////////////////////////////////FONCTIONS POUR LA VISIBILIT2 DES BOUTONS////////////////////////////////
+        /// //////////////////////////////////////FONCTIONS POUR LA VISIBILIT2 DES BOUTONS////////////////////////////////
 
         private void GetUser()
         {
-            if(App.CurrentUser != null)
+            if (App.CurrentUser != null)
             {
                 user = App.CurrentUser;
             }
@@ -328,7 +328,7 @@ namespace PRBD_2S_Aurélie
 
         private void BtnUpdatePostActive()
         {
-            if((user != null && App.CurrentUser.Equals(post.Author)) || 
+            if ((user != null && App.CurrentUser.Equals(post.Author)) ||
                 (user != null && App.CurrentUser.Role == Role.Admin))
             {
                 BtnUpdatePost = "Visible";
@@ -342,9 +342,9 @@ namespace PRBD_2S_Aurélie
 
         private void BtnCancelacceptAnswerActive()
         {
-            if(user != null)
+            if (user != null)
             {
-                if(Post.AcceptedAnswer != null && (Post.Author.Equals(user) || user.Role == Role.Admin))
+                if (Post.AcceptedAnswer != null && (Post.Author.Equals(user) || user.Role == Role.Admin))
                 {
                     BtnCancelacceptAnswer = "Visible";
                 }
@@ -352,16 +352,16 @@ namespace PRBD_2S_Aurélie
                 {
                     BtnCancelacceptAnswer = "Collapsed";
                 }
-            } 
+            }
             else
             {
                 BtnCancelacceptAnswer = "Collapsed";
             }
-                
+
         }
         private void BtnDeletePostTagActive()
         {
-            if(user != null && Post.Author.Equals(App.CurrentUser) || user != null && user.Role == Role.Admin)
+            if (user != null && Post.Author.Equals(App.CurrentUser) || user != null && user.Role == Role.Admin)
             {
                 BtnDeletePostTag = "Visible";
             } else
@@ -372,7 +372,7 @@ namespace PRBD_2S_Aurélie
 
         private void BtnAddPostTagActive()
         {
-            if ((user != null && Post.Author.Equals(user) && PostTags.Count < 3 ) || (user != null && user.Role == Role.Admin && PostTags.Count < 3))
+            if ((user != null && Post.Author.Equals(user) && PostTags.Count < 3) || (user != null && user.Role == Role.Admin && PostTags.Count < 3))
             {
                 BtnAddPostTag = "Visible";
             }
@@ -384,9 +384,9 @@ namespace PRBD_2S_Aurélie
 
         private void PostTagExistActive()
         {
-            if(SelectedTag != null)
+            if (SelectedTag != null)
             {
-                if(Post.Tags.Contains(SelectedTag))
+                if (Post.Tags.Contains(SelectedTag))
                 {
                     PostTagExist = "Visible";
                 } else
@@ -406,12 +406,12 @@ namespace PRBD_2S_Aurélie
         }
         public void SaveAction()
         {
-            if(!editMode)
+            if (!editMode)
             {
                 var post = App.Model.CreateAnswer(user, Post, BodyResponse);
                 post.AcceptedAnswer = null;
                 Post.Answers.Add(post);
-            } 
+            }
             else
             {
                 var post = (from p in App.Model.Posts
@@ -432,7 +432,7 @@ namespace PRBD_2S_Aurélie
             if (!editMode)
             {
                 var comment = App.Model.CreateComment(user, Post, BodyComment);
-                
+
             } else
             {
                 var comment = (from c in App.Model.Comments
@@ -454,14 +454,14 @@ namespace PRBD_2S_Aurélie
 
         private void SaveActionCommentAnswer(Post post)
         {
-            if(!editMode)
+            if (!editMode)
             {
                 var comment = App.Model.CreateComment(user, post, BodyCommentAnswer);
                 var thisPost = (from p in App.Model.Posts where p.PostId.Equals(Post.PostId) select p).FirstOrDefault();
                 Post = thisPost;
                 Answers = new ObservableCollection<Post>(Post.Answers);
                 BodyCommentAnswer = "";
-            } 
+            }
             else
             {
                 var comment = (from c in App.Model.Comments
@@ -473,7 +473,7 @@ namespace PRBD_2S_Aurélie
                 BodyCommentAnswer = "";
                 Answers = new ObservableCollection<Post>(Post.Answers);
             }
-            
+
         }
 
         public void DeleteCommentAction(Comment comment)
@@ -487,9 +487,9 @@ namespace PRBD_2S_Aurélie
 
         private void AcceptAnswerAction(Post p)
         {
-            
+
             Post.AcceptedAnswer = p;
-            
+
             App.Model.SaveChanges();
             AcceptedAnswer = p;
             Answers = new ObservableCollection<Post>(Post.Answers);
@@ -500,30 +500,30 @@ namespace PRBD_2S_Aurélie
         {
             Console.WriteLine($"Vote Up Score : {Post.Score} ");
             Vote vote = (from v in App.Model.Votes
-                        where v.PostId == Post.PostId && v.UserId == user.UserId
-                        select v).FirstOrDefault();
-            if(vote == null)
+                         where v.PostId == Post.PostId && v.UserId == user.UserId
+                         select v).FirstOrDefault();
+            if (vote == null)
             {
                 App.Model.CreateVote(user, Post, 1);
             } else
             {
-                if(vote.UpDown == -1)
+                if (vote.UpDown == -1)
                 {
                     App.Model.Votes.Remove(vote);
                     App.Model.SaveChanges();
                 }
             }
-            
-            Score = Post.Score;
-            Console.WriteLine($"Vote Up Score : {Score} ");
+
+            ScorePost = Post.Score;
+            Console.WriteLine($"Vote Up Score : {ScorePost} ");
         }
 
         public void VoteDownAction()
         {
             Console.WriteLine("Vote Down");
             Vote vote = (from v in App.Model.Votes
-                        where v.PostId == Post.PostId && v.UserId == user.UserId
-                        select v).FirstOrDefault();
+                         where v.PostId == Post.PostId && v.UserId == user.UserId
+                         select v).FirstOrDefault();
             if (vote == null)
             {
                 App.Model.CreateVote(user, Post, -1);
@@ -534,10 +534,10 @@ namespace PRBD_2S_Aurélie
                 {
                     App.Model.Votes.Remove(vote);
                     App.Model.SaveChanges();
-                } 
+                }
             }
-            Score = Post.Score;
-            Console.WriteLine($"Vote Down Score : {Score} ");
+            ScorePost = Post.Score;
+            Console.WriteLine($"Vote Down Score : {ScorePost} ");
         }
 
         private void DeletePostTagAction(PostTag posttag)
@@ -556,8 +556,8 @@ namespace PRBD_2S_Aurélie
         private void AddPostTag()
         {
             Console.WriteLine(SelectedTag);
-            
-            if(!Post.Tags.Contains(SelectedTag) && PostTags.Count() < 3)
+
+            if (!Post.Tags.Contains(SelectedTag) && PostTags.Count() < 3)
             {
                 var posttag = App.Model.CreatePostTag(SelectedTag, Post);
                 App.Model.PostTags.Add(posttag);
@@ -565,8 +565,8 @@ namespace PRBD_2S_Aurélie
                 PostTags = new ObservableCollection<PostTag>(Post.PostTags);
                 BtnAddPostTagActive();
                 App.NotifyColleagues(AppMessages.MSG_POSTTAG_ADDED, Post);
-            } 
-            
+            }
+
         }
 
         private void UpdateResponseAction(Post post)
@@ -580,6 +580,28 @@ namespace PRBD_2S_Aurélie
         private void DeleteResponseAction(Post post)
         {
             App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETE, post);
+        }
+
+        private void UpdateCommentAction(Comment comment) 
+        {
+            BodyComment = comment.Body;
+            editId = comment.CommentId;
+            editMode = true;
+        }
+
+        private void UpdateCommentAnswerAction(Comment comment)
+        {
+            BodyCommentAnswer = comment.Body;
+            editId = comment.CommentId;
+            editMode = true;
+        }
+
+        private void DeleteCommentAnswerAction(Comment comment)
+        {
+            App.Model.Comments.Remove(comment);
+            App.Model.SaveChanges();
+            Console.WriteLine("commentaire supprimé");
+            Answers = new ObservableCollection<Post>(Post.Answers);
         }
 
         /// /////////////////////////////////CONSTRUCTEUR/////////////////////////////////////////////////////
@@ -606,6 +628,8 @@ namespace PRBD_2S_Aurélie
             BtnAddPostTagActive();
             BtnCancelacceptAnswerActive();
             CountAnswersAction();
+
+            ScorePost = Post.Score;
 
             Valider = new RelayCommand(SaveAction, () =>
             {
@@ -652,18 +676,21 @@ namespace PRBD_2S_Aurélie
                 return false;
             });
 
-            UpdateComment = new RelayCommand<Comment>(comment =>
+            UpdateComment = new RelayCommand<Comment>(UpdateCommentAction, comment =>
             {
-                BodyComment = comment.Body;
-                editId = comment.CommentId;
-                editMode = true;
+                if (user != null && comment != null && (user.Role == Role.Admin || user.Equals(comment.User)))
+                {
+                    return true;
+                }
+                return false;
             });
 
-            UpdateCommentAnswer = new RelayCommand<Comment>(comment =>
+            UpdateCommentAnswer = new RelayCommand<Comment>(UpdateCommentAnswerAction, comment =>
             {
-                BodyCommentAnswer = comment.Body;
-                editId = comment.CommentId;
-                editMode = true;
+                if(user != null && comment != null && (user.Role == Role.Admin || user.Equals(comment.User))) {
+                    return true;
+                }
+                return false;
             });
 
             DeleteResponse = new RelayCommand<Post>(DeleteResponseAction, P => 
@@ -678,15 +705,20 @@ namespace PRBD_2S_Aurélie
 
             DeleteComment = new RelayCommand<Comment>(DeleteCommentAction, comment =>
             {
-                return true;
+                if (user != null && comment != null && (user.Role == Role.Admin || user.Equals(comment.User)))
+                {
+                    return true;
+                }
+                return false;
             });
 
-            DeleteCommentAnswer = new RelayCommand<Comment>(comment =>
+            DeleteCommentAnswer = new RelayCommand<Comment>(DeleteCommentAnswerAction, comment =>
             {
-                App.Model.Comments.Remove(comment);
-                App.Model.SaveChanges();
-                Console.WriteLine("commentaire supprimé");
-                Answers = new ObservableCollection<Post>(Post.Answers);
+                if (user != null && comment != null && (user.Role == Role.Admin || user.Equals(comment.User)))
+                {
+                    return true;
+                }
+                return false;
             });
 
             AcceptResponse = new RelayCommand<Post>(AcceptAnswerAction, p =>

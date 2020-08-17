@@ -10,7 +10,8 @@
              d:DesignHeight="450" d:DesignWidth="800" FontSize="14" x:Name="root" >
     <Grid Margin="10,10,10,-250" Background="#E0F8F7" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="322.526"/>
+            <RowDefinition Height="177.474"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -27,10 +28,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="500">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="500" Grid.RowSpan="2">
             <StackPanel>
                 <!--ROW #1-->
                 <TextBlock x:Name="txtTitle" Margin="10, 0, 0, 5" Grid.Row="1" Text="{Binding Post.Title}" VerticalAlignment="Top"  FontSize="20" FontWeight="Bold"/>
+                <ComboBox Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="527,27,0,5" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding BtnAddPostTag, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--ROW #2-->
                 <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding PostTags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
@@ -48,10 +50,9 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <ComboBox  Grid.Row="1" Width="200px" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="527,27,0,5" Grid.RowSpan="2" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding BtnAddPostTag, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Grid.Row="2" Content="Ce tag est déjà associé à ce post" Foreground="Red" FontSize="10" FontStyle="Italic" Visibility="{Binding PostTagExist}"/>
                 <!--ROW #5-->
-                <TextBlock Grid.Row="5" Margin="10,0,2,20">
+                <TextBlock Grid.Row="5" Margin="10,0,2,0">
                     <Run Text="Question posée par" FontSize="10" FontStyle="Italic"/>
                     <TextBlock Text="{Binding Post.Author.UserName, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Post.Timestamp}" FontSize="10" FontWeight="Bold"/>
@@ -70,7 +71,7 @@
                 <!-- ROW #6 -->
                 <TextBlock Grid.Row="6" >
                       <TextBlock Text="Score :" Margin="10, 2, 2, 0" FontSize="10" />
-                      <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                      <TextBlock Text="{Binding ScorePost, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
                       <Button Content="Annuler la réponse acceptée" Command="{Binding CancelAcceptResponse}" CommandParameter="{Binding}" Visibility="{Binding BtnCancelacceptAnswer}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10"/>
                 </TextBlock>
 
@@ -169,8 +170,8 @@
                                                     <TextBlock Grid.Row="2">
                                                         <Run Text="{Binding Path=User.UserName}" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
                                                         <Run Text="{Binding Timestamp}" FontSize="8" FontWeight="DemiBold"/>
-                                                        <Button Content="X" Command="{Binding DeleteCommentAnswer, ElementName=root}" CommandParameter="{Binding}" Visibility="{Binding BtnAnswerActive}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10" />
-                                                        <Button  Content="modifier" Command="{Binding UpdateCommentAnswer, ElementName=root}" CommandParameter="{Binding}" Width="50" Visibility="{Binding BtnResponse}" BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" />
+                                                        <Button Content="X" Command="{Binding DeleteCommentAnswer, ElementName=root}" CommandParameter="{Binding}" Visibility="{Binding ConnectUser,ElementName=root}" BorderThickness="0" Foreground="Red" Background="Transparent" FontSize="10" />
+                                                        <Button  Content="modifier" Command="{Binding UpdateCommentAnswer, ElementName=root}" CommandParameter="{Binding}" Width="50" Visibility="{Binding ConnectUser, ElementName=root}" BorderThickness="0" Foreground="Blue" Background="Transparent" FontSize="10" />
                                                     </TextBlock >
                                                 </StackPanel>
                                             </DataTemplate>
