@@ -45,7 +45,7 @@ namespace PRBD_2S_Aurélie
             {
                 selectedTag = value;
                 RaisePropertyChanged(nameof(SelectedTag));
-                Nom = selectedTag.TagName;
+                if(SelectedTag == null) { Nom = ""; } else { Nom = selectedTag.TagName; }
             }
         }
 
@@ -129,10 +129,21 @@ namespace PRBD_2S_Aurélie
         private void DeleteTagAction()
         {
             Console.WriteLine("supprimer un tag");
+            if(SelectedTag.NbPosts != 0)
+            {
+                foreach(var pt in App.Model.PostTags)
+                {
+                    if(pt.Tag.Equals(SelectedTag))
+                    {
+                        App.Model.PostTags.Remove(pt);
+                    }
+                }
+            }
             App.Model.Tags.Remove(SelectedTag);
             App.Model.SaveChanges();
             Nom = "";
             Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName));
+            App.NotifyColleagues(AppMessages.MSG_TAG_DELETED);
         }
 
         private void UpdateTagAction()
@@ -142,6 +153,7 @@ namespace PRBD_2S_Aurélie
             Nom = "";
             App.Model.SaveChanges();
             Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(t => t.TagName));
+            App.NotifyColleagues(AppMessages.MSG_TAG_UPDATED);
         }
 
         private void RefreshTags()
@@ -179,9 +191,19 @@ namespace PRBD_2S_Aurélie
                 App.NotifyColleagues(AppMessages.MSG_DISPLAY_POSTOFTAG, tag);
             });
 
-           // App.Register<Tag>(this, AppMessages.MSG_QUESTION_CHANGED,
-           //     t => PostTags = new ObservableCollection<PostTag>(t.PostTags)
-           //);
+            App.Register<Post>(this, AppMessages.MSG_POSTTAG_ADDED, post =>
+            {
+                Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
+            });
+
+            App.Register<Post>(this, AppMessages.MSG_POSTTAG_DELETED, post =>
+            {
+                Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
+            });
+
+            // App.Register<Tag>(this, AppMessages.MSG_QUESTION_CHANGED,
+            //     t => PostTags = new ObservableCollection<PostTag>(t.PostTags)
+            //);
         }
     }
 }

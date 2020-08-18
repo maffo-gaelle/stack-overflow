@@ -238,6 +238,16 @@ namespace PRBD_2S_Aurélie
                 Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
             });
 
+            App.Register(this, AppMessages.MSG_TAG_DELETED, () =>
+            {
+                Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
+            });
+
+            App.Register(this, AppMessages.MSG_TAG_UPDATED, () =>
+            {
+                Posts = new ObservableCollection<Post>(App.Model.Posts.Where(p => p.Parent == null && p.Title != null));
+            });
+
             App.Register<Post>(this, AppMessages.MSG_POSTTAG_DELETED, 
                                 post => { ApplyFilterAction(); });
 

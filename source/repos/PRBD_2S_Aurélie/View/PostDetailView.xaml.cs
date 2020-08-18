@@ -565,6 +565,7 @@ namespace PRBD_2S_Aurélie
             {
                 var posttag = App.Model.CreatePostTag(SelectedTag, Post);
                 App.Model.PostTags.Add(posttag);
+                App.Model.SaveChanges();
 
                 PostTags = new ObservableCollection<PostTag>(Post.PostTags);
                 BtnAddPostTagActive();

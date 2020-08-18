@@ -84,6 +84,20 @@ namespace PRBD_2S_Aurélie.View
             App.Register<Post>(this, AppMessages.MSG_POSTTAG_ADDED, post => {
                 Posts = new ObservableCollection<Post>(Ttag.Posts);
             });
+
+            App.Register<Post>(this, AppMessages.MSG_VOTE_CHANGED, post => {
+                Posts = new ObservableCollection<Post>(Ttag.Posts);
+            });
+
+            App.Register(this, AppMessages.MSG_TAG_UPDATED, () =>
+            {
+                Posts = new ObservableCollection<Post>(Ttag.Posts);
+            });
+
+            App.Register(this, AppMessages.MSG_TAG_DELETED, () =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            });
         }
     }
 }
