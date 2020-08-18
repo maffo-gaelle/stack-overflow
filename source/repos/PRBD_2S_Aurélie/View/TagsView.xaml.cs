@@ -201,6 +201,11 @@ namespace PRBD_2S_Aurélie
                 Tags = new ObservableCollection<Tag>(App.Model.Tags.OrderBy(tag => tag.TagName));
             });
 
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () =>
+            {
+                GetConnectAdmin();
+            });
+
             // App.Register<Tag>(this, AppMessages.MSG_QUESTION_CHANGED,
             //     t => PostTags = new ObservableCollection<PostTag>(t.PostTags)
             //);

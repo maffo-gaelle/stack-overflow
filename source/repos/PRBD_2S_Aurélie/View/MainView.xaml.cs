@@ -242,7 +242,9 @@ namespace PRBD_2S_Aurélie
         {
             Console.WriteLine("Logout action");
             App.CurrentUser = null;
+            ConnectUser = "Collapsed";
             GetDeConnectUser();
+            App.NotifyColleagues(AppMessages.MSG_NOT_CURRENT);
         }
 
         public MainView()

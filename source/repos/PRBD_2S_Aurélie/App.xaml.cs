@@ -27,7 +27,8 @@ namespace PRBD_2S_Aurélie
         MSG_POSTTAG_ADDED,
         MSG_VOTE_CHANGED,
         MSG_TAG_DELETED,
-        MSG_TAG_UPDATED
+        MSG_TAG_UPDATED,
+        MSG_NOT_CURRENT
     }
 
     public partial class App : ApplicationBase 

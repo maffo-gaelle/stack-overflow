@@ -284,7 +284,11 @@ namespace PRBD_2S_Aurélie
                 ValidateNbTag();
                
             });
-            
+
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            });
         }
 
     }

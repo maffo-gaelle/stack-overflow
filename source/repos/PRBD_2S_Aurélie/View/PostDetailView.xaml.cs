@@ -840,6 +840,11 @@ namespace PRBD_2S_Aurélie
                 CountAnswers = Answers.Count();
             });
 
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            });
+
         }
 
     }

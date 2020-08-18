@@ -2,11 +2,8 @@
 using System.Linq;
 using System.Collections.ObjectModel;
 using PRBD_Framework;
-using System.Windows;
 using System.Windows.Input;
-using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Controls;
 
 namespace PRBD_2S_Aurélie
 {
@@ -261,6 +258,10 @@ namespace PRBD_2S_Aurélie
             ShowPost = new RelayCommand<Post>(Post =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
+            });
+
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () => {
+                GetConnectUser();
             });
 
             AffichePostsTag = new RelayCommand<Tag>(tag =>

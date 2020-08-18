@@ -94,6 +94,11 @@ namespace PRBD_2S_Aurélie
             {
                 App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
             });
+
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () =>
+            {
+                App.NotifyColleagues(AppMessages.MSG_CLOSE_TAB, this);
+            });
         }
     }
 }
