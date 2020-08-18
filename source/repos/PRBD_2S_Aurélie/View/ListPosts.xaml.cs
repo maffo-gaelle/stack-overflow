@@ -254,14 +254,14 @@ namespace PRBD_2S_Aurélie
             App.Register<Post>(this, AppMessages.MSG_VOTE_CHANGED,
                                post => { ApplyFilterAction(); });
 
+            App.Register(this, AppMessages.MSG_NOT_CURRENT, () => {
+                GetConnectUser();
+            });
+
             //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
             ShowPost = new RelayCommand<Post>(Post =>
             {
                 App.NotifyColleagues(AppMessages.MSG_DETAILS_POST, Post);
-            });
-
-            App.Register(this, AppMessages.MSG_NOT_CURRENT, () => {
-                GetConnectUser();
             });
 
             AffichePostsTag = new RelayCommand<Tag>(tag =>
