@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace PRBD_2S_Aurélie
 {
@@ -18,5 +19,10 @@ namespace PRBD_2S_Aurélie
         public int UpDown { get; set; }
 
         protected Vote() { }
+
+        public override string ToString()
+        {
+            return "vote :" + this.UpDown;
+        }
     }
 }

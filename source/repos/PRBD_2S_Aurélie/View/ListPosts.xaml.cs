@@ -244,6 +244,8 @@ namespace PRBD_2S_Aurélie
             App.Register<Post>(this, AppMessages.MSG_POSTTAG_ADDED, 
 
                                post => { ApplyFilterAction(); });
+            App.Register<Post>(this, AppMessages.MSG_VOTE_CHANGED,
+                               post => { ApplyFilterAction(); });
 
             //Ouvre un nouveau onglet , cree une notification de type post qui doit etre mis à jour
             ShowPost = new RelayCommand<Post>(Post =>

@@ -36,16 +36,15 @@ namespace PRBD_2S_Aurélie
             {
                 if(Post.Votes != null)
                 {
-                    foreach(var v in App.Model.Votes)
+                   foreach(var v in App.Model.Votes)
                     {
                         if(v.PostId == Post.PostId)
                         {
                             App.Model.Votes.Remove(v);
-                            Post.Score = 0;
-                            App.Model.SaveChanges();
                         }
                     }
                 }
+
                 if(Post.PostTags.Count() != 0)
                 {
                     foreach (var posttag in PostTags)
@@ -63,12 +62,15 @@ namespace PRBD_2S_Aurélie
             {
                 if (Post.Votes != null)
                 {
-                    foreach (var v in Post.Votes)
+                    foreach (var v in App.Model.Votes)
                     {
-                        App.Model.Votes.Remove(v);
-                        App.Model.SaveChanges();
+                        if (v.PostId == Post.PostId)
+                        {
+                            App.Model.Votes.Remove(v);
+                        }
                     }
                 }
+
                 App.Model.Posts.Remove(Post);
                 App.Model.SaveChanges();
                 App.NotifyColleagues(AppMessages.MSG_ANSWER_DELETED, Post);

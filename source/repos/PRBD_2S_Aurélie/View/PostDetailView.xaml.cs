@@ -275,6 +275,8 @@ namespace PRBD_2S_Aurélie
         public ICommand DeleteComment { get; set; }
         public ICommand DeleteCommentAnswer { get; set; }
         public ICommand ValiderCommentAnswer { get; set; }
+        public ICommand VoteUpAnswer { get; set; }
+        public ICommand VoteDownAnswer { get; set; }
 
         /// //////////////////////////////////////FONCTIONS POUR LA VISIBILIT2 DES BOUTONS////////////////////////////////
 
@@ -515,6 +517,7 @@ namespace PRBD_2S_Aurélie
             }
 
             ScorePost = Post.Score;
+            App.NotifyColleagues(AppMessages.MSG_VOTE_CHANGED, Post);
             Console.WriteLine($"Vote Up Score : {ScorePost} ");
         }
 
@@ -537,6 +540,7 @@ namespace PRBD_2S_Aurélie
                 }
             }
             ScorePost = Post.Score;
+            App.NotifyColleagues(AppMessages.MSG_VOTE_CHANGED, Post);
             Console.WriteLine($"Vote Down Score : {ScorePost} ");
         }
 
@@ -604,6 +608,48 @@ namespace PRBD_2S_Aurélie
             Answers = new ObservableCollection<Post>(Post.Answers);
         }
 
+        private void VoteUpAnswerAction(Post post)
+        {
+            Vote vote = (from v in App.Model.Votes
+                         where v.PostId == post.PostId && v.UserId == user.UserId
+                         select v).FirstOrDefault();
+            if (vote == null)
+            {
+                App.Model.CreateVote(user, post, 1);
+            }
+            else
+            {
+                if (vote.UpDown == -1)
+                {
+                    App.Model.Votes.Remove(vote);
+                    App.Model.SaveChanges();
+                }
+            }
+            Answers = new ObservableCollection<Post>(Post.Answers);
+            Console.WriteLine($"Vote Up Answer :  ok");
+        }
+
+        private void VoteDownAnswerAction(Post post)
+        {
+            Vote vote = (from v in App.Model.Votes
+                         where v.PostId == post.PostId && v.UserId == user.UserId
+                         select v).FirstOrDefault();
+            if (vote == null)
+            {
+                App.Model.CreateVote(user, post, -1);
+            }
+            else
+            {
+                if (vote.UpDown == 1)
+                {
+                    App.Model.Votes.Remove(vote);
+                    App.Model.SaveChanges();
+                }
+            }
+            Answers = new ObservableCollection<Post>(Post.Answers);
+            Console.WriteLine($"Vote Down Answer : ok");
+        }
+
         /// /////////////////////////////////CONSTRUCTEUR/////////////////////////////////////////////////////
 
         public PostDetailView(Post post)
@@ -616,7 +662,13 @@ namespace PRBD_2S_Aurélie
             PostTags = new ObservableCollection<PostTag>(Post.PostTags);
             Tags = new ObservableCollection<Tag>(App.Model.Tags);
             CommentsQuestion = new ObservableCollection<Comment>(Post.Comments);
-            Console.WriteLine(Post.Tags);
+            if(Post.Votes != null)
+            {
+                foreach(var v in Post.Votes)
+                {
+                    Console.WriteLine(v);
+                }
+            }
 
             GetUser();
             GetConnectUser();
@@ -752,6 +804,16 @@ namespace PRBD_2S_Aurélie
             ValiderCommentAnswer = new RelayCommand<Post>(SaveActionCommentAnswer, p =>
             {
                 //return BodyCommentAnswer != null && BodyCommentAnswer.Length != 0;
+                return true;
+            });
+
+            VoteUpAnswer = new RelayCommand<Post>(VoteUpAnswerAction, p =>
+            {
+                return true;
+            });
+
+            VoteDownAnswer = new RelayCommand<Post>(VoteDownAnswerAction, p =>
+            {
                 return true;
             });
 
