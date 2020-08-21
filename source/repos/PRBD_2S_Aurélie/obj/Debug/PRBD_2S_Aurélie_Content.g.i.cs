@@ -9,5 +9,7 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/my_social_network_base.sql")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/prbd_2s_aur%c3%a9lie.mdf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/prbd_2s_aur%c3%a9lie_log.ldf")]
 
 
