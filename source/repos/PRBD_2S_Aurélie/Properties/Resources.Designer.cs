@@ -61,6 +61,78 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Accepter.
+        /// </summary>
+        public static string btn_Accept {
+            get {
+                return ResourceManager.GetString("btn_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter un Tag.
+        /// </summary>
+        public static string btn_AddTag {
+            get {
+                return ResourceManager.GetString("btn_AddTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annuler.
+        /// </summary>
+        public static string btn_annuler {
+            get {
+                return ResourceManager.GetString("btn_annuler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Supprimer.
+        /// </summary>
+        public static string btn_Delete {
+            get {
+                return ResourceManager.GetString("btn_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier un Tag.
+        /// </summary>
+        public static string btn_DeleteTag {
+            get {
+                return ResourceManager.GetString("btn_DeleteTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier.
+        /// </summary>
+        public static string btn_Modifier {
+            get {
+                return ResourceManager.GetString("btn_Modifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Supprimer un Tag.
+        /// </summary>
+        public static string btn_UpdateTag {
+            get {
+                return ResourceManager.GetString("btn_UpdateTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Valider.
+        /// </summary>
+        public static string btn_valider {
+            get {
+                return ResourceManager.GetString("btn_valider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Annuler.
         /// </summary>
         public static string Connexion_Annuler {
@@ -97,7 +169,7 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Mot de passe.
+        ///   Recherche une chaîne localisée semblable à Mot de passe :.
         /// </summary>
         public static string Connexion_Password {
             get {
@@ -124,11 +196,110 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Username:.
+        ///   Recherche une chaîne localisée semblable à Pseudonyme : .
         /// </summary>
         public static string Connexion_UserName {
             get {
                 return ResourceManager.GetString("Connexion_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Êtes-vous de vouloir supprimer post?.
+        /// </summary>
+        public static string Delete_Message1 {
+            get {
+                return ResourceManager.GetString("Delete_Message1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cette opération est irréversible!.
+        /// </summary>
+        public static string Delete_Message2 {
+            get {
+                return ResourceManager.GetString("Delete_Message2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajoutez un commentaire.
+        /// </summary>
+        public static string DetailPost_AddComment {
+            get {
+                return ResourceManager.GetString("DetailPost_AddComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Question posée par.
+        /// </summary>
+        public static string DetailPost_AskedBy {
+            get {
+                return ResourceManager.GetString("DetailPost_AskedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annuler la réponse acceptée.
+        /// </summary>
+        public static string DetailPost_CancelAcceptAnswer {
+            get {
+                return ResourceManager.GetString("DetailPost_CancelAcceptAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Commentaire(s).
+        /// </summary>
+        public static string DetailPost_Commentaire {
+            get {
+                return ResourceManager.GetString("DetailPost_Commentaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réponse(s).
+        /// </summary>
+        public static string DetailPost_nbAnswers {
+            get {
+                return ResourceManager.GetString("DetailPost_nbAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Publiez votre reponse.
+        /// </summary>
+        public static string DetailPost_Reply {
+            get {
+                return ResourceManager.GetString("DetailPost_Reply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Score :.
+        /// </summary>
+        public static string DetailPost_Score {
+            get {
+                return ResourceManager.GetString("DetailPost_Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre reponse.
+        /// </summary>
+        public static string DetailPost_YourAnswer {
+            get {
+                return ResourceManager.GetString("DetailPost_YourAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à -1.
+        /// </summary>
+        public static string Down {
+            get {
+                return ResourceManager.GetString("Down", resourceCulture);
             }
         }
         
@@ -232,6 +403,141 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce tag est déjà associé à ce post.
+        /// </summary>
+        public static string Error_TagExist {
+            get {
+                return ResourceManager.GetString("Error_TagExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Active.
+        /// </summary>
+        public static string ListPosts_active {
+            get {
+                return ResourceManager.GetString("ListPosts_active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réponse(s),.
+        /// </summary>
+        public static string ListPosts_nbAnswers {
+            get {
+                return ResourceManager.GetString("ListPosts_nbAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Newest.
+        /// </summary>
+        public static string ListPosts_Newest {
+            get {
+                return ResourceManager.GetString("ListPosts_Newest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Poser  une question.
+        /// </summary>
+        public static string ListPosts_NewQuestion {
+            get {
+                return ResourceManager.GetString("ListPosts_NewQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vote(s)),.
+        /// </summary>
+        public static string ListPosts_score {
+            get {
+                return ResourceManager.GetString("ListPosts_score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unanswered.
+        /// </summary>
+        public static string ListPosts_unanswered {
+            get {
+                return ResourceManager.GetString("ListPosts_unanswered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vote.
+        /// </summary>
+        public static string ListPosts_vote {
+            get {
+                return ResourceManager.GetString("ListPosts_vote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Connexion.
+        /// </summary>
+        public static string MainView_connexion {
+            get {
+                return ResourceManager.GetString("MainView_connexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à &apos;s connect.
+        /// </summary>
+        public static string Mainview_current {
+            get {
+                return ResourceManager.GetString("Mainview_current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Déconnexion.
+        /// </summary>
+        public static string MainView_deconnexion {
+            get {
+                return ResourceManager.GetString("MainView_deconnexion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Inscription.
+        /// </summary>
+        public static string MainView_inscription {
+            get {
+                return ResourceManager.GetString("MainView_inscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Questions.
+        /// </summary>
+        public static string MainView_questions {
+            get {
+                return ResourceManager.GetString("MainView_questions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tags.
+        /// </summary>
+        public static string MainView_tags {
+            get {
+                return ResourceManager.GetString("MainView_tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Liste de Posts associés au Tag:.
+        /// </summary>
+        public static string PostsOfTag {
+            get {
+                return ResourceManager.GetString("PostsOfTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Email:.
         /// </summary>
         public static string Signup_Email {
@@ -241,7 +547,7 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Prénom.
+        ///   Recherche une chaîne localisée semblable à Nom: .
         /// </summary>
         public static string Signup_FullName {
             get {
@@ -277,7 +583,7 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Mot de passe.
+        ///   Recherche une chaîne localisée semblable à Mot de passe:.
         /// </summary>
         public static string Signup_Password {
             get {
@@ -295,7 +601,7 @@ namespace PRBD_2S_Aurélie.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Nom d&apos;utilisateur.
+        ///   Recherche une chaîne localisée semblable à Pseudonyme:.
         /// </summary>
         public static string Signup_UserName {
             get {
@@ -309,6 +615,51 @@ namespace PRBD_2S_Aurélie.Properties {
         public static string SignupPassword_Confirm {
             get {
                 return ResourceManager.GetString("SignupPassword_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom du Tag.
+        /// </summary>
+        public static string Tag_Column1 {
+            get {
+                return ResourceManager.GetString("Tag_Column1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nombre de posts associés au Tag.
+        /// </summary>
+        public static string Tag_Column2 {
+            get {
+                return ResourceManager.GetString("Tag_Column2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Post(s).
+        /// </summary>
+        public static string Tag_Posts {
+            get {
+                return ResourceManager.GetString("Tag_Posts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à +1.
+        /// </summary>
+        public static string Up {
+            get {
+                return ResourceManager.GetString("Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à X.
+        /// </summary>
+        public static string X {
+            get {
+                return ResourceManager.GetString("X", resourceCulture);
             }
         }
     }

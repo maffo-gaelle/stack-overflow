@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
+             xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -14,15 +15,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="222,43,190,302" Grid.Row="1" FontSize="18">
-            <Run Text="Êtes-vous de vouloir supprimer post?"/>
+            <Run Text="{x:Static p:Resources.Delete_Message1}"/>
         </TextBlock>
         <TextBlock Margin="230,89,215,256" Grid.Row="1" FontSize="18">
-            <Run Text="Cette opération est irréversible!"/>
+            <Run Text="{x:Static p:Resources.Delete_Message2}"/>
         </TextBlock>
         <TextBlock Grid.Row="1" Margin="279,140,215,209" >
-                <Button Content="Supprimer" Width="80" Margin="0,0,30,0" Command="{Binding DeleteQuestion}" FontWeight="Bold"/>
-            <!--</InlineUIContainer><Run Text=""/><InlineUIContainer>-->
-                <Button Content="Annuler" Width="80" Command="{Binding CancelDelete}" FontWeight="Bold"/>
+                <Button Content="{x:Static p:Resources.btn_Delete}" Width="80" Margin="0,0,30,0" Command="{Binding DeleteQuestion}" FontWeight="Bold"/>
+                <Button Content="{x:Static p:Resources.btn_annuler}" Width="80" Command="{Binding CancelDelete}" FontWeight="Bold"/>
           </TextBlock>
 
     </Grid>

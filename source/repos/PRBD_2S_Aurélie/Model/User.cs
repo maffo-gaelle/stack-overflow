@@ -30,7 +30,7 @@ namespace PRBD_2S_Aurélie
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         public virtual ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
 
-        protected User() { }
+        public User() { }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie.View"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
+             xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -16,7 +17,7 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBlock Margin="0,20,0,0" Background="#E0F8F7" >
-                <Run Text="Liste de Posts associés au Tag: " FontSize="16" FontWeight="Bold"/>
+                <Run Text="{x:Static p:Resources.PostsOfTag}" FontSize="16" FontWeight="Bold"/>
                 <Run Text="{Binding Ttag.TagName}" Foreground="AliceBlue" FontWeight="Bold" FontSize="16"/>
             </TextBlock>
             <Line X1="2" Y1="2" X2="750" Y2="2" Stroke="Black" StrokeThickness="7" Grid.Row="2" Margin="0,0,0,40"/>
@@ -52,9 +53,9 @@
                                         <Run Text="{Binding Timestamp, UpdateSourceTrigger=PropertyChanged}" FontSize="10" FontWeight="DemiBold" />
                                         <Run Text="(" FontSize="10" FontWeight="DemiBold"/>
                                         <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
-                                        <Run Text="Réponse(s), " FontWeight="DemiBold" FontSize="10"/>
+                                        <Run Text="{x:Static p:Resources.ListPosts_nbAnswers}" FontWeight="DemiBold" FontSize="10"/>
                                         <Run Text="{Binding Score}" FontSize="10" FontWeight="DemiBold" />
-                                        <Run Text="Vote(s)), " FontWeight="DemiBold" FontSize="10"/>
+                                        <Run Text="{x:Static p:Resources.ListPosts_score}" FontWeight="DemiBold" FontSize="10"/>
                                         <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding Tags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
         xmlns:local="clr-namespace:PRBD_2S_Aurélie"
- 
+        xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
         mc:Ignorable="d"
         Width="800" Height="700"
         Title="Stuck-overFlow" WindowStartupLocation="CenterScreen">
@@ -23,23 +23,23 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Background="#B0E0E6">
             <Menu Width="991" FontWeight="Bold">
-                <MenuItem Header="Connexion" Visibility="{Binding DeConnectUser}"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
-                <MenuItem Header="Inscription" Visibility="{Binding DeConnectUser}" Command="{Binding Inscription}" FontSize="16"/>
+                <MenuItem Header="{x:Static p:Resources.MainView_connexion}" Visibility="{Binding DeConnectUser}"  Command="{Binding Connexion}" Width="100" Margin="300,0,0,0" FontSize="16" />
+                <MenuItem Header="{x:Static p:Resources.MainView_inscription}" Visibility="{Binding DeConnectUser}" Command="{Binding Inscription}" FontSize="16"/>
                 <TextBlock Visibility="{Binding ConnectUser}">
                     <Run Text="{Binding Current.UserName}" FontWeight="Bold"/>
-                    <Run Text="'s connect" FontWeight="Bold"/>
+                    <Run Text="{x:Static p:Resources.Mainview_current}" FontWeight="Bold"/>
                 </TextBlock>
-                <MenuItem Header="Deconnexion" Visibility="{Binding ConnectUser}"  Command="{Binding Deconnexion}" Width="120" FontSize="16" />
+                <MenuItem Header="{x:Static p:Resources.MainView_deconnexion}" Visibility="{Binding ConnectUser}"  Command="{Binding Deconnexion}" Width="120" FontSize="16" />
             </Menu>
         </StackPanel>
 
         <TabControl x:Name="tabControl" Margin="10,10,10,89" Grid.Row="1" Grid.RowSpan="2">
-            <TabItem x:Name="questionTab"  Header="Questions" FontSize="16" FontWeight="Bold"  >
+            <TabItem x:Name="questionTab"  Header="{x:Static p:Resources.MainView_questions}" FontSize="16" FontWeight="Bold"  >
                 <ContentControl>
                     <local:ListPosts/>
                 </ContentControl>
             </TabItem>
-            <TabItem x:Name="TagTab"  Header="Tags" FontSize="16" FontWeight="Bold">
+            <TabItem x:Name="TagTab"  Header="{x:Static p:Resources.MainView_tags}" FontSize="16" FontWeight="Bold">
                 <ContentControl>
                     <local:TagsView/>
                 </ContentControl>

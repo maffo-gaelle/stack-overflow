@@ -25,12 +25,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label x:Name="label" Content="Nom d'utlisateur" VerticalAlignment="Center" Padding="5" />
+        <Label x:Name="label" Content="{x:Static p:Resources.Connexion_UserName}" VerticalAlignment="Center" Padding="5" />
         <f:ValidatedField Grid.Column="1" VerticalAlignment="Center">
             <TextBox x:Name="txtUserName" TextWrapping="Wrap" Grid.Column="1" 
                      Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
         </f:ValidatedField>
-        <Label Content="Mot de passe" Grid.Row="1" VerticalAlignment="Center" Padding="5"/>
+        <Label Content="{x:Static p:Resources.Connexion_Password}" Grid.Row="1" VerticalAlignment="Center" Padding="5"/>
         <f:ValidatedField Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
             <PasswordBox x:Name="txtPassword"
                      f:PasswordHelper.Attach="True"
@@ -47,7 +47,7 @@
         </DockPanel>
         <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
             <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Width="220" >
-                <Run Text="Si vous n'êtes pas encore inscrit, veuillez"/>            
+                <Run Text="{x:Static p:Resources.Connexion_Message_1}"/>            
                 <Hyperlink Command="{Binding Inscription}"><Run Text="{x:Static p:Resources.Connexion_Message_2}"/></Hyperlink>
                 <Run Text="{x:Static p:Resources.Connexion_Message_3}"/>
             </TextBlock>

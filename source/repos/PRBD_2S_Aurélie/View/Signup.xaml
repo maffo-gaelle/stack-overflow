@@ -28,13 +28,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!-- ROW #1 -->
-            <Label Content="Nom d'utilisateur: " FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center" Padding="5"/>
+            <Label Content="{x:Static p:Resources.Signup_UserName}" FontWeight="Bold" Grid.Row="1" VerticalAlignment="Center" Padding="5"/>
             <f:ValidatedField Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
                 <TextBox x:Name="txtUserName" TextWrapping="Wrap" Grid.Column="1" 
                      Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
             </f:ValidatedField>
             <!-- ROW #2 -->
-            <Label Content="Mot de passe:" FontWeight="Bold" Grid.Row="2" VerticalAlignment="Center" Padding="5" />
+            <Label Content="{x:Static p:Resources.Signup_Password}" FontWeight="Bold" Grid.Row="2" VerticalAlignment="Center" Padding="5" />
             <f:ValidatedField Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                 <PasswordBox x:Name="txtPassword"
                      f:PasswordHelper.Attach="True"
@@ -42,7 +42,7 @@
                      Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
             </f:ValidatedField>
             <!-- ROW #3 -->
-            <Label Content="Confirmez votre mot de passe :" FontWeight="Bold" Grid.Row="3" VerticalAlignment="Center" Padding="5" />
+            <Label Content="{x:Static p:Resources.SignupPassword_Confirm}" FontWeight="Bold" Grid.Row="3" VerticalAlignment="Center" Padding="5" />
             <f:ValidatedField Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
                 <PasswordBox x:Name="txtPasswordConfirm"
                      f:PasswordHelper.Attach="True"
@@ -50,7 +50,7 @@
                      Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
             </f:ValidatedField>
             <!-- ROW #4 -->
-            <Label Content="Prénom:" FontWeight="Bold" Grid.Row="4" VerticalAlignment="Center" Padding="5" />
+            <Label Content="{x:Static p:Resources.Signup_FullName}" FontWeight="Bold" Grid.Row="4" VerticalAlignment="Center" Padding="5" />
             <f:ValidatedField Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
                 <TextBox x:Name="txtFullName" TextWrapping="Wrap" Grid.Column="1" 
                      Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -63,14 +63,14 @@
             </f:ValidatedField>
 
             <DockPanel Margin="0,6,0,0" Grid.Row="6" HorizontalAlignment="center" VerticalAlignment="Bottom"  Grid.ColumnSpan="2" Width="250">
-                <Button x:Name="btnCancel" Content="Annuler" Command="{Binding Annuler}" Width="80" FontWeight="Bold" Padding="5,1"/>
-                <Button x:Name="btnSave" Content="Valider" Command="{Binding Inscription}" Width="80" FontWeight="Bold" Margin="10,0,0,0" Padding="5,1"/>
+                <Button x:Name="btnCancel" Content="{x:Static p:Resources.btn_annuler}" Command="{Binding Annuler}" Width="80" FontWeight="Bold" Padding="5,1"/>
+                <Button x:Name="btnSave" Content="{x:Static p:Resources.btn_valider}" Command="{Binding Inscription}" Width="80" FontWeight="Bold" Margin="10,0,0,0" Padding="5,1"/>
             </DockPanel>
             <DockPanel Margin="0,14,0,0" Grid.Row="7" Grid.ColumnSpan="2">
                 <TextBlock Height="auto" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Width="220" >
-                <Run Text="{x:Static p:Resources.Connexion_Message_1}"/>            
-                <Hyperlink Command="{Binding Login}"><Run Text="{x:Static p:Resources.Connexion_Message_2}"/></Hyperlink>
-                <Run Text="pour vous connecter"/>
+                <Run Text="{x:Static p:Resources.Signup_Message1}"/>            
+                <Hyperlink Command="{Binding Login}"><Run Text="{x:Static p:Resources.Signup_Message2}"/></Hyperlink>
+                <Run Text="{x:Static p:Resources.Signup_Message3}"/>
                 </TextBlock>
             </DockPanel>
         </Grid>

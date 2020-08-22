@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
+             xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
              mc:Ignorable="d" x:Name="root"
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,14 +17,14 @@
         <DataGrid x:Name="gridCategories" Margin="10,10,10,10" ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}" 
                  AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Background="#E0F8F7" >
             <DataGrid.Columns >
-                <DataGridTextColumn Header="Nom du Tag" Binding="{Binding Path=TagName}"  Width="150"  />
-                <DataGridTemplateColumn Header="Nombre de posts associés au Tag" >
+                <DataGridTextColumn Header="{x:Static p:Resources.Tag_Column1}" Binding="{Binding Path=TagName}"  Width="150"  />
+                <DataGridTemplateColumn Header="{x:Static p:Resources.Tag_Column2}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock  HorizontalAlignment="Center">
                                 <Run Text="("/>
                                 <Hyperlink Command="{Binding AffichePostOfTag, ElementName=root}" CommandParameter="{Binding}" >
-                                    <Run Text="{Binding NbPosts}"/><Run Text="Post(s)" />
+                                    <Run Text="{Binding NbPosts}"/><Run Text="{x:Static p:Resources.Tag_Posts}" />
                                 </Hyperlink>
                                 <Run Text=")"/>
                             </TextBlock>
@@ -39,9 +40,9 @@
                      Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" Background="#E0F8F7" Visibility="{Binding ConnectAdmin}"/>
             </f:ValidatedField>
             
-            <Button Content="Ajouter un Tag" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130" Visibility="{Binding ConnectAdmin}"/>
-            <Button Content="Supprimer un Tag" Command="{Binding DeleteTag}" Width="150" Visibility="{Binding ConnectAdmin}"/>
-            <Button Content="Modifier un Tag" Command="{Binding UpdateTag}" Width="130" Visibility="{Binding ConnectAdmin}"/>
+            <Button Content="{x:Static p:Resources.btn_AddTag}" Command="{Binding NewTag}" HorizontalAlignment="Left" Width="130" Visibility="{Binding ConnectAdmin}"/>
+            <Button Content="{x:Static p:Resources.btn_DeleteTag}" Command="{Binding DeleteTag}" Width="150" Visibility="{Binding ConnectAdmin}"/>
+            <Button Content="{x:Static p:Resources.btn_UpdateTag}" Command="{Binding UpdateTag}" Width="130" Visibility="{Binding ConnectAdmin}"/>
         </TextBlock>
     </Grid>
 </f:UserControlBase>

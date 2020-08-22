@@ -6,20 +6,21 @@
              xmlns:local="clr-namespace:PRBD_2S_Aurélie"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:f="clr-namespace:PRBD_Framework;assembly=PRBD_Framework"
+             xmlns:p="clr-namespace:PRBD_2S_Aurélie.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800" x:Name="root">
     <StackPanel Background="#E0F8F7">
         <StackPanel Orientation="Horizontal" Background="#E0F8F7" Margin ="0,0,0,0">
             <Menu>
-                <MenuItem Header="Newest" Command="{Binding Newest, UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold" FontStyle="Italic" Width="68" Padding="6,0"   />
-                <MenuItem Header="Vote" Command="{Binding Vote, UpdateSourceTrigger=PropertyChanged}" Width="57" FontSize="14" FontWeight="Bold" FontStyle="Italic" />
-                <MenuItem Header="Unanswered" Command="{Binding Unanswered, UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold"  />
-                <MenuItem Header="Active" Command="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Width="140" FontSize="14" FontWeight="Bold" Margin="0"  />
+                <MenuItem Header="{x:Static p:Resources.ListPosts_Newest}" Command="{Binding Newest, UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold" FontStyle="Italic" Width="68" Padding="6,0"   />
+                <MenuItem Header="{x:Static p:Resources.ListPosts_vote}" Command="{Binding Vote, UpdateSourceTrigger=PropertyChanged}" Width="57" FontSize="14" FontWeight="Bold" FontStyle="Italic" />
+                <MenuItem Header="{x:Static p:Resources.ListPosts_unanswered}" Command="{Binding Unanswered, UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold"  />
+                <MenuItem Header="{x:Static p:Resources.ListPosts_active}" Command="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Width="140" FontSize="14" FontWeight="Bold" Margin="0"  />
                 <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="200,0,0,0"/>
                 <Button Content="Clear" Command="{Binding ClearFilter}" Width="60" Margin="0,0,0,0" HorizontalAlignment="Left" FontWeight="Bold"/>
             </Menu>
         </StackPanel>
-        <Button x:Name="btnNew" Content="Poser une question"  Visibility="{Binding ConnectUser}" Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,20,0" RenderTransformOrigin="0.406,-0.16" Height="32"/>
+        <Button x:Name="btnNew" Content="{x:Static p:Resources.ListPosts_NewQuestion}"  Visibility="{Binding ConnectUser}" Command="{Binding NewQuestion}" FontSize="16" Width="170" HorizontalAlignment="Right" Margin="0,20,20,0" RenderTransformOrigin="0.406,-0.16" Height="32"/>
         <ListView x:Name="listView" BorderBrush="Transparent" SelectionMode="Single" ItemsSource="{Binding Posts, UpdateSourceTrigger=PropertyChanged}" 
                   Height="530" Background="#E0F8F7"  ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <i:Interaction.Triggers>
@@ -47,9 +48,9 @@
                                     <!--<TextBox Text="(0 Vote(s), 0 Reponse(s)" IsReadOnly="True" BorderThickness="0" FontSize="10" FontWeight="DemiBold" Background="#E0F8F7"/>-->
                                     <Run Text="(" FontSize="10" FontWeight="DemiBold"/>
                                     <Run Text="{Binding NbAnswers}" FontSize="10" FontWeight="DemiBold"/>
-                                    <Run Text="Réponse(s), " FontWeight="DemiBold" FontSize="10"/>
+                                    <Run Text="{x:Static p:Resources.ListPosts_nbAnswers}" FontWeight="DemiBold" FontSize="10"/>
                                     <Run Text="{Binding Score}" FontSize="10" FontWeight="DemiBold" />
-                                    <Run Text="Vote(s)), " FontWeight="DemiBold" FontSize="10"/>
+                                    <Run Text="{x:Static p:Resources.ListPosts_score}" FontWeight="DemiBold" FontSize="10"/>
                                     <ListView x:Name="listView3" BorderBrush="Transparent" ItemsSource="{Binding Tags}"  SelectionMode="Single" Grid.Row="2" Height="Auto" Background="#E0F8F7">
                                         <ListView.ItemsPanel>
                                             <ItemsPanelTemplate>

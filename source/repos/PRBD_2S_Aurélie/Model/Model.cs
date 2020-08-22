@@ -3,6 +3,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Windows.Navigation;
 
 namespace PRBD_2S_Aurélie
 {
@@ -15,9 +16,6 @@ namespace PRBD_2S_Aurélie
                 new DropCreateDatabaseIfModelChanges<Model>()
                 );
         }
-
-        public DbSet<Member> Members { get; set; }
-        public DbSet<Message> Messages { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
@@ -33,6 +31,19 @@ namespace PRBD_2S_Aurélie
             modelBuilder.Properties<bool>().Configure(c => c.HasColumnType("bit"));
             modelBuilder.Entity<PostTag>().HasKey(posttag => new { posttag.PostId, posttag.TagId });
             modelBuilder.Entity<Vote>().HasKey(vote => new { vote.PostId, vote.UserId });
+        }
+
+        public Post CreatePost(string title, string body, User author, DateTime dateTime)
+        {
+            var post = Posts.Create();
+            post.Title = title;
+            post.Body = body;
+            post.Author = author;
+            post.Timestamp = dateTime;
+
+            Posts.Add(post);
+
+            return post;
         }
 
         public Post CreateAnswer(User user, Post parent, string body)
@@ -131,50 +142,49 @@ namespace PRBD_2S_Aurélie
             SaveChanges();
         }
 
-        public Member CreateMember(string pseudo, string password, string profile = "", bool isAdmin = false)
+        public void SeedData()
         {
-            var member = Members.Create();
-            member.Pseudo = pseudo;
-            member.Password = password;
-            member.Profile = profile;
-            member.IsAdmin = isAdmin;
+            if (Users.Count() == 0)
+            {
+                Console.Write("Seeding members.............. ");
+                
+                var aurelie = CreateUser("aurelie", "Password1", "Maffo", "aurelie@test.com", Role.Admin);
+                var bruno = CreateUser("bruno", "Password1", "Lacroix", "bruno@test.com", Role.Admin);
+                SaveChanges();
+                Console.WriteLine("Member initial ok");
 
-            //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
-            Members.Add(member);
-            return member;
+                Console.WriteLine("Seeding posts...................");
+
+                var post1 = CreatePost("Première question", "Le Body de la première question", aurelie, new DateTime(2020, 7, 3, 8, 34, 0));
+                var post2 = CreatePost("Deuxième question", "Le Body de la Deuxième question", aurelie, new DateTime(2020, 7, 27, 8, 34, 0));
+                var post3 = CreatePost("Troisième question", "Le Body de la troisieme question", bruno, new DateTime(2020, 8, 5, 8, 34, 0));
+
+                SaveChanges();
+
+                Console.Write("Seeding Tag.............. ");
+
+                var tag1 = CreateTag("HTML");
+                var tag2 = CreateTag("CSS");
+                var tag3 = CreateTag("GIT");
+                SaveChanges();
+
+                Console.WriteLine("Seeding Vote.....................");
+                var vote1 = CreateVote(aurelie, post3, -1);
+                var vote2 = CreateVote(bruno, post3, -1);
+                var vote3 = CreateVote(bruno, post1, 1);
+
+                Console.WriteLine("Seeding answers...................");
+                var answer1 = CreateAnswer(bruno, post1, "bruno répond à la première question");
+                var answer2 = CreateAnswer(aurelie, post3, "aurelie répond à la troisième question");
+                var answer3 = CreateAnswer(aurelie, post3, "aurelie répond à nouveau à la troisième question");
+
+                SaveChanges();
+
+                Console.WriteLine("Seeding comments ..........................");
+                var comment1 = CreateComment(aurelie, post1, "aurelie commente la première question");
+                var comment2 = CreateComment(bruno, post1, "bruno commente la première question");
+                var comment3 = CreateComment(aurelie, answer1, "aurelie commente une réponse");
+            }
         }
-
-        public Message CreateMessage(Member author, Member recipient, string body, bool isPivate = false)
-        {
-            var message = Messages.Create();
-            message.Body = body;
-            message.IsPrivate = isPivate;
-            //ici, on établit les relations dans le sens N-1
-            message.Author = author;
-            message.Recipient = recipient;
-            //ici on établit les relations dans le sens 1-N
-            author.MessagesSent.Add(message);
-            recipient.MessagesReceived.Add(message);
-
-            //on ajoute le member au DbSet pour qu'il soit pris en compte par EF
-            Messages.Add(message);
-            return message;
-        }
-
-        //public void SeedData()
-        //{
-        //    if (Users.Count() == 0)
-        //    {
-        //        Console.Write("Seeding members.............. ");
-        //        var admin = CreateUser("admin", "Password1", "administrateur", "admin@test.com", Role.Admin);
-        //        var ben = CreateUser("ben", "Password1", "Penelle", "ben@yahoo.com", Role.Member);
-        //        var bruno = CreateUser("bruno", "Password1", "bruno", "ben@test.com", Role.Admin);               
-        //        SaveChanges();
-        //        Console.WriteLine("Member initial ok");
-
-        //        Console.WriteLine("Seeding posts...................")
-
-        //    }
-        //}
     }
 }

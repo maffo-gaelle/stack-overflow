@@ -34,13 +34,14 @@ namespace PRBD_2S_Aurélie
     public partial class App : ApplicationBase 
     { 
         public static User CurrentUser { get; set; }
-        public static Model Model { get; } = new Model();
-        //1.public static Model Model { get; set; }
+        //public static Model Model { get; }
+        public static Model Model { get; set; }
         public static bool tagModified = false;
         public App()
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Culture);
-            //2.Model = new Model();
+            Model = new Model();
+            Model.SeedData();
         }
 
         

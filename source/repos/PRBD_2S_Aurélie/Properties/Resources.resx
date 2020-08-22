@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn_Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="btn_AddTag" xml:space="preserve">
+    <value>Ajouter un Tag</value>
+  </data>
+  <data name="btn_annuler" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="btn_Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="btn_DeleteTag" xml:space="preserve">
+    <value>Modifier un Tag</value>
+  </data>
+  <data name="btn_Modifier" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="btn_UpdateTag" xml:space="preserve">
+    <value>Supprimer un Tag</value>
+  </data>
+  <data name="btn_valider" xml:space="preserve">
+    <value>Valider</value>
+  </data>
   <data name="Connexion_Annuler" xml:space="preserve">
     <value>Annuler</value>
   </data>
@@ -130,7 +154,7 @@
     <value>pour vous enregistrer!</value>
   </data>
   <data name="Connexion_Password" xml:space="preserve">
-    <value>Mot de passe</value>
+    <value>Mot de passe :</value>
   </data>
   <data name="Connexion_SingIn" xml:space="preserve">
     <value>Connexion</value>
@@ -139,7 +163,40 @@
     <value>Connexion</value>
   </data>
   <data name="Connexion_UserName" xml:space="preserve">
-    <value>Username:</value>
+    <value>Pseudonyme : </value>
+  </data>
+  <data name="Delete_Message1" xml:space="preserve">
+    <value>Êtes-vous de vouloir supprimer post?</value>
+  </data>
+  <data name="Delete_Message2" xml:space="preserve">
+    <value>Cette opération est irréversible!</value>
+  </data>
+  <data name="DetailPost_AddComment" xml:space="preserve">
+    <value>Ajoutez un commentaire</value>
+  </data>
+  <data name="DetailPost_AskedBy" xml:space="preserve">
+    <value>Question posée par</value>
+  </data>
+  <data name="DetailPost_CancelAcceptAnswer" xml:space="preserve">
+    <value>Annuler la réponse acceptée</value>
+  </data>
+  <data name="DetailPost_Commentaire" xml:space="preserve">
+    <value>Commentaire(s)</value>
+  </data>
+  <data name="DetailPost_nbAnswers" xml:space="preserve">
+    <value>Réponse(s)</value>
+  </data>
+  <data name="DetailPost_Reply" xml:space="preserve">
+    <value>Publiez votre reponse</value>
+  </data>
+  <data name="DetailPost_Score" xml:space="preserve">
+    <value>Score :</value>
+  </data>
+  <data name="DetailPost_YourAnswer" xml:space="preserve">
+    <value>Votre reponse</value>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>-1</value>
   </data>
   <data name="Error_BadFormat" xml:space="preserve">
     <value>Le mot de passe doit contenir au moins un chiffre, une lettre majuscule et un caractère non alphanumérique.</value>
@@ -174,6 +231,51 @@
   <data name="Error_Required" xml:space="preserve">
     <value>Ce champ est requis</value>
   </data>
+  <data name="Error_TagExist" xml:space="preserve">
+    <value>Ce tag est déjà associé à ce post</value>
+  </data>
+  <data name="ListPosts_active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ListPosts_nbAnswers" xml:space="preserve">
+    <value>Réponse(s),</value>
+  </data>
+  <data name="ListPosts_Newest" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="ListPosts_NewQuestion" xml:space="preserve">
+    <value>Poser  une question</value>
+  </data>
+  <data name="ListPosts_score" xml:space="preserve">
+    <value>Vote(s)),</value>
+  </data>
+  <data name="ListPosts_unanswered" xml:space="preserve">
+    <value>Unanswered</value>
+  </data>
+  <data name="ListPosts_vote" xml:space="preserve">
+    <value>Vote</value>
+  </data>
+  <data name="MainView_connexion" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
+  <data name="Mainview_current" xml:space="preserve">
+    <value>'s connect</value>
+  </data>
+  <data name="MainView_deconnexion" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="MainView_inscription" xml:space="preserve">
+    <value>Inscription</value>
+  </data>
+  <data name="MainView_questions" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="MainView_tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="PostsOfTag" xml:space="preserve">
+    <value>Liste de Posts associés au Tag:</value>
+  </data>
   <data name="SignupPassword_Confirm" xml:space="preserve">
     <value>Confirmez votre mot de passe</value>
   </data>
@@ -181,7 +283,7 @@
     <value>Email:</value>
   </data>
   <data name="Signup_FullName" xml:space="preserve">
-    <value>Prénom</value>
+    <value>Nom: </value>
   </data>
   <data name="Signup_Message1" xml:space="preserve">
     <value>Si vous êtes déjà inscrit, veuillez cliquer </value>
@@ -193,12 +295,27 @@
     <value>pour vous connecter</value>
   </data>
   <data name="Signup_Password" xml:space="preserve">
-    <value>Mot de passe</value>
+    <value>Mot de passe:</value>
   </data>
   <data name="Signup_Title" xml:space="preserve">
     <value>Inscription</value>
   </data>
   <data name="Signup_UserName" xml:space="preserve">
-    <value>Nom d'utilisateur</value>
+    <value>Pseudonyme:</value>
+  </data>
+  <data name="Tag_Column1" xml:space="preserve">
+    <value>Nom du Tag</value>
+  </data>
+  <data name="Tag_Column2" xml:space="preserve">
+    <value>Nombre de posts associés au Tag</value>
+  </data>
+  <data name="Tag_Posts" xml:space="preserve">
+    <value>Post(s)</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>+1</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
   </data>
 </root>

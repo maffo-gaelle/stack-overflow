@@ -98,8 +98,6 @@
     <Compile Include="View\ListPosts.xaml.cs">
       <DependentUpon>ListPosts.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Member.cs" />
-    <Compile Include="Model\Message.cs" />
     <Compile Include="View\PostDetailView.xaml.cs">
       <DependentUpon>PostDetailView.xaml</DependentUpon>
     </Compile>
