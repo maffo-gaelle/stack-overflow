@@ -124,6 +124,7 @@ namespace PRBD_2S_Aurélie
                      where p.Parent == null
                      orderby p.Timestamp descending
                      select p;
+
             Posts = new ObservableCollection<Post>(newest);
         }
 
